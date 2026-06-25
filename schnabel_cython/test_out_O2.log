@@ -1,0 +1,13 @@
+============================================================
+Schnabel Efficient RANSAC — Cython Wrapper Test
+============================================================
+
+--- Test 1: Flat plane at z=0 ---
+Point cloud: 11000 points (10000 plane + 1000 noise)
+DEBUG: Starting detect_shapes with 11000 points
+DEBUG: Computing normals...
+DEBUG: calcNormals started
+DEBUG: kd.Build() started
+DEBUG: kd.Build() finished
+DEBUG: before loop
+DEBUG: inside loop 0

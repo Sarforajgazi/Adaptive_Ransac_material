@@ -1,0 +1,108 @@
+(lldb) target create "python3"
+Current executable set to '/opt/anaconda3/bin/python3' (arm64).
+(lldb) settings set -- target.run-args  "-u" "test_wrapper.py"
+(lldb) run
+============================================================
+Schnabel Efficient RANSAC — Cython Wrapper Test
+============================================================
+
+--- Test 1: Flat plane at z=0 ---
+Point cloud: 11000 points (10000 plane + 1000 noise)
+DEBUG: Starting detect_shapes with 11000 points
+DEBUG: Computing normals...
+DEBUG: calcNormals started
+DEBUG: kd.Build() started
+DEBUG: kd.Build() finished
+DEBUG: before loop
+DEBUG: inside loop 0
+DEBUG: NearestNeighbors finished for 0
+DEBUG: Normals computed.
+DEBUG: Running detector.Detect()...
+DEBUG: detector.Detect() finished.
+DEBUG: Extraction start. n_detected=1, pc.size()=11000
+DEBUG: processing shape 0, count=10055
+DEBUG: begin_idx=945, end_idx=11000
+DEBUG: serializing shape...
+DEBUG: mapping points...
+DEBUG: shape 0 done.
+DEBUG: extraction done.
+Detection time: 0.206s
+Shapes detected: 1
+Remaining (unassigned) points: 945
+
+  Shape 0:
+    Type:        plane (id=0)
+    Inliers:     10055
+    Description: Plane
+    Params:      [ 9.2000464e-06  2.3279181e-06  1.0000000e+00 -1.7104260e-04
+ -5.7172436e-02  4.2820886e-02 -1.7061630e-04]
+    Inlier mask: 10055 True / 11000 total
+
+  ✓ Plane detected with sufficient inliers
+
+--- Test 2: Plane + Cylinder ---
+Point cloud: 8000 points (5000 plane + 3000 cylinder)
+DEBUG: Starting detect_shapes with 8000 points
+DEBUG: Computing normals...
+DEBUG: calcNormals started
+DEBUG: kd.Build() started
+DEBUG: kd.Build() finished
+DEBUG: before loop
+DEBUG: inside loop 0
+DEBUG: NearestNeighbors finished for 0
+DEBUG: Normals computed.
+DEBUG: Running detector.Detect()...
+DEBUG: detector.Detect() finished.
+DEBUG: Extraction start. n_detected=3, pc.size()=8000
+DEBUG: processing shape 0, count=4911
+DEBUG: begin_idx=3089, end_idx=8000
+DEBUG: serializing shape...
+DEBUG: mapping points...
+DEBUG: shape 0 done.
+DEBUG: processing shape 1, count=2
+DEBUG: begin_idx=3087, end_idx=3089
+DEBUG: serializing shape...
+DEBUG: mapping points...
+DEBUG: shape 1 done.
+DEBUG: processing shape 2, count=3044
+DEBUG: begin_idx=43, end_idx=3087
+DEBUG: serializing shape...
+DEBUG: mapping points...
+DEBUG: shape 2 done.
+DEBUG: extraction done.
+Detection time: 0.264s
+Shapes detected: 3
+Remaining points: 43
+
+  Shape 0: plane — 4911 points
+    Plane
+
+  Shape 1: cylinder — 2 points
+    Cylinder
+
+  Shape 2: cylinder — 3044 points
+    Cylinder
+
+--- Test 3: Absolute epsilon ---
+DEBUG: Starting detect_shapes with 10000 points
+DEBUG: Computing normals...
+DEBUG: calcNormals started
+DEBUG: kd.Build() started
+DEBUG: kd.Build() finished
+DEBUG: before loop
+DEBUG: inside loop 0
+DEBUG: NearestNeighbors finished for 0
+DEBUG: Normals computed.
+DEBUG: Running detector.Detect()...
+DEBUG: detector.Detect() finished.
+DEBUG: Extraction start. n_detected=0, pc.size()=10000
+DEBUG: extraction done.
+Shapes detected (absolute epsilon): 0
+
+============================================================
+All tests passed!
+============================================================
+Process 25929 launched: '/opt/anaconda3/bin/python3' (arm64)
+Process 25929 exited with status = 0 (0x00000000)
+(lldb) bt
+error: Command requires a process which is currently stopped.
