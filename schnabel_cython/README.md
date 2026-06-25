@@ -63,3 +63,55 @@ python real_data_demo.py
 2. **Restricts to Planes**: It explicitly configures the C++ wrapper to **ONLY look for planes** (by passing `shapes=["plane"]`). This is highly useful for architectural segmentation (finding walls, floors, and ceilings).
 3. **Segments the Room**: The C++ engine processes the tens of thousands of real-world points in a fraction of a second.
 4. **Visualizes**: It opens an interactive Open3D window where the entire room is grey, but the detected planes (like the floor and major walls) are brightly painted in distinct colors.
+
+---
+
+## Ground Segmentation (`ground_segmentation.py`)
+
+If you are working on autonomous vehicles, drones, or robotics, your primary use-case for RANSAC is **Ground Segmentation**.
+
+You can run our dedicated ground segmentation script:
+```bash
+python ground_segmentation.py
+```
+*(You can also pass any point cloud file as an argument: `python ground_segmentation.py my_custom_room.ply`)*
+
+### How it works:
+1. **Finds all planes:** It uses the C++ wrapper to extract all planes in the scene.
+2. **Filters vertically:** It mathematically calculates the average height (Z-axis) of every detected plane.
+3. **Isolates the ground:** Since the floor/ground is physically beneath walls, ceilings, and tables, the plane with the lowest average Z coordinate is automatically classified as the ground.
+4. **Visualizes:** It paints the isolated Ground plane bright **Green**, and every other obstacle in the room bright **Red**.
+
+---
+
+## Recommended External Datasets (TartanAir / TartanGround)
+
+If you want to test this pipeline on massive, rugged outdoor or simulation environments (highly recommended for robotics testing), the **TartanAir (TartanGround)** dataset is an excellent choice. 
+
+Because the dataset is massive (up to 3 TB), you should use their official python toolkit to download specific point clouds rather than downloading the whole repository.
+
+**1. Install the TartanAir toolkit:**
+```bash
+pip install tartanair
+```
+
+**2. Download a sample environment using a quick python script:**
+```python
+import tartanair as ta
+
+# Initialize where you want the files saved
+ta.init('./tartanair_data')
+
+# Download the LiDAR and Point Cloud data for a specific environment (e.g., gas_station)
+ta.download(
+    env="gas_station", 
+    modality=['lidar', 'rgb_pcd', 'sem_pcd'], 
+    unzip=True
+)
+```
+
+**3. Run the Cython Wrapper on the TartanAir data:**
+Once the `.ply` or `.pcd` point cloud finishes downloading, you can feed it straight into our ground segmentation script:
+```bash
+python ground_segmentation.py ./tartanair_data/gas_station/.../your_downloaded_pointcloud.ply
+```
