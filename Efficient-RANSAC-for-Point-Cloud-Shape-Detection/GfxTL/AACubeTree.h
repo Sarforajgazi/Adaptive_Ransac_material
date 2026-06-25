@@ -312,7 +312,7 @@ namespace GfxTL
 			// copying.
 			stack.back().first = BaseType::Root();
 			InitRootBuildInformation(bcube, &stack.back().second);
-			InitRoot(stack.back().second, BaseType::Root());
+			this->InitRoot(stack.back().second, BaseType::Root());
 			BaseType::InitGlobalBuildInformation(*BaseType::Root(), stack.back().second);
 			while(stack.size())
 			{
@@ -323,16 +323,16 @@ namespace GfxTL
 					stack.pop_back();
 					continue;
 				}
-				if(IsLeaf(*p.first))
+				if(this->IsLeaf(*p.first))
 				{
-					if(!ShouldSubdivide(*p.first, p.second))
+					if(!this->ShouldSubdivide(*p.first, p.second))
 					{
 						BaseType::InitLeaf(p.first, p.second);
 						stack.pop_back();
 						continue;
 					}
-					Subdivide(p.second, p.first);
-					if(IsLeaf(*p.first)) // couldn't subdivide?
+					this->Subdivide(p.second, p.first);
+					if(this->IsLeaf(*p.first)) // couldn't subdivide?
 					{
 						BaseType::InitLeaf(p.first, p.second);
 						stack.pop_back();
@@ -343,7 +343,7 @@ namespace GfxTL
 				else
 					BaseType::LeaveGlobalBuildInformation(*p.first, p.second);
 				while(p.second.CreateChild() < (1 << DimT) &&
-					!ExistChild(*p.first, p.second.CreateChild()))
+					!this->ExistChild(*p.first, p.second.CreateChild()))
 					++p.second.CreateChild();
 				if(p.second.CreateChild() == (1 << DimT))
 				{
@@ -355,14 +355,14 @@ namespace GfxTL
 				stack.back().first = &(*p.first)[p.second.CreateChild()];
 				InitBuildInformation(*p.first, p.second,
 					p.second.CreateChild(), &stack.back().second);
-				InitCell(*p.first, p.second, p.second.CreateChild(),
+				this->InitCell(*p.first, p.second, p.second.CreateChild(),
 					stack.back().second, &(*p.first)[p.second.CreateChild()]);
 				do
 				{
 					++p.second.CreateChild();
 				}
 				while(p.second.CreateChild() < (1 << DimT) &&
-					!ExistChild(*p.first, p.second.CreateChild()));
+					!this->ExistChild(*p.first, p.second.CreateChild()));
 			}
 		}
 
@@ -808,14 +808,14 @@ namespace GfxTL
 			size_t maxLevel, size_t minSize, const CellType &cell,
 			const TraversalInformationT &ti, CellRange *range) const
 		{
-			if(IsLeaf(cell))
+			if(this->IsLeaf(cell))
 			{
-				GetCellRange(cell, ti, range);
+				BaseType::GetCellRange(cell, ti, range);
 				return &cell;
 			}
-			if(CellLevel(cell, ti) == maxLevel)
+			if(BaseType::CellLevel(cell, ti) == maxLevel)
 			{
-				GetCellRange(cell, ti, range);
+				BaseType::GetCellRange(cell, ti, range);
 				return &cell;
 			}
 			// find the child containing the point
@@ -827,7 +827,7 @@ namespace GfxTL
 				if(point[i] > cell.Center()[i])//center[i])
 					childIdx |= 1 << (DimT - i - 1);
 			}
-			if(ExistChild(cell, childIdx)
+			if(this->ExistChild(cell, childIdx)
 				&& cell[childIdx].Size() >= minSize)
 			{
 				TraversalInformationT cti;
@@ -835,7 +835,7 @@ namespace GfxTL
 				return NodeContainingPoint(point, maxLevel, minSize,
 					cell[childIdx], cti, range);
 			}
-			GetCellRange(cell, ti, range);
+			BaseType::GetCellRange(cell, ti, range);
 			return &cell;
 		}
 	};

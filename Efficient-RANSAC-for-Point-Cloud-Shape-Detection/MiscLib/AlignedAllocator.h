@@ -1,8 +1,23 @@
 #ifndef MiscLib__ALIGNEDALLOCATOR_HEADER__
 #define MiscLib__ALIGNEDALLOCATOR_HEADER__
 #include <memory>
+#include <stdlib.h>
+#ifdef __APPLE__
+#ifndef _MM_MALLOC_DEFINED
+#define _MM_MALLOC_DEFINED
+static inline void* _mm_malloc(size_t size, size_t alignment) {
+    void* ptr;
+    if (posix_memalign(&ptr, alignment, size) != 0) return NULL;
+    return ptr;
+}
+static inline void _mm_free(void* ptr) {
+    free(ptr);
+}
+#endif
+#else
 #include <malloc.h>
 #include <xmmintrin.h>
+#endif
 #include <limits>
 #ifdef max
 #undef max

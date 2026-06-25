@@ -14,7 +14,10 @@
 #include <algorithm>
 #include <memory>
 #include <deque>
+#include <stdlib.h>
+#ifndef __APPLE__
 #include <malloc.h>
+#endif
 
 namespace GfxTL
 {
@@ -250,7 +253,7 @@ namespace GfxTL
 							stack.pop_back();
 							continue;
 						}
-						Subdivide(p.second, p.first);
+						this->Subdivide(p.second, p.first);
 						if(BaseType::IsLeaf(*p.first)) // couldn't subdivide?
 						{
 							stack.pop_back();
@@ -260,7 +263,7 @@ namespace GfxTL
 					else
 						BaseType::LeaveGlobalBuildInformation(*p.first, p.second);
 					while(p.second.CreateChild() < CellType::NChildren &&
-						!ExistChild(*p.first, p.second.CreateChild()))
+						!this->ExistChild(*p.first, p.second.CreateChild()))
 						++p.second.CreateChild();
 					if(p.second.CreateChild() == CellType::NChildren)
 					{
