@@ -454,6 +454,37 @@ distance(point, shape) < epsilon        ← position test
 | Subset scoring (fast, approximate) | `1 × m_epsilon` | During candidate generation |
 | Global scoring (exact, final) | `3 × m_epsilon` | After a winner is found |
 
+These are two distinct **phases** of the RANSAC loop, each with a different tolerance:
+
+#### Subset Scoring (candidate evaluation phase)
+
+During the main loop the algorithm does **not** check every point in the cloud on every iteration — that would be too slow. Instead it builds **stratified random subsets** (octree sub-samples at decreasing densities, roughly halving each level). A candidate shape is scored by counting how many points in the current subset fall within `1 × m_epsilon` of the shape.
+
+This is the **tight, conservative** check used repeatedly while candidates compete against each other. The threshold is strict so weak candidates are eliminated quickly.
+
+```cpp
+// RansacShapeDetector.cpp:461
+subsetScoreVisitor(m_options.m_epsilon, ...)   // 1× epsilon
+```
+
+#### Global Scoring (winner confirmation phase)
+
+Once a candidate "wins" — its expected inlier count survives all competing subsets — the algorithm does **one final sweep over the entire point cloud** to confirm it and collect all inliers. This sweep uses `3 × m_epsilon` as the threshold.
+
+```cpp
+// RansacShapeDetector.cpp:464
+globalScoreVisitor(3 * m_options.m_epsilon, ...)   // 3× epsilon
+```
+
+#### Why the 3× difference?
+
+1. **Recall** — after subset-based filtering has already identified the correct shape, you want to capture all real inliers including slightly noisier points at the fringes of the surface.
+2. **Robustness** — subsets are sub-sampled, so some near-boundary points may have been missed during the tight competitive phase. The looser final sweep picks them up.
+
+#### Practical implication
+
+If you set `m_epsilon = 0.01`, points up to **0.03** distance from the shape are counted as inliers in the final output. The inlier set you get back reflects the `3 × m_epsilon` threshold, not the `m_epsilon` you set. This matters if you use those inliers for a subsequent least-squares fit or downstream processing.
+
 **The 3× multiplier is hardcoded and non-obvious.** It means a point can be 3× further than your ε and still be counted as an inlier in the final global score.
 
 ### Gaussian Weighting (`ScoreComputer.h`)
@@ -466,6 +497,64 @@ weight(d, ε) = exp(-d² / (2/9 · ε²))
 ```
 
 This is a Gaussian with `σ = ε/3`. Points exactly on the surface (d=0) contribute 1.0. Points at distance ε contribute `exp(-4.5) ≈ 0.011`.
+
+### Connected-Component Filtering (`m_bitmapEpsilon`)
+
+After global scoring collects all inliers, the algorithm does **one more check**: it verifies that those inliers actually form a single spatially contiguous patch, not a scattered cloud of random points that all happened to be near the same plane/cylinder.
+
+It does this using a 2D bitmap:
+
+#### Step 1 — Project inliers into 2D parameter space
+
+Each shape type has a natural 2D parameterisation:
+- Plane → UV coordinates on the plane surface
+- Cylinder → (arc angle, height along axis)
+- Sphere → (longitude, latitude)
+
+Every inlier point is projected into this 2D space.
+
+#### Step 2 — Build a grid (the bitmap)
+
+The 2D parameter space is divided into a regular grid where each cell is **`m_bitmapEpsilon × m_bitmapEpsilon`** in size. A cell is marked **occupied (1)** if at least one inlier point falls into it, otherwise **empty (0)**.
+
+```cpp
+// PlanePrimitiveShape.cpp:197–206
+*uextent = ceil((bbox.Max[0] - bbox.Min[0]) / epsilon) + 1;
+*vextent = ceil((bbox.Max[1] - bbox.Min[1]) / epsilon) + 1;
+// each point maps to cell:
+cell.u = floor((param.u - bbox.Min[0]) / epsilon);
+cell.v = floor((param.v - bbox.Min[1]) / epsilon);
+```
+
+#### Step 3 — Run connected-component labeling
+
+A standard 2D connected-component algorithm runs on the bitmap — adjacent occupied cells (4-connected or 8-connected) form one component. A **morphological closing** (dilate then erode) is applied first to fill tiny gaps.
+
+#### Step 4 — Keep only the largest component
+
+If the bitmap has multiple disconnected occupied regions, only the **largest connected component** is kept. All inlier points that mapped into smaller / isolated regions are discarded.
+
+```cpp
+// Candidate.cpp:83–86
+void Candidate::ConnectedComponent(const PointCloud &pc, float bitmapEpsilon, ...) {
+    size_t connectedSize = m_shape->ConnectedComponent(pc, bitmapEpsilon, m_indices, ...);
+}
+```
+
+#### What `m_bitmapEpsilon` controls
+
+It is the **cell size of the grid**, which is the **gap tolerance** for connectivity:
+
+| `m_bitmapEpsilon` (cell size) | Effect |
+|---|---|
+| Small (fine grid) | A small physical gap between two nearby inlier clusters → they land in separate cells → treated as disconnected |
+| Large (coarse grid) | Two clusters with a gap → both land in the same cell or adjacent cells → treated as connected |
+
+**Typical rule:** set `m_bitmapEpsilon = 2 × m_epsilon`. This means a gap of up to ~2× the distance tolerance is tolerated before splitting a patch into two components.
+
+#### Why this matters
+
+Without this step, a shape like a plane could get a high inlier count by collecting points from two separate parallel walls that happen to be coplanar. The connected-component filter forces the algorithm to pick only one contiguous surface patch and discard the rest.
 
 ### Statistical Bounds (Candidate.h)
 
