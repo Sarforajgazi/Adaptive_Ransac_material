@@ -1,0 +1,43 @@
+# ── Virtual Environment ────────────────────────────────────────────────────────
+.venv/
+venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+
+# ── Compiled Cython / C++ Binaries ────────────────────────────────────────────
+schnabel_cython/build/
+schnabel_cython/*.pyd
+schnabel_cython/*.so
+schnabel_cython/*.cpp          # Cython-generated C++ (schnabel_ransac.cpp)
+schnabel_cython/null.o
+
+# ── Downloaded Point Cloud Data (too large for git) ───────────────────────────
+# TartanGround full-scene maps (100MB – 1.9GB each)
+schnabel_cython/tartanair_data/**/*.pcd
+schnabel_cython/tartanair_data/**/*.ply
+
+# TartanAir per-frame LiDAR scans (678 frames)
+data/
+
+# ── Generated Segmentation Output ─────────────────────────────────────────────
+schnabel_cython/tartanair_data/**/labels/
+
+# ── Logs and Temporary Files ──────────────────────────────────────────────────
+schnabel_cython/*.log
+schnabel_cython/*.txt
+schnabel_cython/temp_*.ply
+schnabel_cython/office_with_ground.ply
+
+# ── Open3D Viewer Screenshots ─────────────────────────────────────────────────
+schnabel_cython/ScreenCapture_*.png
+schnabel_cython/ScreenCamera_*.json
+
+# ── macOS Junk ────────────────────────────────────────────────────────────────
+.DS_Store
+
+# ── Python egg / dist info ────────────────────────────────────────────────────
+*.egg-info/
+dist/
+build/
