@@ -1,12 +1,9 @@
 #ifndef GRID_HEADER
 #define GRID_HEADER
 
-#ifndef WIN32
-#include <ext/hash_map>
-#define stdext __gnu_cxx
-#else
-#include <hash_map>
-#endif
+#include <unordered_map>
+#define stdext std
+#define hash_map unordered_map
 
 template< class CellT, unsigned int DimT >
 class ArrayGridKernel

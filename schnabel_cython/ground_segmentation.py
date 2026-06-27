@@ -71,7 +71,7 @@ def main():
             min_height = avg_z
             ground_plane = shape
 
-    print(f"\n✅ Ground Plane Successfully Segmented!")
+    print(f"\n[SUCCESS] Ground Plane Successfully Segmented!")
     print(f"   -> It contains {ground_plane['n_points']} points at an average height of Z={min_height:.3f}")
     
     # 4. Visualization
