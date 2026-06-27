@@ -712,6 +712,27 @@ Based on this complete analysis, here are exactly the places where adaptive cont
 
 **Adaptive opportunity:** In dense scans, small kNN (8–12) gives sharp normals. In sparse scans, larger kNN (20–40) is needed to get stable PCA. An agent could predict optimal kNN from local density estimates.
 
+#### Why kNN and `m_normalThresh` should be adapted separately (and kNN last)
+
+These two parameters are coupled — `kNN` sets the quality ceiling of the estimated normals, and `m_normalThresh` decides how strictly those normals are judged during scoring. Changing one changes what the other effectively does.
+
+However, the more important reason to keep them separate in an initial RL system is **computational cost**:
+
+| Parameter | When it runs | Cost to change |
+|---|---|---|
+| `kNN` | `calcNormals()` — runs **once, before** `Detect()`, over every point | Re-runs full normal estimation on the entire cloud — expensive |
+| `m_normalThresh` | Evaluated per-point **inside** `Detect()` | Changing it is just changing a float — free |
+
+If your RL agent adapts `kNN`, it must re-run `calcNormals()` every time it changes — rebuilding the KD-tree and recomputing PCA for every point on every episode. This breaks the fast adapt-and-detect loop you need for RL to be practical.
+
+`m_normalThresh` has no such cost. It can be changed between runs, or even between RANSAC iterations if needed, with zero overhead.
+
+**Recommended approach:**
+1. **Phase 1:** Keep `kNN` fixed (e.g. 20). Let the RL agent adapt `m_epsilon`, `m_normalThresh`, `m_minSupport`, and the stop/continue decision. This is already a rich action space.
+2. **Phase 2:** Once Phase 1 works, explore making `kNN` adaptive — but treat it as a slow, expensive outer loop (e.g. updated between scans, not between iterations), not a per-step action.
+
+The coupling argument (adapting both simultaneously confuses the agent) is real but secondary. The dominant reason is runtime: normal re-estimation is not cheap enough to be an RL action at episode frequency.
+
 ---
 
 ### 7. Connected Component Bitmap Epsilon
@@ -743,3 +764,4 @@ Based on this complete analysis, here are exactly the places where adaptive cont
 | Max LS iterations (3) | Fixed | Maybe | Small effect |
 | Sampling level weights | Adaptive (fixed rule) | Maybe — replace rule | Already partially adaptive |
 | Normal radius | Follows kNN | Maybe — jointly | Coupled with kNN |
+| m_normalThresh | Fixed (e.g. 0.95) | Yes — continuous | Coupled with m_epsilon; scan-density and surface-roughness dependent |
