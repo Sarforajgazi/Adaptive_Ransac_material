@@ -265,3 +265,71 @@ These parameters interact. The agent will learn the coupling, but initialising t
 | Mean steps used per frame | < 3.0 | < 2.5 | < 2.0 |
 | Runtime overhead vs fixed params | < 3× | < 2× | < 3× (GPU inference added) |
 | IoU vs GT (SemanticKITTI) | — | Beat fixed-param baseline | Beat published baselines |
+
+---
+
+## Evaluation: Normal Architecture vs PointNet++ Backbone
+
+A head-to-head comparison across two axes — **runtime** and **accuracy** — to justify whether the added complexity of Phase 3 is worth it.
+
+### Runtime Comparison
+
+Measure wall-clock time per frame (mean ± std over the full evaluation set). All timings on the same hardware.
+
+| Component | Normal MLP (Phase 1–2) | PointNet++ (Phase 3) | Notes |
+|---|---|---|---|
+| **Voxel downsample** | ~2–5 ms (fixed/rule-based) | ~2–5 ms (same) | Identical — not architecture-dependent |
+| **Feature extraction** | ~1–3 ms (handcrafted 18-dim) | ~15–40 ms (PointNet++ forward pass on 2048 pts, GPU) | Major cost difference — PointNet++ adds a neural forward pass |
+| **Policy inference** | <1 ms (MLP 28→64→64→heads) | ~1–2 ms (MLP 128+10→64→64→heads) | Slightly larger input dim but negligible difference |
+| **Schnabel C++ call (per step)** | ~5–20 ms | ~5–20 ms (+ groundness-weighted sampling overhead) | PointImportance adds ~2–5 ms if octree weighting is enabled |
+| **Total per step** | ~10–30 ms | ~25–70 ms | PointNet++ roughly 2–3× slower per step |
+| **Total per episode (avg 2.5 steps)** | ~25–75 ms | ~60–175 ms | Includes one-time feature extraction + N × step cost |
+| **Throughput (frames/sec)** | ~15–40 fps | ~6–16 fps | PointNet++ still real-time for LiDAR (10 Hz) if ≤2 steps |
+| **GPU memory** | None (CPU only) | ~200–500 MB (PointNet++ model) | MLP is deployable on CPU-only edge devices |
+
+**Key runtime questions to answer:**
+- Does PointNet++ stay under the 100 ms/frame budget for real-time LiDAR (10 Hz)?
+- Does the improved accuracy reduce mean steps used, partially offsetting the per-step cost?
+- Is batch inference (multiple frames queued) viable to amortise GPU overhead?
+
+### Accuracy Comparison
+
+Evaluate on both TartanAir (self-supervised) and SemanticKITTI (supervised ground-truth).
+
+| Metric | Fixed Baseline | Normal MLP (Phase 1) | Normal MLP (Phase 2) | PointNet++ (Phase 3) |
+|---|---|---|---|---|
+| **Mean inlier ratio (TartanAir)** | Baseline | > Baseline | > Phase 1 | > Phase 2 |
+| **Bad frames < 1% coverage (TartanAir, /678)** | 285 | < 285 | < 50 | < 20 |
+| **Mean IoU (SemanticKITTI)** | Fixed-param IoU | — | > Fixed-param IoU | > Phase 2 IoU |
+| **Precision (ground)** | Baseline | Measure | Measure | Measure |
+| **Recall (ground)** | Baseline | Measure | Measure | Measure |
+| **F1 (ground)** | Baseline | Measure | Measure | Measure |
+| **Mean residual (point-to-plane dist)** | Baseline | < Baseline | < Phase 1 | < Phase 2 |
+| **Normal angle error (detected vs GT plane)** | Baseline | Measure | Measure | Measure |
+| **Worst-case frame IoU (5th percentile)** | Baseline | Measure | Measure | Measure |
+| **Per-terrain accuracy (Flat / Rough / Slope)** | — | — | — | Measure (terrain classifier enables this) |
+
+### Evaluation Protocol
+
+1. **Datasets:**
+   - TartanAir: 678 frames — self-supervised metrics (inlier ratio, residual, bad frames)
+   - SemanticKITTI: sequences 00–10 — supervised metrics (IoU, Precision, Recall, F1)
+
+2. **Runs per configuration:** 3 seeds × full evaluation set → report mean ± std
+
+3. **Statistical tests:** Paired t-test or Wilcoxon signed-rank on per-frame IoU to confirm Phase 3 gains are significant (p < 0.05)
+
+4. **Ablation checklist:**
+
+   | Ablation | What it tests |
+   |---|---|
+   | MLP + handcrafted features vs PointNet++ embedding | Is learned geometry better than hand-designed features? |
+   | PointNet++ global embedding only vs + PointImportance | Does per-point groundness prediction add value beyond the global feature? |
+   | PointNet++ + terrain routing vs single policy | Does specialised sub-policies per terrain type help? |
+   | Frozen backbone vs fine-tuned backbone | Is fine-tuning stable under PPO, or does it hurt? |
+   | 2048 pts vs 4096 pts for PointNet++ | Accuracy vs latency trade-off for the backbone input size |
+
+5. **Visualisation:**
+   - Per-frame scatter plot: IoU (MLP) vs IoU (PointNet++) — points above the diagonal = PointNet++ wins
+   - Runtime histogram: distribution of per-frame latency for both architectures
+   - Failure case gallery: frames where MLP fails but PointNet++ succeeds (and vice versa)
