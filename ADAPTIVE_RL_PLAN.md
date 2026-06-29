@@ -124,6 +124,11 @@ Train on self-supervised reward; evaluate with IoU to measure real quality.
 ```
 1 episode = 1 LiDAR scan frame
 
+reset():  load raw frame
+          [Phase 3 only] agent picks voxel_size → downsample once
+          [Phase 1/2]    apply fixed/rule-based voxel downsample
+          compute scene features from downsampled cloud
+
 step 0:  observe state → choose (epsilon, min_support, normal_thresh, stop/continue)
               ↓ if continue:
          run Schnabel → get result → update feedback features → form new state
@@ -137,17 +142,24 @@ step 4:  observe state → forced stop (max steps reached)
 ```
 
 Max 5 steps per episode. Each step calls Schnabel C++ once via the Cython bridge.
+**Voxel size is fixed for the entire episode** — it is chosen once at `reset()`, not per step.
 
 ---
 
 ## Architecture
 
 ```
-LiDAR frame
+LiDAR frame  (raw, ~100k pts)
+       │
+       ▼
+Voxel Downsample
+  Phase 1: fixed voxel_size = 0.05m
+  Phase 2: rule-based adaptive  (targets ~15k pts, clipped to [0.02, 0.15]m)
+  Phase 3: RL-controlled  (5 discrete levels, chosen once per episode)
        │
        ▼
 State Builder
-  • 18 scene features     (from raw points — computed once per frame)
+  • 18 scene features     (from downsampled points — computed once per frame)
   • 10 feedback features  (from last Schnabel run, includes prev actions)
   • 5 temporal features   (from previous frame) ← Phase 2 only
   ──────────────────────────────────────────────
@@ -160,6 +172,7 @@ PPO Policy  (MLP: 28 → 64 → 64 → action heads)
     • min_support    — 6-way softmax
     • stop/continue  — binary
     • normal_thresh  — 6-way softmax  ← Phase 2
+    • voxel_size     — 5-way softmax  ← Phase 3 (one-shot, chosen at reset)
        │
        ▼
 Cython Bridge  →  Schnabel C++ Detect()
@@ -175,6 +188,7 @@ Reward (terminal): inlier_ratio − β·runtime − γ·residual + δ·normal_co
 
 ---
 
+
 ## Parameter Coupling Rules
 
 These parameters interact. The agent will learn the coupling, but initialising them sensibly avoids early training instability:
@@ -185,6 +199,7 @@ These parameters interact. The agent will learn the coupling, but initialising t
 | `epsilon` ↔ `min_support` | Larger epsilon → more inliers → can afford higher min_support without starving the search |
 | `epsilon` ↔ `bitmap_epsilon` | Always `bitmap_epsilon = 2 × epsilon` automatically — never expose separately |
 | `min_support` ↔ `point_density` | Normalise min_support by point_density in the state vector so the agent sees a scale-independent signal |
+| `voxel_size` ↔ `min_support` | **Critical (Phase 3):** A coarser voxel (fewer points) requires a lower min_support floor — the agent must learn not to pick large min_support after choosing a coarse voxel, or enforce via action masking |
 
 ---
 
@@ -195,13 +210,15 @@ These parameters interact. The agent will learn the coupling, but initialising t
 **Goal:** Working agent on TartanAir with 3 actions. Establish the baseline gap between fixed params and adaptive params.
 
 1. Build the Gym environment
-   - `reset()` — load a frame, compute scene features, return 24-dim state
+   - `reset()` — load a frame, **apply fixed voxel downsample (voxel_size=0.05m)**, compute scene features, return 28-dim state
    - `step(action)` — call Schnabel via Cython bridge, compute feedback, return `(next_state, reward, done)`
-2. Implement 24-dim state (scene + feedback only)
+2. Implement 28-dim state (scene + feedback only)
 3. Implement self-supervised reward
 4. Action space: `epsilon` (8 levels) + `min_support` (6 levels) + `stop/continue` (binary)
 5. Train PPO
 6. Compare against fixed-param baseline on 678 TartanAir frames
+
+> **Voxel note:** Use a single fixed voxel_size=0.05m for all frames in Phase 1. This keeps ~10k–20k points per frame, which is fast enough for 5 Schnabel calls per episode. Do not vary it — consistent density is what allows the agent to learn stable min_support values.
 
 ---
 
@@ -210,9 +227,17 @@ These parameters interact. The agent will learn the coupling, but initialising t
 **Goal:** Close the remaining gap with the full action space and cross-frame context.
 
 1. Add `normal_thresh` as a 4th action (6 discrete levels: 0.80, 0.85, 0.88, 0.90, 0.93, 0.95)
-2. Add temporal features — grow state from 24-dim to 32-dim
+2. Add temporal features — grow state from 28-dim to 33-dim
 3. Add `m_probability` as an action (3 levels: 0.001, 0.005, 0.01) — controls how exhaustively Schnabel searches
-4. Run ablations: which state features contribute most? Which action matters most?
+4. **Replace fixed voxel with rule-based adaptive downsampling:**
+   ```python
+   def adaptive_voxel_size(points, target_points=15_000):
+       volume = compute_bbox_volume(points)
+       voxel = (volume / target_points) ** (1/3)
+       return np.clip(voxel, 0.02, 0.15)
+   ```
+   This stabilises point count across near/far and dense/sparse frames without any training cost.
+5. Run ablations: which state features contribute most? Which action matters most? Does adaptive voxel improve mean inlier ratio vs fixed?
 
 ---
 
