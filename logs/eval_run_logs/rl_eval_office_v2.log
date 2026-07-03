@@ -1,0 +1,82 @@
+TartanAir toolbox initialized.
+============================================================
+Running RL Agent Evaluation
+============================================================
+Loading model: C:\Users\sarfo\Downloads\Ransac_material\models\ppo_ransac_final.zip
+Loading observation normalizer: C:\Users\sarfo\Downloads\Ransac_material\models\ppo_ransac_final_vecnormalize.pkl
+
+--- [1/1] Dataset: Office ---
+Evaluating 678 frames for Office (RL mode)...
+Loaded 678 point cloud frames across 1 folders.
+  [10/678] 000009_lcam_front_lidar.ply -> Steps: 1, Reward: 0.3717 | Ground: 26.6%
+  [20/678] 000019_lcam_front_lidar.ply -> Steps: 1, Reward: 0.3780 | Ground: 22.8%
+  [30/678] 000029_lcam_front_lidar.ply -> Steps: 1, Reward: 0.3801 | Ground: 22.6%
+  [40/678] 000039_lcam_front_lidar.ply -> Steps: 1, Reward: 0.3736 | Ground: 16.5%
+  [50/678] 000049_lcam_front_lidar.ply -> Steps: 1, Reward: 0.4233 | Ground: 27.0%
+  [60/678] 000059_lcam_front_lidar.ply -> Steps: 1, Reward: 0.3964 | Ground: 29.4%
+  [70/678] 000069_lcam_front_lidar.ply -> Steps: 1, Reward: 0.3867 | Ground: 23.3%
+  [80/678] 000079_lcam_front_lidar.ply -> Steps: 1, Reward: 0.3525 | Ground: 23.6%
+  [90/678] 000089_lcam_front_lidar.ply -> Steps: 1, Reward: 0.3341 | Ground: 21.8%
+  [100/678] 000099_lcam_front_lidar.ply -> Steps: 1, Reward: 0.3270 | Ground: 22.3%
+  [110/678] 000109_lcam_front_lidar.ply -> Steps: 1, Reward: 0.3147 | Ground: 21.0%
+  [120/678] 000119_lcam_front_lidar.ply -> Steps: 1, Reward: 0.3182 | Ground: 21.9%
+  [130/678] 000129_lcam_front_lidar.ply -> Steps: 1, Reward: 0.3359 | Ground: 19.5%
+  [140/678] 000139_lcam_front_lidar.ply -> Steps: 1, Reward: 0.3584 | Ground: 19.7%
+  [150/678] 000149_lcam_front_lidar.ply -> Steps: 1, Reward: 0.3416 | Ground: 20.5%
+  [160/678] 000159_lcam_front_lidar.ply -> Steps: 1, Reward: 0.3616 | Ground: 14.4%
+  [170/678] 000169_lcam_front_lidar.ply -> Steps: 1, Reward: 0.3495 | Ground: 19.0%
+  [180/678] 000179_lcam_front_lidar.ply -> Steps: 1, Reward: 0.3857 | Ground: 22.4%
+  [190/678] 000189_lcam_front_lidar.ply -> Steps: 1, Reward: 0.3677 | Ground: 20.3%
+  [200/678] 000199_lcam_front_lidar.ply -> Steps: 1, Reward: 0.3875 | Ground: 20.4%
+  [210/678] 000209_lcam_front_lidar.ply -> Steps: 1, Reward: 0.3764 | Ground: 15.9%
+  [220/678] 000219_lcam_front_lidar.ply -> Steps: 1, Reward: 0.3491 | Ground: 13.8%
+  [230/678] 000229_lcam_front_lidar.ply -> Steps: 1, Reward: 0.3966 | Ground: 16.5%
+  [240/678] 000239_lcam_front_lidar.ply -> Steps: 1, Reward: 0.4118 | Ground: 17.8%
+  [250/678] 000249_lcam_front_lidar.ply -> Steps: 1, Reward: 0.3572 | Ground: 12.1%
+  [260/678] 000259_lcam_front_lidar.ply -> Steps: 1, Reward: 0.2893 | Ground: 5.6%
+  [270/678] 000269_lcam_front_lidar.ply -> Steps: 1, Reward: 0.2893 | Ground: 6.2%
+  [280/678] 000279_lcam_front_lidar.ply -> Steps: 1, Reward: 0.2384 | Ground: 0.0%
+  [290/678] 000289_lcam_front_lidar.ply -> Steps: 1, Reward: 0.2369 | Ground: 0.0%
+  [300/678] 000299_lcam_front_lidar.ply -> Steps: 1, Reward: 0.2170 | Ground: 10.0%
+  [310/678] 000309_lcam_front_lidar.ply -> Steps: 1, Reward: 0.2974 | Ground: 6.2%
+  [320/678] 000319_lcam_front_lidar.ply -> Steps: 1, Reward: 0.3012 | Ground: 6.3%
+  [330/678] 000329_lcam_front_lidar.ply -> Steps: 1, Reward: 0.4701 | Ground: 25.1%
+  [340/678] 000339_lcam_front_lidar.ply -> Steps: 1, Reward: 0.4521 | Ground: 21.4%
+  [350/678] 000349_lcam_front_lidar.ply -> Steps: 1, Reward: 0.4248 | Ground: 18.7%
+  [360/678] 000359_lcam_front_lidar.ply -> Steps: 1, Reward: 0.4656 | Ground: 25.4%
+  [370/678] 000369_lcam_front_lidar.ply -> Steps: 1, Reward: 0.4790 | Ground: 27.4%
+  [380/678] 000379_lcam_front_lidar.ply -> Steps: 1, Reward: 0.4538 | Ground: 21.5%
+  [390/678] 000389_lcam_front_lidar.ply -> Steps: 1, Reward: 0.4302 | Ground: 19.2%
+  [400/678] 000399_lcam_front_lidar.ply -> Steps: 1, Reward: 0.4421 | Ground: 20.3%
+  [410/678] 000409_lcam_front_lidar.ply -> Steps: 1, Reward: 0.4760 | Ground: 23.6%
+  [420/678] 000419_lcam_front_lidar.ply -> Steps: 1, Reward: 0.4706 | Ground: 23.3%
+  [430/678] 000429_lcam_front_lidar.ply -> Steps: 1, Reward: 0.4188 | Ground: 18.4%
+  [440/678] 000439_lcam_front_lidar.ply -> Steps: 1, Reward: 0.4264 | Ground: 19.2%
+  [450/678] 000449_lcam_front_lidar.ply -> Steps: 1, Reward: 0.3992 | Ground: 16.1%
+  [460/678] 000459_lcam_front_lidar.ply -> Steps: 1, Reward: 0.4021 | Ground: 16.7%
+  [470/678] 000469_lcam_front_lidar.ply -> Steps: 1, Reward: 0.4257 | Ground: 18.8%
+  [480/678] 000479_lcam_front_lidar.ply -> Steps: 1, Reward: 0.2666 | Ground: 9.7%
+  [490/678] 000489_lcam_front_lidar.ply -> Steps: 1, Reward: 0.4651 | Ground: 28.5%
+  [500/678] 000499_lcam_front_lidar.ply -> Steps: 1, Reward: 0.3222 | Ground: 9.1%
+  [510/678] 000509_lcam_front_lidar.ply -> Steps: 1, Reward: 0.2911 | Ground: 10.7%
+  [520/678] 000519_lcam_front_lidar.ply -> Steps: 1, Reward: 0.2662 | Ground: 7.0%
+  [530/678] 000529_lcam_front_lidar.ply -> Steps: 1, Reward: 0.3518 | Ground: 11.5%
+  [540/678] 000539_lcam_front_lidar.ply -> Steps: 1, Reward: 0.4536 | Ground: 21.6%
+  [550/678] 000549_lcam_front_lidar.ply -> Steps: 1, Reward: 0.4391 | Ground: 20.3%
+  [560/678] 000559_lcam_front_lidar.ply -> Steps: 1, Reward: 0.3996 | Ground: 16.7%
+  [570/678] 000569_lcam_front_lidar.ply -> Steps: 1, Reward: 0.3640 | Ground: 17.2%
+  [580/678] 000579_lcam_front_lidar.ply -> Steps: 1, Reward: 0.3737 | Ground: 21.4%
+  [590/678] 000589_lcam_front_lidar.ply -> Steps: 1, Reward: 0.3448 | Ground: 23.2%
+  [600/678] 000599_lcam_front_lidar.ply -> Steps: 1, Reward: 0.3749 | Ground: 18.8%
+  [610/678] 000609_lcam_front_lidar.ply -> Steps: 1, Reward: 0.3444 | Ground: 22.3%
+  [620/678] 000619_lcam_front_lidar.ply -> Steps: 1, Reward: 0.4097 | Ground: 21.2%
+  [630/678] 000629_lcam_front_lidar.ply -> Steps: 1, Reward: 0.3671 | Ground: 16.9%
+  [640/678] 000639_lcam_front_lidar.ply -> Steps: 1, Reward: 0.3633 | Ground: 17.6%
+  [650/678] 000649_lcam_front_lidar.ply -> Steps: 1, Reward: 0.3659 | Ground: 20.1%
+  [660/678] 000659_lcam_front_lidar.ply -> Steps: 1, Reward: 0.3734 | Ground: 20.1%
+  [670/678] 000669_lcam_front_lidar.ply -> Steps: 1, Reward: 0.3988 | Ground: 22.1%
+  [678/678] 000677_lcam_front_lidar.ply -> Steps: 1, Reward: 0.3827 | Ground: 20.7%
+Completed Office (RL) in 181.38s | Avg Reward: 0.3745
+============================================================
+FINISHED RL EVALUATION in 3.02 minutes.
+============================================================

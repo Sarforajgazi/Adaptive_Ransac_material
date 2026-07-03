@@ -14,7 +14,7 @@ The key design choice: the agent does **sequential decision-making**, not one-sh
 
 ## The Backend
 
-**Schnabel C++ via the existing Cython bridge.** It is already running on TartanAir/TartanGround (678 frames processed). The RL agent sits on top of it in Python and controls only what parameters it receives. The agent never touches the internal algorithm.
+**Schnabel C++ via the existing Cython bridge.** It is already running on TartanAir/TartanGround (13,049 frames processed). The RL agent sits on top of it in Python and controls only what parameters it receives. The agent never touches the internal algorithm.
 
 `bitmap_epsilon` is always set automatically to `2 × epsilon` — no separate control needed.
 
@@ -216,7 +216,7 @@ These parameters interact. The agent will learn the coupling, but initialising t
 3. Implement self-supervised reward
 4. Action space: `epsilon` (8 levels) + `min_support` (6 levels) + `stop/continue` (binary)
 5. Train PPO
-6. Compare against fixed-param baseline on 678 TartanAir frames
+6. Compare against fixed-param baseline on 13,049 TartanAir frames
 
 > **Voxel note:** Use a single fixed voxel_size=0.05m for all frames in Phase 1. This keeps ~10k–20k points per frame, which is fast enough for 5 Schnabel calls per episode. Do not vary it — consistent density is what allows the agent to learn stable min_support values.
 
@@ -312,7 +312,7 @@ Evaluate on both TartanAir (self-supervised) and SemanticKITTI (supervised groun
 ### Evaluation Protocol
 
 1. **Datasets:**
-   - TartanAir: 678 frames — self-supervised metrics (inlier ratio, residual, bad frames)
+   - TartanAir: 13,049 frames — self-supervised metrics (inlier ratio, residual, bad frames)
    - SemanticKITTI: sequences 00–10 — supervised metrics (IoU, Precision, Recall, F1)
 
 2. **Runs per configuration:** 3 seeds × full evaluation set → report mean ± std
