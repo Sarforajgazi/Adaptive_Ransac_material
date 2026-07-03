@@ -60,7 +60,8 @@ worst-case fixed-parameter scenario.
 | 7 | SeasonalForestSpring | 1125 | Outdoor, forest |
 | 8 | Sewerage | 1045 | Underground, narrow |
 | 9 | Supermarket | 761 | Indoor, large open space |
-| **Total** | | **10,447** | |
+| 10 | SeasonalForestWinterNight | 2602 | Outdoor, forest, night |
+| **Total** | | **13,049** | |
 
 ---
 
@@ -97,8 +98,8 @@ logs/
 
 ## Run Status
 
-| Baseline | Status | Duration |
-|---|---|---|
-| Standard | ✅ Complete | 128.82 minutes |
-| Strict | 🔄 Running | ~2 hours |
-| Loose | ⏳ Pending | ~2 hours |
+| Baseline | Status | Total Duration (Wall-Clock) | Pure Algorithm Time (RANSAC C++) |
+|---|---|---|---|
+| Strict | ✅ Complete | ~90 minutes | 73.96 minutes |
+| Standard | ✅ Complete | 128.82 minutes | 101.06 minutes |
+| Loose | ✅ Complete | 210.04 minutes | 181.03 minutes |
