@@ -2,6 +2,15 @@
 
 > Building a Deep RL agent that wraps the Schnabel C++ RANSAC engine and learns to select the right parameters per scan, decide when the result is good enough, and improve using context from previous frames.
 
+> **This is the original planning document, kept as-is below for history.**
+> Phase 1 has since been implemented in [`ransac_env.py`](ransac_env.py), and
+> in a few places the implementation ended up different from what's planned
+> here — each divergence is called out in a `> **Implementation note:**`
+> callout right after the relevant section, explaining what changed and why,
+> rather than silently editing the plan. For the actual, current behavior,
+> [RL_PIPELINE_OVERVIEW.md](RL_PIPELINE_OVERVIEW.md) is the source of truth;
+> this file documents intent and reasoning at the time Phase 1 was designed.
+
 ---
 
 ## The Core Idea
@@ -40,11 +49,67 @@ The key design choice: the agent does **sequential decision-making**, not one-sh
 | Candidates per round | 200 (hardcoded in C++) | Marginal effect — not worth the complexity |
 | `bitmap_epsilon` | `2 × epsilon` (auto) | Derived from epsilon; no independent value in exposing it |
 
+> **Implementation note:** the table above (4 actions, including
+> `normal_thresh`) is this plan's *overall* target across phases — the
+> "Implementation Phases → Phase 1" section further down already scopes
+> Phase 1 down to just 3 actions (`epsilon`, `min_support`, `stop/continue`)
+> and defers `normal_thresh` to Phase 2. The shipped Phase 1 code
+> (`ransac_env.py`, `action_space = MultiDiscrete([8, 6, 2])`) matches that
+> Phase 1 scoping exactly: `normal_thresh` is fixed at a constant `0.90`
+> for every step rather than agent-controlled. Not a divergence from the
+> plan, just easy to misread if you only look at this top-level table. See
+> [RL_PIPELINE_OVERVIEW.md's Action Space section](RL_PIPELINE_OVERVIEW.md#the-action-space--every-term-explained)
+> for the currently-shipped action space.
+
 ---
 
 ## State Space (28-dim Phase 1 → 33-dim Phase 2)
 
 What the agent observes at each step.
+
+> **Implementation note:** the shipped Phase 1 state (`ransac_env.py` +
+> [`features/scene_features.py`](features/scene_features.py)) ended up
+> **21 scene + 10 feedback = 31-dim**, not the 28-dim (18 scene + 10
+> feedback) planned here. This wasn't a deliberate redesign — it's what
+> the planned feature list turned into once it was actually implemented,
+> and it's worth tracking why rather than pretending the plan and the code
+> always matched:
+> - **Dropped:** `intensity_mean`, `intensity_std` — TartanAir's per-frame
+>   LiDAR `.ply` files (the actual data this env trains on) don't carry an
+>   intensity channel, so these two planned features were never
+>   implementable and were simply left out.
+> - **`eigenvalue_ratio_1`/`eigenvalue_ratio_2`** (ratios of PCA
+>   eigenvalues) became **`eig_0, eig_1, eig_2`** (the three raw
+>   eigenvalues, unratioed) — 1 extra dimension. Ratios are cheap to
+>   recover from the raw values downstream (and the network can learn a
+>   ratio-like feature on its own from three raw numbers), but keeping the
+>   raw eigenvalues avoids deciding the "right" ratio pairing up front.
+> - **Added `normal_x_std, normal_y_std, normal_z_std`** (per-axis std of
+>   estimated normals) — not in this plan's scene-feature list, but present
+>   in the shipped code as an extra proxy for "how noisy/curved is this
+>   scene's geometry," alongside the `normal_consistency` feature this plan
+>   already specified (which the shipped code keeps, and also reuses
+>   directly in the reward function — see below).
+> - **`n_neighbours_mean`** (planned) became **`mean_knn_dist`** (shipped)
+>   — same intent (a local-density proxy from kNN), renamed for clarity
+>   about what's actually being averaged (distance, not neighbour count).
+> - **`z_density_ground`**'s threshold changed from the plan's `z < mean_z
+>   + 0.5` to the shipped `z > z_max - 0.5` — both aim at "fraction of
+>   points near the ground," but the shipped version accounts for
+>   TartanAir's NED (Z-down) convention, where the ground is the
+>   *highest*-Z region, not `mean_z`-relative. Using `mean_z` as the plan
+>   describes would have picked up points from well above the actual floor
+>   in any scene where the sensor sees a lot of open space above ground
+>   level.
+> - **Added `bbox_volume`** (`dx × dy × dz`) alongside the plan's separate
+>   `bbox_dx/dy/dz` — not a replacement, an extra derived dimension kept
+>   because `point_density = N / bbox_volume` needed it computed anyway.
+>
+> Net effect: 18 planned scene features → 21 shipped
+> (−2 intensity, +1 from the eigenvalue-ratio→3-raw-eigenvalues swap,
+> +3 normal_x/y/z_std, +1 bbox_volume = 18 − 2 + 1 + 3 + 1 = 21). See
+> [RL_PIPELINE_OVERVIEW.md's Observation Space section](RL_PIPELINE_OVERVIEW.md#the-observation-space--every-term-explained)
+> for the exact, currently-shipped 31-dim layout.
 
 ### Scene Features — computed from raw point cloud before running Schnabel
 
@@ -88,6 +153,7 @@ What the agent observes at each step.
 | `prev_frame_inlier_ratio` | Baseline quality reference |
 
 **Phase 1 uses scene (18) + feedback (10) = 28-dim. Phase 2 adds temporal (5) = 33-dim.**
+*(As shipped: scene (21) + feedback (10) = 31-dim — see the implementation note above this section for why.)*
 
 ---
 
@@ -116,6 +182,45 @@ reward = α × inlier_ratio
 reward = IoU(predicted_ground_mask, gt_ground_mask)
 ```
 Train on self-supervised reward; evaluate with IoU to measure real quality.
+
+> **Implementation note (Day 10):** the terminal-only formula above (same
+> five terms, same weights) is exactly what Phase 1 shipped with initially,
+> and it worked for training a policy that beat the fixed-parameter
+> baselines — but it had one specific failure this plan didn't anticipate:
+> with `reward = 0.0` on every non-terminal step, the agent had no signal
+> about whether an intermediate refinement step helped, so `mean_steps`
+> stayed pinned at 1.0 across every dataset — the 5-step refinement loop
+> this whole plan is built around was never actually being used. The fix
+> (kept the same five terms and weights, but paid `inlier_ratio` and
+> `mean_residual` out incrementally every step via potential-based
+> shaping, `Φ(new) - Φ(prev)`, instead of once at the end) is **not
+> reflected above** — this section is left as originally planned since it
+> was a genuinely reasonable starting design, not a mistake caught before
+> shipping. See
+> [RL_PIPELINE_OVERVIEW.md's Reward Function section](RL_PIPELINE_OVERVIEW.md#the-reward-function--every-term-explained)
+> for both the original and current (shaped) formulas side by side, and the
+> Day 10 entry in that file's Known Issues for the full diagnosis.
+>
+> The IoU-based reward above (for when ground-truth labels are available)
+> is unaffected by this change and remains Phase 3/SemanticKITTI-only, as
+> planned — it hasn't been implemented yet either way.
+
+> **Implementation note (Day 12):** the `δ × normal_consistency` term above
+> is also no longer part of the reward — it's been removed entirely, not
+> just moved. It turned out to be a static per-frame descriptor (computed
+> once in `reset()`, before any RANSAC call), so adding it as a flat bonus
+> only at the terminal step gave the agent a reward for terminating that
+> barely varied with — and couldn't respond to — its own actions. That
+> breaks potential-based shaping's telescoping guarantee and, confirmed
+> live in the `v3_normthresh_heldout` run's training log, produced the same
+> `mean_steps` collapse toward 1 that Day 10/11 had already fought, this
+> time under the expanded 4-action space. It was replaced with `z_align`
+> (the actually-detected plane's normal alignment, recomputed every step)
+> folded directly into the per-step potential instead of bolted onto the
+> terminal transition. See
+> [RL_PIPELINE_OVERVIEW.md's Reward Function section](RL_PIPELINE_OVERVIEW.md#the-reward-function--every-term-explained)
+> for the current formula and the Day 12 entry in that file's Known Issues
+> for the full diagnosis.
 
 ---
 
@@ -184,6 +289,27 @@ Result: inlier mask, plane normal, inlier count, mean residual
 Reward (terminal): inlier_ratio − β·runtime − γ·residual + δ·normal_consistency − ζ·steps
 ```
 
+> **Implementation note:** this diagram's numbers are the original plan and
+> are left as-is, but two of them are now stale against the shipped Phase 1
+> code (`ransac_env.py`):
+> - **"18 scene features" / "28-dim state" / "MLP: 28 → 64 → 64"** → shipped
+>   as **21 scene features / 31-dim state / MLP: 31 → 64 → 64**. Same cause
+>   as the State Space section above (dropped intensity features, added
+>   `bbox_volume` + normal-std features, eigenvalue ratios became 3 raw
+>   eigenvalues).
+> - **"Reward (terminal): ..."** → as of Day 10, this formula is no longer
+>   terminal-only; every step now gets a shaped, non-zero reward via
+>   potential-based shaping (`Φ(new) - Φ(prev)`). As of Day 12, the
+>   `δ·normal_consistency` term shown here is gone too — it's been replaced
+>   by `z_align` folded into `Φ` itself, so it no longer appears as a
+>   separate terminal-only addition at all. See the Reward Function section
+>   above and
+>   [RL_PIPELINE_OVERVIEW.md](RL_PIPELINE_OVERVIEW.md#the-reward-function--every-term-explained)
+>   for the full current formula.
+>
+> Everything else in this diagram (voxel downsample strategy, action heads,
+> Cython bridge, result fields) still matches Phase 1 as shipped.
+
 **Why PPO:** Mixed action space (discrete levels + binary) is stable with PPO. SAC requires continuous actions and is harder to tune for this structure.
 
 ---
@@ -210,10 +336,10 @@ These parameters interact. The agent will learn the coupling, but initialising t
 **Goal:** Working agent on TartanAir with 3 actions. Establish the baseline gap between fixed params and adaptive params.
 
 1. Build the Gym environment
-   - `reset()` — load a frame, **apply fixed voxel downsample (voxel_size=0.05m)**, compute scene features, return 28-dim state
+   - `reset()` — load a frame, **apply fixed voxel downsample (voxel_size=0.05m)**, compute scene features, return 28-dim state *(shipped: 31-dim, see implementation note under State Space)*
    - `step(action)` — call Schnabel via Cython bridge, compute feedback, return `(next_state, reward, done)`
-2. Implement 28-dim state (scene + feedback only)
-3. Implement self-supervised reward
+2. Implement 28-dim state (scene + feedback only) *(shipped: 31-dim)*
+3. Implement self-supervised reward *(shipped, then reworked Day 10 — see implementation note under Reward Function)*
 4. Action space: `epsilon` (8 levels) + `min_support` (6 levels) + `stop/continue` (binary)
 5. Train PPO
 6. Compare against fixed-param baseline on 13,049 TartanAir frames

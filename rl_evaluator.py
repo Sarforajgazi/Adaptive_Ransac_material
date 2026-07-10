@@ -48,7 +48,26 @@ def main():
     parser.add_argument("--model", type=str, default=DEFAULT_MODEL_PATH, help="Path to a trained model .zip")
     parser.add_argument("--vecnormalize", type=str, default=DEFAULT_VECNORMALIZE_PATH,
                          help="Path to the matching VecNormalize .pkl (must correspond to --model)")
+    parser.add_argument("--tag", type=str, default=None,
+                         help="Version tag for this run (e.g. 'v2_reward'). Results are logged to "
+                              "<env>_rl_<tag>.csv instead of <env>_rl.csv, so retraining (e.g. after "
+                              "changing the reward function) doesn't overwrite a previous run's results. "
+                              "Omit to keep writing to <env>_rl.csv as before.")
+    parser.add_argument("--split", type=str, default=None, choices=["train", "test"],
+                         help="Evaluate only the frame-level train or test slice of each environment "
+                              "(chronological tail holdout, must match whatever --split/--test_frac the "
+                              "model was trained with). Omit to evaluate every frame (original behavior, "
+                              "and the right choice for an --env pointed at a fully held-out environment "
+                              "that was never in the training pool at all).")
+    parser.add_argument("--test_frac", type=float, default=0.15,
+                         help="Fraction of each environment's frames (chronological tail) treated as "
+                              "'test', when --split is set.")
+    parser.add_argument("--gap_frac", type=float, default=0.02,
+                         help="Fraction of each environment's frames excluded as a train/test buffer -- "
+                              "must match whatever --gap_frac the model was trained with, or the 'test' "
+                              "slice here won't line up with what was actually held out from training.")
     args = parser.parse_args()
+    mode_name = "rl" if not args.tag else f"rl_{args.tag}"
 
     print("=" * 60)
     print("Running RL Agent Evaluation")
@@ -80,10 +99,17 @@ def main():
             print(f"Skipping {env_name}, no frames found.")
             continue
             
-        print(f"Evaluating {num_frames} frames for {env_name} (RL mode)...")
-        
-        csv_name = f"{env_name}_rl.csv"
-        env = RansacEnv(data_dir=dataset_dir, log_name=csv_name)
+        print(f"Evaluating {num_frames} frames for {env_name} (mode: {mode_name})...")
+
+        csv_name = f"{env_name}_{mode_name}.csv"
+        # Pass the environment's root folder (not the deep .../lidar folder)
+        # so RansacEnv's environment-grouping key is a single consistent
+        # bucket for this one environment -- needed for --split's chronological
+        # tail-holdout to operate over the environment's *full* frame list
+        # rather than degenerating to one bucket per individual file.
+        env_root = os.path.join(DATA_ROOT, env_name)
+        env = RansacEnv(data_dir=env_root, log_name=csv_name, split=args.split, test_frac=args.test_frac,
+                         gap_frac=args.gap_frac)
         
         total_reward = 0.0
         start_time = time.time()
@@ -125,7 +151,7 @@ def main():
                 
         elapsed = time.time() - start_time
         avg_reward = total_reward / num_frames
-        print(f"Completed {env_name} (RL) in {elapsed:.2f}s | Avg Reward: {avg_reward:.4f}")
+        print(f"Completed {env_name} ({mode_name}) in {elapsed:.2f}s | Avg Reward: {avg_reward:.4f}")
 
     total_elapsed = time.time() - overall_start_time
     print("=" * 60)

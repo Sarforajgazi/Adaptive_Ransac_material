@@ -22,7 +22,36 @@ def main():
     parser.add_argument("--env_path", type=str, default=None, help="Path to lidar .ply frames")
     parser.add_argument("--load", type=str, default=None, help="Path to a saved model .zip to resume training")
     parser.add_argument("--vecnormalize", type=str, default=None, help="Path to a saved VecNormalize .pkl to resume with matching normalization stats")
+    parser.add_argument("--tag", type=str, default=None,
+                         help="Distinguishes this run's checkpoints/final model/training log from other "
+                              "tagged runs (e.g. 'v2_reward') -- without a tag, uses the original untagged "
+                              "filenames (ppo_ransac_final.zip, evaluation_metrics.csv), so existing runs "
+                              "are never overwritten by a new tagged run.")
+    parser.add_argument("--exclude_envs", type=str, default=None,
+                         help="Comma-separated environment names to exclude entirely from training (e.g. "
+                              "'GreatMarsh,Restaurant') -- for an environment-level train/test split: train "
+                              "with these excluded, then evaluate on them with rl_evaluator.py --env <name> "
+                              "for a genuine unseen-scene generalization test.")
+    parser.add_argument("--split", type=str, default=None, choices=["train", "test"],
+                         help="Frame-level train/test split within each included environment (chronological "
+                              "tail holdout, see RansacEnv). Omit to train on every frame of every included "
+                              "environment (original behavior).")
+    parser.add_argument("--test_frac", type=float, default=0.15,
+                         help="Fraction of each environment's frames (chronological tail) reserved for "
+                              "split='test', when --split is set.")
+    parser.add_argument("--gap_frac", type=float, default=0.02,
+                         help="Fraction of each environment's frames dropped as a buffer between train and "
+                              "test (right before the test tail), so a near-duplicate frame pair can't "
+                              "straddle the train/test boundary. Only applies when --split is set.")
     args = parser.parse_args()
+
+    exclude_envs = args.exclude_envs.split(",") if args.exclude_envs else None
+
+    suffix = f"_{args.tag}" if args.tag else ""
+    model_prefix = f"ppo_ransac{suffix}_model"
+    final_name = f"ppo_ransac{suffix}_final"
+    interrupted_name = f"ppo_ransac{suffix}_interrupted"
+    training_log_name = f"evaluation_metrics{suffix}.csv"
 
     print("=" * 60)
     print("Starting Day 2: PPO Agent Training")
@@ -34,7 +63,9 @@ def main():
     # We create a function to instantiate the environment so it can be vectorized
     def make_env():
         # Pass env_path if provided, else it defaults to Office
-        env = RansacEnv(data_dir=args.env_path)
+        env = RansacEnv(data_dir=args.env_path, log_name=training_log_name,
+                         exclude_envs=exclude_envs, split=args.split, test_frac=args.test_frac,
+                         gap_frac=args.gap_frac)
         # Monitor logs episode rewards, lengths, and other stats
         env = Monitor(env)
         return env
@@ -78,7 +109,7 @@ def main():
     checkpoint_callback = CheckpointCallback(
         save_freq=1000,
         save_path=MODEL_DIR,
-        name_prefix="ppo_ransac_model",
+        name_prefix=model_prefix,
         save_replay_buffer=False,
         save_vecnormalize=True,
     )
@@ -91,21 +122,22 @@ def main():
     try:
         model.learn(
             total_timesteps=args.timesteps,
+            reset_num_timesteps=(args.load is None),
             callback=checkpoint_callback,
             progress_bar=True
         )
         
         # Save the final model + its matching normalization stats
-        final_model_path = os.path.join(MODEL_DIR, "ppo_ransac_final")
+        final_model_path = os.path.join(MODEL_DIR, final_name)
         model.save(final_model_path)
-        vec_env.save(os.path.join(MODEL_DIR, "ppo_ransac_final_vecnormalize.pkl"))
+        vec_env.save(os.path.join(MODEL_DIR, f"{final_name}_vecnormalize.pkl"))
         print("-" * 60)
         print(f"Training Complete! Final model saved to: {final_model_path}.zip")
 
     except KeyboardInterrupt:
         print("\nTraining interrupted manually. Saving current model state...")
-        model.save(os.path.join(MODEL_DIR, "ppo_ransac_interrupted"))
-        vec_env.save(os.path.join(MODEL_DIR, "ppo_ransac_interrupted_vecnormalize.pkl"))
+        model.save(os.path.join(MODEL_DIR, interrupted_name))
+        vec_env.save(os.path.join(MODEL_DIR, f"{interrupted_name}_vecnormalize.pkl"))
         print("Interrupted model saved.")
 
 if __name__ == "__main__":

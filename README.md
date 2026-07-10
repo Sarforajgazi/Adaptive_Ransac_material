@@ -1,6 +1,6 @@
 # RANSAC Material — Project Overview
 
-A 3D point cloud **ground segmentation pipeline** for robotics and autonomous navigation. The project wraps Ruwen Schnabel's 2007 Efficient RANSAC C++ library in Cython so Python can call it at native C++ speed, and applies it to LiDAR data from the TartanAir and TartanGround simulation datasets.
+A 3D point cloud **ground segmentation pipeline** for robotics and autonomous navigation. The project wraps Ruwen Schnabel's 2007 Efficient RANSAC C++ library in Cython so Python can call it at native C++ speed, applies it to LiDAR data from the TartanAir and TartanGround simulation datasets, and — on top of that — trains a **reinforcement learning agent** to pick the RANSAC parameters adaptively per scene instead of using one fixed setting everywhere.
 
 ---
 
@@ -11,6 +11,7 @@ A 3D point cloud **ground segmentation pipeline** for robotics and autonomous na
 - [The Two Datasets](#the-two-datasets)
 - [How the C++ → Cython → Python Chain Works](#how-the-c--cython--python-chain-works)
 - [The Full Pipeline](#the-full-pipeline)
+- [The Adaptive RL Pipeline](#the-adaptive-rl-pipeline)
 - [Virtual Environment](#virtual-environment)
 - [Quick Start](#quick-start)
 
@@ -27,6 +28,8 @@ Given a 3D LiDAR point cloud (a list of `[X, Y, Z]` coordinates from a sensor), 
 Two RANSAC implementations are used and compared:
 - **pyransac3d** — pure Python/NumPy (simple, slow)
 - **schnabel_ransac** — Schnabel's 2007 C++ algorithm wrapped in Cython (complex, fast)
+
+On top of that base pipeline, a **PPO reinforcement learning agent** (root-level `ransac_env.py`, `train_rl.py`, etc.) learns to choose Schnabel's `epsilon`/`min_support` parameters per-frame — see [The Adaptive RL Pipeline](#the-adaptive-rl-pipeline) below and [RL_PIPELINE_OVERVIEW.md](RL_PIPELINE_OVERVIEW.md) for the full breakdown.
 
 ---
 
@@ -45,8 +48,22 @@ Ransac_material/
 ├── download_tartan_ground.py   # Step 1: Download TartanAir LiDAR data
 ├── load_tartan_ground.py       # Step 2: Inspect downloaded point clouds
 ├── segment_ground.py           # Step 3: Run RANSAC ground segmentation
-└── visualize_segmentation.py   # Step 4: Open 3D visualization window
+├── visualize_segmentation.py   # Step 4: Open 3D visualization window
+│
+├── features/                   # Scene-feature extraction used by the RL agent
+├── models/                     # Trained PPO models + VecNormalize stats
+├── logs/                       # Training/evaluation CSV logs and TensorBoard runs
+├── plots/                      # Static PNG comparison charts (plot_comparison.py output)
+├── ransac_env.py                # Gymnasium environment wrapping schnabel_ransac for RL
+├── train_rl.py                  # Trains the PPO agent
+├── rl_evaluator.py               # Evaluates a trained agent across all datasets
+├── baseline_evaluator.py         # Evaluates fixed-parameter (Strict/Standard/Loose) baselines
+├── compare_results.py            # Aggregates RL vs. baseline results
+├── per_frame_comparison.py       # Frame-by-frame RL vs. baseline win rates
+└── plot_comparison.py            # Renders the above comparisons as PNG charts
 ```
+
+> The RL pipeline (everything above the `features/`/`models/`/`logs/`/`plots/` line) is documented in full in [RL_PIPELINE_OVERVIEW.md](RL_PIPELINE_OVERVIEW.md) — that file is the primary reference for how the agent's observation/action/reward spaces work and how to train or evaluate it.
 
 ---
 
@@ -294,6 +311,40 @@ The `.pyd` file is a pre-compiled Windows DLL. Python loads it once at import ti
 
 ---
 
+## The Adaptive RL Pipeline
+
+Schnabel's RANSAC needs several parameters tuned per scene (`epsilon`,
+`min_support`, `normal_thresh`) — good values differ between a flat indoor
+office floor and a bumpy outdoor forest floor. Instead of picking one fixed
+setting for every scene, this project trains a **PPO reinforcement learning
+agent** (via [Stable-Baselines3](https://stable-baselines3.readthedocs.io/))
+to look at a frame's scene features and choose good RANSAC parameters for
+it, refining its choice over up to 5 attempts per frame.
+
+- **Environment:** [`ransac_env.py`](ransac_env.py) — a Gymnasium env whose
+  observation is 31 numbers (21 static scene features from
+  [`features/scene_features.py`](features/scene_features.py) + 10 dynamic
+  feedback features), whose action picks an `(epsilon, min_support,
+  stop/continue)` triple, and whose reward is shaped from inlier ratio,
+  fit residual, runtime, and surface-normal consistency.
+- **Training:** [`train_rl.py`](train_rl.py) trains PPO on top of that
+  environment; [`rl_evaluator.py`](rl_evaluator.py) and
+  [`baseline_evaluator.py`](baseline_evaluator.py) evaluate the trained
+  agent against three fixed-parameter baselines (Strict/Standard/Loose,
+  see `BASELINE_CONFIG.md`).
+- **Comparison:** [`compare_results.py`](compare_results.py),
+  [`per_frame_comparison.py`](per_frame_comparison.py), and
+  [`plot_comparison.py`](plot_comparison.py) aggregate and chart RL vs.
+  baseline performance across every downloaded environment.
+
+**For the full walkthrough** — every observation/action/reward term
+explained, the training loop, adaptive per-environment sampling, and a
+day-by-day account of bugs found and fixed — see
+[RL_PIPELINE_OVERVIEW.md](RL_PIPELINE_OVERVIEW.md) and
+[DAILY_LOG.md](DAILY_LOG.md).
+
+---
+
 ## Virtual Environment
 
 There is **exactly one virtual environment** in this project, located at `.venv/` in the project root.
@@ -359,4 +410,16 @@ python visualize_segmentation.py
 ```bash
 cd schnabel_cython
 python setup.py build_ext --inplace
+```
+
+### Train and evaluate the RL agent
+
+See [RL_PIPELINE_OVERVIEW.md's "How to Run Things"](RL_PIPELINE_OVERVIEW.md#how-to-run-things) for the full sequence (download LiDAR frames, train, evaluate against baselines, compare, visualize). Quick version:
+
+```bash
+python download_lidar_frames.py           # one-time dataset download
+python train_rl.py --timesteps 50000      # train
+python rl_evaluator.py --env all          # evaluate the trained agent
+python baseline_evaluator.py standard     # evaluate a fixed-parameter baseline
+python compare_results.py                 # compare RL vs. baselines
 ```

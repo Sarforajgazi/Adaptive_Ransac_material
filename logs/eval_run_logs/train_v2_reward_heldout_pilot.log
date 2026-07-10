@@ -1,0 +1,66 @@
+C:\Users\sarfo\Downloads\Ransac_material\.venv\Lib\site-packages\stable_baselines3\common\on_policy_algorithm.py:150: UserWarning: You are trying to run PPO on the GPU, but it is primarily intended to run on the CPU when not using a CNN policy (you are using ActorCriticPolicy which should be a MlpPolicy). See https://github.com/DLR-RM/stable-baselines3/issues/1245 for more info. You can pass `device='cpu'` or `export CUDA_VISIBLE_DEVICES=` to force using the CPU.Note: The model will train, but the GPU utilization will be poor and the training might take longer than on CPU.
+  warnings.warn(
+============================================================
+Starting Day 2: PPO Agent Training
+============================================================
+[1/4] Initializing RansacEnv...
+Loaded 23995 point cloud frames across 14 folders. [exclude_envs=['Gascola', 'House', 'WesternDesertTown', 'CoalMine', 'AbandonedFactory', 'NordicHarbor']]
+[2/4] Setting up PPO Model (MlpPolicy)...
+Using cuda device
+[3/4] Configuring Callbacks...
+[4/4] Starting Training Loop for 10000 timesteps...
+TensorBoard logs will be saved to: C:\Users\sarfo\Downloads\Ransac_material\logs
+------------------------------------------------------------
+Logging to C:\Users\sarfo\Downloads\Ransac_material\logs\PPO_7
+---------------------------------
+| rollout/           |          |
+|    ep_len_mean     | 2.07     |
+|    ep_rew_mean     | 0.291    |
+| time/              |          |
+|    fps             | 2        |
+|    iterations      | 1        |
+|    time_elapsed    | 951      |
+|    total_timesteps | 2048     |
+---------------------------------
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 1.71        |
+|    ep_rew_mean          | 0.302       |
+| time/                   |             |
+|    fps                  | 1           |
+|    iterations           | 2           |
+|    time_elapsed         | 2122        |
+|    total_timesteps      | 4096        |
+| train/                  |             |
+|    approx_kl            | 0.016945938 |
+|    clip_fraction        | 0.185       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -4.55       |
+|    explained_variance   | -0.568      |
+|    learning_rate        | 0.0003      |
+|    loss                 | 0.0904      |
+|    n_updates            | 10          |
+|    policy_gradient_loss | -0.038      |
+|    value_loss           | 1.12        |
+-----------------------------------------
+----------------------------------------
+| rollout/                |            |
+|    ep_len_mean          | 1.77       |
+|    ep_rew_mean          | 0.321      |
+| time/                   |            |
+|    fps                  | 1          |
+|    iterations           | 3          |
+|    time_elapsed         | 3117       |
+|    total_timesteps      | 6144       |
+| train/                  |            |
+|    approx_kl            | 0.02422569 |
+|    clip_fraction        | 0.272      |
+|    clip_range           | 0.2        |
+|    entropy_loss         | -4.51      |
+|    explained_variance   | 0.146      |
+|    learning_rate        | 0.0003     |
+|    loss                 | 0.021      |
+|    n_updates            | 20         |
+|    policy_gradient_loss | -0.0553    |
+|    value_loss           | 0.28       |
+----------------------------------------
