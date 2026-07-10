@@ -15,10 +15,26 @@ DATA_ROOT = os.path.join(WORKSPACE, "data")
 ENVIRONMENTS = [
     "Downtown", "Hospital", "OldScandinavia", "OldTownFall",
     "SeasonalForestAutumn", "SeasonalForestSpring",
-    "SeasonalForestWinterNight", "Sewerage", "Supermarket",
+    "SeasonalForestWinterNight", "Sewerage", "Supermarket", "Office",
+    "ForestEnv", "GreatMarsh", "Restaurant", "SeasideTown",
 ]
 OUTDOOR = {"Downtown","OldScandinavia","OldTownFall",
-           "SeasonalForestAutumn","SeasonalForestSpring","SeasonalForestWinterNight"}
+           "SeasonalForestAutumn","SeasonalForestSpring","SeasonalForestWinterNight",
+           "ForestEnv", "GreatMarsh", "SeasideTown"}
+# Gascola, House, and HELD_OUT_ENVIRONMENTS below are deliberately NOT in this
+# list -- they're the fully held-out (scene-level) test environments, never
+# trained on and never folded into "--env all" aggregate stats alongside the
+# trained-on environments above. Evaluate them individually: --env Gascola,
+# --env House, --env WesternDesertTown, etc.
+#
+# NordicHarbor is a deliberate near-neighbor of SeasideTown (both coastal) --
+# kept held-out specifically to test generalization *across* similar coastal
+# scenes, not just "has it ever seen water at all" (which SeasideTown alone
+# in training would leave untested).
+HELD_OUT_ENVIRONMENTS = [
+    "Gascola", "House", "WesternDesertTown", "CoalMine",
+    "AbandonedFactory", "NordicHarbor",
+]
 
 def count_frames(env):
     d = os.path.join(DATA_ROOT, env, "Data_omni", "P0000", "lidar")
@@ -65,12 +81,14 @@ def main():
             n = count_frames(env)
             t = "Outdoor" if env in OUTDOOR else "Indoor"
             print("{:<35} {:>8}  {}".format(env, n if n else "--", t))
-        office_n = count_frames("Office")
-        print("{:<35} {:>8}  {}".format("Office (existing)", office_n, "Indoor"))
+        print("\n-- Held-out (scene-level test, never trained on) --")
+        for env in HELD_OUT_ENVIRONMENTS:
+            n = count_frames(env)
+            print("{:<35} {:>8}".format(env, n if n else "--"))
         return
     if len(sys.argv) > 1:
         e = sys.argv[1]
-        if e not in ENVIRONMENTS:
+        if e not in ENVIRONMENTS and e not in HELD_OUT_ENVIRONMENTS:
             print("Unknown env:", e)
             sys.exit(1)
         download_env(e)

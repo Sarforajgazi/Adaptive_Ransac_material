@@ -1,0 +1,83 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+TartanAir toolbox initialized.
+Downloading SeasideTown...
+Preparing complete download list...
+*****
+The following 1 files are going to be downloaded
+  -  SeasideTown/Data_omni/P0000/lidar.zip
+[32mThe total size is 0.310960118 GB! Please make sure you have enough space![0m
+*****
+Total files to download: 1
+
+📦 Chunk 1: Downloading 1 files...
+Fetching ... files: 0it [00:00, ?it/s]Fetching ... files: 1it [00:34, 34.37s/it]Fetching ... files: 1it [00:34, 34.37s/it]
+[32mAll downloads completed successfully! Enjoy using TartanAir![0m
+  Extracting C:\Users\sarfo\Downloads\Ransac_material\data\SeasideTown\Data_omni\P0000\lidar.zip...
+  Extracted and removed zip.
+OK SeasideTown -> 578 frames
+TartanAir toolbox initialized.
+Downloading WesternDesertTown...
+Preparing complete download list...
+*****
+The following 1 files are going to be downloaded
+  -  WesternDesertTown/Data_omni/P0000/lidar.zip
+[32mThe total size is 0.775750258 GB! Please make sure you have enough space![0m
+*****
+Total files to download: 1
+
+📦 Chunk 1: Downloading 1 files...
+Fetching ... files: 0it [00:00, ?it/s]Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Fetching ... files: 1it [01:05, 65.09s/it]Fetching ... files: 1it [01:05, 65.09s/it]
+[32mAll downloads completed successfully! Enjoy using TartanAir![0m
+  Extracting C:\Users\sarfo\Downloads\Ransac_material\data\WesternDesertTown\Data_omni\P0000\lidar.zip...
+  Extracted and removed zip.
+OK WesternDesertTown -> 1331 frames
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+TartanAir toolbox initialized.
+Downloading CoalMine...
+Preparing complete download list...
+*****
+The following 1 files are going to be downloaded
+  -  CoalMine/Data_omni/P0000/lidar.zip
+[32mThe total size is 0.448205395 GB! Please make sure you have enough space![0m
+*****
+Total files to download: 1
+
+📦 Chunk 1: Downloading 1 files...
+Fetching ... files: 0it [00:00, ?it/s]Fetching ... files: 1it [00:25, 25.46s/it]Fetching ... files: 1it [00:25, 25.46s/it]
+[32mAll downloads completed successfully! Enjoy using TartanAir![0m
+  Extracting C:\Users\sarfo\Downloads\Ransac_material\data\CoalMine\Data_omni\P0000\lidar.zip...
+  Extracted and removed zip.
+OK CoalMine -> 696 frames
+TartanAir toolbox initialized.
+Downloading AbandonedFactory...
+Preparing complete download list...
+*****
+The following 1 files are going to be downloaded
+  -  AbandonedFactory/Data_omni/P0000/lidar.zip
+[32mThe total size is 0.750940286 GB! Please make sure you have enough space![0m
+*****
+Total files to download: 1
+
+📦 Chunk 1: Downloading 1 files...
+Fetching ... files: 0it [00:00, ?it/s]Fetching ... files: 1it [00:45, 45.90s/it]Fetching ... files: 1it [00:45, 45.90s/it]
+[32mAll downloads completed successfully! Enjoy using TartanAir![0m
+  Extracting C:\Users\sarfo\Downloads\Ransac_material\data\AbandonedFactory\Data_omni\P0000\lidar.zip...
+  Extracted and removed zip.
+OK AbandonedFactory -> 1182 frames
+TartanAir toolbox initialized.
+Downloading NordicHarbor...
+Preparing complete download list...
+*****
+The following 1 files are going to be downloaded
+  -  NordicHarbor/Data_omni/P0000/lidar.zip
+[32mThe total size is 1.908696294 GB! Please make sure you have enough space![0m
+*****
+Total files to download: 1
+
+📦 Chunk 1: Downloading 1 files...
+Fetching ... files: 0it [00:00, ?it/s]Fetching ... files: 1it [02:33, 153.60s/it]Fetching ... files: 1it [02:33, 153.60s/it]
+[32mAll downloads completed successfully! Enjoy using TartanAir![0m
+  Extracting C:\Users\sarfo\Downloads\Ransac_material\data\NordicHarbor\Data_omni\P0000\lidar.zip...
+  Extracted and removed zip.
+OK NordicHarbor -> 3182 frames

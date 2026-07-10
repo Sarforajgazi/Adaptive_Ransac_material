@@ -2,12 +2,12 @@ import os
 import time
 import argparse
 import numpy as np
-from ransac_env import RansacEnv, EPS_LEVELS, MIN_SUPPORT_LEVELS
+from ransac_env import RansacEnv, EPS_LEVELS, MIN_SUPPORT_LEVELS, NORM_THRESH_LEVELS
 from download_lidar_frames import ENVIRONMENTS, count_frames, DATA_ROOT
 
 # BASELINE_CONFIG.md's three fixed-parameter modes. Values must exist exactly
-# in EPS_LEVELS/MIN_SUPPORT_LEVELS (ransac_env.py's discrete action space) --
-# all three do.
+# in EPS_LEVELS/MIN_SUPPORT_LEVELS/NORM_THRESH_LEVELS (ransac_env.py's
+# discrete action space) -- all three do.
 BASELINE_MODES = {
     "strict":   {"epsilon": 0.10, "min_support": 800, "normal_thresh": 0.90},
     "standard": {"epsilon": 0.15, "min_support": 500, "normal_thresh": 0.85},
@@ -15,18 +15,26 @@ BASELINE_MODES = {
 }
 
 
-def build_action(epsilon, min_support):
-    """MultiDiscrete([epsilon_level, min_support_level, stop]). stop=0 -- baseline
-    evaluation is a single fixed-parameter attempt per frame, not multi-step refinement."""
+def build_action(epsilon, min_support, normal_thresh):
+    """MultiDiscrete([epsilon_level, min_support_level, normal_thresh_level, stop]).
+    stop=0 -- baseline evaluation is a single fixed-parameter attempt per frame,
+    not multi-step refinement. RansacEnv's fixed_normal_thresh override is what
+    actually forces the exact value during a baseline run -- this index is
+    passed for correctness/clarity, not because the override depends on it."""
     eps_idx = EPS_LEVELS.index(epsilon)
     min_supp_idx = MIN_SUPPORT_LEVELS.index(min_support)
-    return np.array([eps_idx, min_supp_idx, 0], dtype=np.int64)
+    norm_th_idx = NORM_THRESH_LEVELS.index(normal_thresh)
+    return np.array([eps_idx, min_supp_idx, norm_th_idx, 0], dtype=np.int64)
 
 
 def main():
     parser = argparse.ArgumentParser(description="Run RANSAC Baseline Evaluator")
     parser.add_argument("mode", choices=["strict", "standard", "loose"],
                         help="Which baseline to run: strict, standard, or loose")
+    parser.add_argument("--env", type=str, default="all",
+                         help="Specific dataset to run, or 'all' (the training-set ENVIRONMENTS list). "
+                              "Use this to evaluate held-out scenes (e.g. Gascola, House) that are "
+                              "deliberately excluded from ENVIRONMENTS.")
     args = parser.parse_args()
 
     print("=" * 60)
@@ -34,12 +42,13 @@ def main():
     print("=" * 60)
 
     config = BASELINE_MODES[args.mode]
-    action = build_action(config["epsilon"], config["min_support"])
+    action = build_action(config["epsilon"], config["min_support"], config["normal_thresh"])
 
-    total_datasets = len(ENVIRONMENTS)
+    envs_to_run = ENVIRONMENTS if args.env == "all" else [args.env]
+    total_datasets = len(envs_to_run)
     overall_start_time = time.time()
-    
-    for i, env_name in enumerate(ENVIRONMENTS):
+
+    for i, env_name in enumerate(envs_to_run):
         print(f"\n--- [{i+1}/{total_datasets}] Dataset: {env_name} ---")
         
         # 2. Check if dataset exists locally

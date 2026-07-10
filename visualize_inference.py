@@ -6,7 +6,7 @@ import numpy as np
 import open3d as o3d
 from stable_baselines3 import PPO
 
-from ransac_env import load_ply_xyz, find_ground_plane
+from ransac_env import load_ply_xyz, find_ground_plane, EPS_LEVELS, MIN_SUPPORT_LEVELS, NORM_THRESH_LEVELS
 from features.scene_features import compute_scene_features
 from rl_evaluator import load_obs_normalizer
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "schnabel_cython"))
@@ -68,11 +68,9 @@ def main():
     obs = np.concatenate([features, feedback_feat])
 
     action, _ = model.predict(normalize_obs(obs), deterministic=True)
-    eps_levels = [0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.4, 0.5]
-    min_supp_levels = [50, 100, 200, 300, 500, 800]
-    eps = eps_levels[int(action[0])]
-    min_supp = min_supp_levels[int(action[1])]
-    norm_th = 0.90
+    eps = EPS_LEVELS[int(action[0])]
+    min_supp = MIN_SUPPORT_LEVELS[int(action[1])]
+    norm_th = NORM_THRESH_LEVELS[int(action[2])]
 
     print(f"Agent chose: Epsilon={eps}m, MinSupport={min_supp}, NormalThresh={norm_th}")
 

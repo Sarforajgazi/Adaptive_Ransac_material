@@ -73,6 +73,15 @@ def find_ground_plane(shapes, points, z_mode="z_down", horizontal_thresh=0.80):
 
 EPS_LEVELS = [0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.4, 0.5]
 MIN_SUPPORT_LEVELS = [50, 100, 200, 300, 500, 800]
+# Matches ADAPTIVE_RL_PLAN.md's Phase 2 spec exactly. Moved into Phase 1 (this
+# is a 4-action MultiDiscrete now, not the original 3) because epsilon and
+# normal_thresh are directly coupled -- loosening epsilon to catch more
+# distant points usually needs a looser normal_thresh too, since those fringe
+# points have noisier normals. With normal_thresh pinned at a fixed 0.90, the
+# agent had no way to act on that coupling, which plausibly explains some of
+# the rough-terrain / Supermarket-style failures observed under the 3-action
+# version (v1, v2_reward, v2_reward_heldout).
+NORM_THRESH_LEVELS = [0.80, 0.85, 0.88, 0.90, 0.93, 0.95]
 
 
 class RansacEnv(gym.Env):
@@ -82,7 +91,32 @@ class RansacEnv(gym.Env):
     """
     metadata = {"render_modes": ["console"]}
 
-    def __init__(self, data_dir=None, log_name="evaluation_metrics.csv", fixed_normal_thresh=None):
+    def __init__(self, data_dir=None, log_name="evaluation_metrics.csv", fixed_normal_thresh=None,
+                 include_envs=None, exclude_envs=None, split=None, test_frac=0.15, gap_frac=0.02):
+        """
+        include_envs / exclude_envs: optional lists of environment names (e.g.
+            ["Downtown", "Office"]) to restrict which environments' frames this
+            instance draws from -- for an *environment-level* train/test split
+            (train with exclude_envs=[held-out envs], evaluate on those same
+            held-out envs via include_envs=[...] or just point data_dir at
+            them directly).
+        split / test_frac / gap_frac: optional *frame-level* train/test split
+            within each remaining environment. Each environment's frames are
+            sorted (chronological order within its trajectory) and laid out
+            as [ ...train... | gap (used by neither) | ...test... ], with the
+            last test_frac fraction reserved for split="test" and the
+            gap_frac fraction immediately before it dropped entirely. None
+            (default split) uses every frame -- the original, unsplit
+            behavior. A chronological tail-split (not a random per-frame
+            split) is used deliberately: consecutive LiDAR frames from a
+            moving sensor are sometimes near-duplicates (measured as little
+            as 2-7cm of sensor movement between frames on this data), so a
+            random split could scatter near-identical frames across
+            train/test throughout the whole trajectory. The tail-split
+            confines that risk to a single seam -- and gap_frac removes a
+            small buffer of frames straddling that seam so even the one
+            remaining boundary can't leak a near-duplicate pair.
+        """
         super(RansacEnv, self).__init__()
 
         # None (default) preserves the RL training/eval behavior exactly: normal_thresh
@@ -91,8 +125,8 @@ class RansacEnv(gym.Env):
         # BASELINE_CONFIG.md instead of silently running at 0.90 too.
         self.fixed_normal_thresh = fixed_normal_thresh
 
-        # Action space: epsilon (8 levels), min_support (6 levels), stop/continue (2 levels)
-        self.action_space = spaces.MultiDiscrete([8, 6, 2])
+        # Action space: epsilon (8 levels), min_support (6 levels), normal_thresh (6 levels), stop/continue (2 levels)
+        self.action_space = spaces.MultiDiscrete([8, 6, 6, 2])
         
         # Observation space: 31 dims
         # 21 geometric features + 10 feedback features
@@ -103,11 +137,12 @@ class RansacEnv(gym.Env):
         self.inlier_ratio = 0.0
         self.prev_inlier_ratio = 0.0
         self.mean_residual = 0.0
+        self.z_align = 0.0
         self.plane_normal = np.zeros(3, dtype=np.float32)
         self.prev_epsilon = 0.0
         self.prev_min_support = 0
         self.prev_normal_thresh = 0.0
-        
+
         # Setup CSV Logging
         self.log_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "logs")
         os.makedirs(self.log_dir, exist_ok=True)
@@ -150,33 +185,94 @@ class RansacEnv(gym.Env):
             valid_files.append(f)
             
         self.files = sorted(valid_files)
-        
+
         if not self.files:
             raise ValueError(f"No .ply files found recursively in {self.data_dir}")
-            
-        # Group files by folder for Adaptive Sampling
-        self.folders_dict = {}
+
+        # Group files by environment (e.g. Office, Hospital, Sewerage) for Adaptive
+        # Sampling. Environment folders can have any number of subfolder levels
+        # between the environment and the .ply file (e.g. <Env>/Data_omni/P0000/lidar/),
+        # so the grouping key is the top-level folder relative to data_dir -- not
+        # os.path.basename(os.path.dirname(f)), which would just be the immediate
+        # parent ("lidar" for every environment) and collapse all environments into
+        # a single bucket.
+        all_folders_dict = {}
         for f in self.files:
-            folder_name = os.path.basename(os.path.dirname(f))
-            if folder_name not in self.folders_dict:
-                self.folders_dict[folder_name] = []
-            self.folders_dict[folder_name].append(f)
-            
+            folder_name = self._env_folder(f)
+            if folder_name not in all_folders_dict:
+                all_folders_dict[folder_name] = []
+            all_folders_dict[folder_name].append(f)
+
+        # Environment-level filter: restrict to a specific train or test set
+        # of environments (e.g. hold a few environments out entirely, never
+        # seen during training, for a genuine cross-environment generalization
+        # test -- as opposed to the frame-level split below, which still
+        # trains on every environment, just not every frame of it).
+        if include_envs is not None:
+            all_folders_dict = {k: v for k, v in all_folders_dict.items() if k in set(include_envs)}
+        if exclude_envs is not None:
+            all_folders_dict = {k: v for k, v in all_folders_dict.items() if k not in set(exclude_envs)}
+        if not all_folders_dict:
+            raise ValueError(
+                f"No environments left after include_envs={include_envs}/exclude_envs={exclude_envs} "
+                f"filtering (found: {sorted({self._env_folder(f) for f in self.files})})"
+            )
+
+        # Frame-level split: within each remaining environment, lay frames out
+        # chronologically as [ ...train... | gap | ...test... ], with the gap
+        # (used by neither split) absorbing the one seam where a near-duplicate
+        # frame pair could otherwise straddle train/test. None (default) keeps
+        # every frame -- the original, unsplit behavior.
+        self.folders_dict = {}
+        for folder_name, folder_files in all_folders_dict.items():
+            if split is None:
+                self.folders_dict[folder_name] = folder_files
+                continue
+            n = len(folder_files)
+            n_test = max(1, int(round(n * test_frac)))
+            n_gap = max(1, int(round(n * gap_frac))) if gap_frac > 0 else 0
+            train_end = max(n - n_test - n_gap, 0)
+            train_files = folder_files[:train_end]
+            test_files = folder_files[n - n_test:]
+            chosen = train_files if split == "train" else test_files
+            if chosen:
+                self.folders_dict[folder_name] = chosen
+
+        self.files = sorted(f for files in self.folders_dict.values() for f in files)
+        if not self.files:
+            raise ValueError(
+                f"No frames left after split={split!r}, test_frac={test_frac} filtering."
+            )
+
         self.folder_names = list(self.folders_dict.keys())
         self.folder_rewards = {folder: 0.0 for folder in self.folder_names}
-        
-        print(f"Loaded {len(self.files)} point cloud frames across {len(self.folder_names)} folders.")
+
+        print(f"Loaded {len(self.files)} point cloud frames across {len(self.folder_names)} folders."
+              + (f" [split={split}, test_frac={test_frac}, gap_frac={gap_frac}]" if split is not None else "")
+              + (f" [include_envs={include_envs}]" if include_envs is not None else "")
+              + (f" [exclude_envs={exclude_envs}]" if exclude_envs is not None else ""))
             
         self.current_points = None
         self.current_file = None
         self.current_features = None
 
+    def _env_folder(self, path):
+        """
+        Top-level folder name relative to data_dir (e.g. "Downtown", "Office") --
+        the environment a frame belongs to, used as the key for adaptive
+        per-environment sampling. Not os.path.basename(os.path.dirname(path)):
+        that would return the immediate parent folder ("lidar"), which is the
+        same for every environment.
+        """
+        return os.path.normpath(os.path.relpath(path, self.data_dir)).split(os.sep)[0]
+
     def _decode_action(self, action):
         eps = EPS_LEVELS[int(action[0])]
         min_supp = MIN_SUPPORT_LEVELS[int(action[1])]
-        stop = bool(action[2] == 0) # 0 is stop, 1 is continue
+        norm_th = NORM_THRESH_LEVELS[int(action[2])]
+        stop = bool(action[3] == 0) # 0 is stop, 1 is continue
 
-        return eps, min_supp, stop
+        return eps, min_supp, norm_th, stop
 
     def reset(self, seed=None, options=None):
         super().reset(seed=seed)
@@ -186,6 +282,7 @@ class RansacEnv(gym.Env):
         self.inlier_ratio = 0.0
         self.prev_inlier_ratio = 0.0
         self.mean_residual = 0.0
+        self.z_align = 0.0
         self.plane_normal = np.zeros(3, dtype=np.float32)
         self.prev_epsilon = 0.0
         self.prev_min_support = 0
@@ -234,30 +331,66 @@ class RansacEnv(gym.Env):
         
         return np.concatenate([scene_feat, feedback_feat])
 
+    def _potential(self, inlier_ratio, mean_residual, z_align):
+        """
+        Reward-shaping potential over the parts of the reward that respond to
+        the agent's chosen RANSAC parameters this step. z_align (the detected
+        ground plane's |normal[2]| from find_ground_plane) replaces the old
+        normal_consistency scene feature here: unlike that feature -- a static
+        per-frame descriptor computed once in reset() from the raw point
+        cloud, identical regardless of the agent's actions -- z_align is
+        recomputed each step from the actual inliers Schnabel found, so it's a
+        genuine, action-sensitive measure of plane-normal quality that can
+        telescope through the shaping delta like the other two terms.
+
+        Weight kept at 0.15, not 0.3: z_align is near-bimodal in this data
+        (find_ground_plane's horizontal_thresh=0.80 gate means most steps
+        land near ~0 or ~0.95-1.0, not in between), so a full gate-crossing
+        swing at 0.3 would contribute up to ~0.3 to potential -- 2-3x the
+        typical meaningful inlier_ratio improvement (p75-p25 ~= 0.15 across
+        141k logged steps, max ever observed 0.447) -- and would dominate the
+        term we actually care about optimizing.
+        """
+        return (1.0 * inlier_ratio) - (0.5 * mean_residual) + (0.15 * z_align)
+
     def step(self, action):
         start_time = time.time()
         self.step_count += 1
-        eps, min_supp, stop = self._decode_action(action)
-        norm_th = self.fixed_normal_thresh if self.fixed_normal_thresh is not None else 0.90  # Fixed for Phase 1
-        
+        eps, min_supp, decoded_norm_th, stop = self._decode_action(action)
+        # fixed_normal_thresh overrides the agent's own choice -- used by
+        # baseline_evaluator.py to force Strict/Standard/Loose's fixed values
+        # regardless of what the (untrained-for-that-purpose) action array
+        # happens to contain in that slot.
+        norm_th = self.fixed_normal_thresh if self.fixed_normal_thresh is not None else decoded_norm_th
+
         frame_id = os.path.basename(self.current_file) if self.current_file else "unknown"
         info = {}
-        
+
+        # Potential of the state carried over from the previous step (or the
+        # zeroed reset state, for step 1) -- captured BEFORE this step's
+        # Schnabel call overwrites self.inlier_ratio/self.mean_residual/self.z_align.
+        prev_potential = self._potential(self.inlier_ratio, self.mean_residual, self.z_align)
+
         # Save previous state before running Schnabel
         self.prev_epsilon = eps
         self.prev_min_support = min_supp
         self.prev_normal_thresh = norm_th
         self.prev_inlier_ratio = self.inlier_ratio
-        
+
         if len(self.current_points) < min_supp:
             self.inlier_ratio = 0.0
             self.mean_residual = 0.0
             self.plane_normal = np.zeros(3, dtype=np.float32)
+            self.z_align = 0.0
             z_align = 0.0
-            reward = -1.0
+            runtime = time.time() - start_time
+            new_potential = self._potential(self.inlier_ratio, self.mean_residual, self.z_align)
+            reward = (new_potential - prev_potential) - 0.01
             info = {"error": "too_few_points"}
             terminated = True
-            return self._get_obs(), reward, terminated, False, info
+            folder_name = self._env_folder(self.current_file)
+            self.folder_rewards[folder_name] = (0.9 * self.folder_rewards[folder_name]) + (0.1 * reward)
+            return self._get_obs(), float(reward), terminated, False, info
             
         try:
             shapes, _ = schnabel_ransac.detect(
@@ -279,19 +412,21 @@ class RansacEnv(gym.Env):
                 self.mean_residual = 0.0
                 self.plane_normal = np.zeros(3, dtype=np.float32)
                 z_align = 0.0
+                self.z_align = 0.0
                 info = {"error": "no_ground_found"}
             else:
                 ground_pts = ground_shape["n_points"]
                 self.inlier_ratio = ground_pts / len(self.current_points)
                 self.mean_residual = residual
-                
+                self.z_align = z_align
+
                 # Get the actual normal from the inliers
                 mask = ground_shape["inlier_mask"]
                 plane_pts = self.current_points[mask]
                 cov = np.cov(plane_pts.T)
                 evals, evecs = np.linalg.eig(cov)
                 self.plane_normal = evecs[:, np.argmin(evals)]
-                
+
                 info = {
                     "ground_pct": self.inlier_ratio,
                     "z_align": z_align,
@@ -299,31 +434,41 @@ class RansacEnv(gym.Env):
                     "avg_z": avg_z,
                     "epsilon": eps,
                     "min_support": min_supp,
-                    "normal_thresh": norm_th
+                    "normal_thresh": norm_th,
+                    "inlier_mask": mask.copy(),
                 }
-                
+
         except Exception as e:
             self.inlier_ratio = 0.0
             self.mean_residual = 0.0
             self.plane_normal = np.zeros(3, dtype=np.float32)
             z_align = 0.0
+            self.z_align = 0.0
             info = {"error": str(e)}
             
         runtime = time.time() - start_time
-        
+
         # Decide if we terminate and what the reward is
         terminated = stop or (self.step_count >= 5)
-        
+
+        # Reward-shaped: every step gets credit for how much it actually
+        # improved inlier_ratio/mean_residual/z_align, telescoping through to
+        # the terminal step rather than adding a separate terminal-only bonus
+        # (see _potential() -- a flat terminal bonus doesn't cancel out of
+        # the shaping delta the way potential-based terms do, so it biased
+        # the agent toward terminating regardless of plane quality).
+        # No runtime penalty (removed Day 11): it charged every step equally
+        # rather than specifically taxing continuation, and made refinement
+        # steps too expensive relative to their small potential gains --
+        # see the Day 10 v2_reward run, where mean_steps still collapsed to
+        # ~1.0 despite the potential-based shaping.
+        new_potential = self._potential(self.inlier_ratio, self.mean_residual, self.z_align)
+        reward = (new_potential - prev_potential) - 0.01
+
         if terminated:
-            # Terminal reward
-            normal_consistency = self.current_features[17] if self.current_features is not None else 0.0
-            reward = (1.0 * self.inlier_ratio) - (0.1 * runtime) - (0.5 * self.mean_residual) + (0.3 * normal_consistency) - (0.05 * self.step_count)
-            
             # Update folder moving average reward (EMA)
-            folder_name = os.path.basename(os.path.dirname(self.current_file))
+            folder_name = self._env_folder(self.current_file)
             self.folder_rewards[folder_name] = (0.9 * self.folder_rewards[folder_name]) + (0.1 * reward)
-        else:
-            reward = 0.0
         
         # Log to CSV
         with open(self.log_file, "a", newline="") as f:

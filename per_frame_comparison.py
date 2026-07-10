@@ -19,13 +19,31 @@ Usage:
 """
 
 import os
+import glob
 import argparse
 import pandas as pd
 
 WORKSPACE = os.path.dirname(os.path.abspath(__file__))
 LOG_DIR = os.path.join(WORKSPACE, "logs")
 
-MODES = ["strict", "standard", "loose", "rl"]
+BASELINE_MODES = ["strict", "standard", "loose"]
+NON_MODE_SUFFIXES = ("_per_frame_comparison",)
+
+
+def discover_modes(env):
+    """
+    Baselines plus every '<env>_rl*.csv' present for this environment (e.g.
+    'rl', 'rl_v2_reward' after a retrain with --tag). Each tagged RL run is
+    compared side by side instead of one overwriting another.
+    """
+    modes = list(BASELINE_MODES)
+    for path in sorted(glob.glob(os.path.join(LOG_DIR, f"{env}_rl*.csv"))):
+        stem = os.path.basename(path)[:-4]
+        mode = stem[len(env) + 1:]
+        if mode.endswith(NON_MODE_SUFFIXES):
+            continue
+        modes.append(mode)
+    return modes
 
 
 def load_mode_csv(env, mode):
@@ -33,16 +51,16 @@ def load_mode_csv(env, mode):
     if not os.path.exists(path):
         return None
     df = pd.read_csv(path)
-    if mode == "rl":
+    if mode.startswith("rl"):
         # Multi-step episodes can log more than one row per frame -- keep
         # only the terminal step, same convention as compare_results.py.
         df = df.sort_values(["frame_id", "steps_used"]).groupby("frame_id").tail(1)
     return df.drop_duplicates(subset="frame_id", keep="last")
 
 
-def build_comparison(env):
+def build_comparison(env, modes):
     frames = {}
-    for mode in MODES:
+    for mode in modes:
         df = load_mode_csv(env, mode)
         if df is None:
             print(f"  Skipping {mode} for {env} -- file not found")
@@ -65,22 +83,23 @@ def build_comparison(env):
     return merged.reset_index()
 
 
-def summarize(env, merged):
+def summarize(env, merged, modes):
     print(f"\n=== {env}: per-frame comparison ({len(merged)} frames) ===")
     win_counts = merged["winner"].value_counts()
-    for mode in MODES:
+    for mode in modes:
         if mode in win_counts.index:
             pct = win_counts[mode] / len(merged) * 100
-            print(f"  {mode:10s} wins on {win_counts[mode]:5d} frames ({pct:.1f}%)")
+            print(f"  {mode:14s} wins on {win_counts[mode]:5d} frames ({pct:.1f}%)")
 
-    if "rl" in merged["winner"].unique() or "inlier_ratio_rl" in merged.columns:
-        for baseline in ["strict", "standard", "loose"]:
-            col_rl = "inlier_ratio_rl"
+    rl_modes = [m for m in modes if m.startswith("rl") and f"inlier_ratio_{m}" in merged.columns]
+    for rl_mode in rl_modes:
+        col_rl = f"inlier_ratio_{rl_mode}"
+        for baseline in BASELINE_MODES:
             col_base = f"inlier_ratio_{baseline}"
-            if col_rl in merged.columns and col_base in merged.columns:
+            if col_base in merged.columns:
                 rl_beats = (merged[col_rl] > merged[col_base]).sum()
                 pct = rl_beats / len(merged) * 100
-                print(f"  RL beats {baseline:10s} on {rl_beats:5d}/{len(merged)} frames ({pct:.1f}%) [per-frame head-to-head]")
+                print(f"  {rl_mode:14s} beats {baseline:10s} on {rl_beats:5d}/{len(merged)} frames ({pct:.1f}%) [per-frame head-to-head]")
 
 
 def main():
@@ -90,21 +109,29 @@ def main():
     args = parser.parse_args()
 
     if args.env == "all":
-        envs = sorted(set(
-            f.split("_rl.csv")[0] for f in os.listdir(LOG_DIR) if f.endswith("_rl.csv")
-        ))
+        from download_lidar_frames import ENVIRONMENTS
+
+        def has_any_csv(env):
+            return any(os.path.exists(os.path.join(LOG_DIR, f"{env}_{m}.csv")) for m in discover_modes(env))
+
+        envs = [env for env in ENVIRONMENTS if has_any_csv(env)]
     else:
         envs = [args.env]
 
     all_merged = []
+    all_modes_seen = []
     for env in envs:
-        print(f"\nBuilding per-frame comparison for {env}...")
-        merged = build_comparison(env)
+        modes = discover_modes(env)
+        print(f"\nBuilding per-frame comparison for {env}... (modes: {', '.join(modes)})")
+        merged = build_comparison(env, modes)
         if merged is None:
             continue
-        summarize(env, merged)
+        summarize(env, merged, modes)
         merged.insert(0, "dataset", env)
         all_merged.append(merged)
+        for m in modes:
+            if m not in all_modes_seen:
+                all_modes_seen.append(m)
 
         out_path = os.path.join(args.save_dir, f"{env}_per_frame_comparison.csv")
         merged.to_csv(out_path, index=False)
@@ -113,7 +140,7 @@ def main():
     if len(all_merged) > 1:
         combined = pd.concat(all_merged, ignore_index=True)
         print("\n=== Overall (all datasets combined) ===")
-        summarize("ALL", combined)
+        summarize("ALL", combined, all_modes_seen)
         out_path = os.path.join(args.save_dir, "ALL_per_frame_comparison.csv")
         combined.to_csv(out_path, index=False)
         print(f"  Saved: {out_path}")

@@ -1,0 +1,63 @@
+TartanAir toolbox initialized.
+# Agent vs Baseline Evaluation
+
+| Dataset | Mode | Frames | Mean Inlier Ratio | Bad Frames (<1%) | Mean Residual | Mean Steps | Total Runtime (s) |
+|---|---|---|---|---|---|---|---|
+| Downtown | strict | 1228 | 0.1326 | 113 | 0.0462 | 1.00 | 337.02 |
+| Downtown | standard | 1125 | 0.0798 | 295 | 0.0781 | 1.00 | 390.16 |
+| Downtown | loose | 1125 | 0.0211 | 925 | 0.0943 | 1.00 | 822.47 |
+| Downtown | rl | 1125 | 0.1095 | 1 | 0.0577 | 1.00 | 199.22 |
+| Downtown | rl_v2_reward | 1125 | 0.1308 | 5 | 0.0873 | 1.00 | 138.36 |
+| Hospital | strict | 2012 | 0.0668 | 436 | 0.0683 | 1.00 | 788.99 |
+| Hospital | standard | 2012 | 0.0506 | 534 | 0.0763 | 1.00 | 1045.36 |
+| Hospital | loose | 2012 | 0.0657 | 678 | 0.0778 | 1.00 | 817.69 |
+| Hospital | rl | 2012 | 0.2125 | 61 | 0.0393 | 1.00 | 151.88 |
+| Hospital | rl_v2_reward | 2012 | 0.2081 | 63 | 0.0352 | 1.00 | 112.17 |
+| OldScandinavia | strict | 2931 | 0.0467 | 1401 | 0.0482 | 1.00 | 533.10 |
+| OldScandinavia | standard | 2931 | 0.0363 | 1151 | 0.0708 | 1.00 | 799.55 |
+| OldScandinavia | loose | 2931 | 0.0165 | 1856 | 0.1358 | 1.00 | 1960.42 |
+| OldScandinavia | rl | 2931 | 0.0571 | 1299 | 0.0739 | 1.00 | 538.37 |
+| OldScandinavia | rl_v2_reward | 2931 | 0.0646 | 1319 | 0.0882 | 1.00 | 428.76 |
+| OldTownFall | strict | 806 | 0.0547 | 114 | 0.0618 | 1.00 | 297.95 |
+| OldTownFall | standard | 806 | 0.0347 | 203 | 0.1190 | 1.00 | 524.19 |
+| OldTownFall | loose | 806 | 0.0156 | 464 | 0.2043 | 1.00 | 878.61 |
+| OldTownFall | rl | 806 | 0.0973 | 104 | 0.0517 | 1.00 | 143.61 |
+| OldTownFall | rl_v2_reward | 806 | 0.1027 | 66 | 0.0603 | 1.00 | 101.82 |
+| SeasonalForestAutumn | strict | 1588 | 0.1163 | 131 | 0.0837 | 1.00 | 351.23 |
+| SeasonalForestAutumn | standard | 1588 | 0.1000 | 272 | 0.1098 | 1.00 | 472.72 |
+| SeasonalForestAutumn | loose | 1588 | 0.0250 | 843 | 0.1556 | 1.00 | 1211.99 |
+| SeasonalForestAutumn | rl | 1588 | 0.1407 | 57 | 0.1455 | 1.00 | 222.07 |
+| SeasonalForestAutumn | rl_v2_reward | 1588 | 0.1472 | 44 | 0.1534 | 1.00 | 168.58 |
+| SeasonalForestSpring | strict | 2367 | 0.0951 | 127 | 0.0879 | 1.00 | 516.92 |
+| SeasonalForestSpring | standard | 2367 | 0.0918 | 264 | 0.1257 | 1.00 | 673.39 |
+| SeasonalForestSpring | loose | 2367 | 0.0336 | 1094 | 0.1704 | 1.00 | 1527.54 |
+| SeasonalForestSpring | rl | 2367 | 0.1184 | 81 | 0.1494 | 1.00 | 317.21 |
+| SeasonalForestSpring | rl_v2_reward | 2367 | 0.1249 | 82 | 0.1612 | 1.00 | 270.89 |
+| SeasonalForestWinterNight | strict | 2602 | 0.1031 | 163 | 0.0892 | 1.00 | 502.33 |
+| SeasonalForestWinterNight | standard | 2602 | 0.0904 | 219 | 0.1186 | 1.00 | 534.40 |
+| SeasonalForestWinterNight | loose | 2602 | 0.0474 | 1022 | 0.1175 | 1.00 | 1030.66 |
+| SeasonalForestWinterNight | rl | 2602 | 0.1502 | 42 | 0.1741 | 1.00 | 302.66 |
+| SeasonalForestWinterNight | rl_v2_reward | 2602 | 0.1585 | 81 | 0.1962 | 1.00 | 271.71 |
+| Sewerage | strict | 1045 | 0.0549 | 223 | 0.1078 | 1.00 | 325.62 |
+| Sewerage | standard | 1045 | 0.0368 | 357 | 0.1341 | 1.00 | 506.33 |
+| Sewerage | loose | 1045 | 0.0209 | 541 | 0.1359 | 1.00 | 769.77 |
+| Sewerage | rl | 1045 | 0.2353 | 54 | 0.0379 | 1.00 | 89.48 |
+| Sewerage | rl_v2_reward | 1045 | 0.2362 | 55 | 0.0376 | 1.00 | 80.41 |
+| Supermarket | strict | 761 | 0.0455 | 245 | 0.0621 | 1.00 | 260.32 |
+| Supermarket | standard | 761 | 0.0434 | 114 | 0.0719 | 1.00 | 516.82 |
+| Supermarket | loose | 761 | 0.0139 | 388 | 0.0219 | 1.00 | 1158.33 |
+| Supermarket | rl | 761 | 0.0445 | 504 | 0.0326 | 1.00 | 80.54 |
+| Supermarket | rl_v2_reward | 761 | 0.0506 | 376 | 0.0496 | 1.00 | 81.71 |
+
+## Overall Summary
+
+| Mode | Avg Inlier Ratio | Total Bad Frames | Avg Residual | Avg Steps |
+|---|---|---|---|---|
+| strict | 0.0795 | 2953 | 0.0728 | 1.00 |
+| standard | 0.0626 | 3409 | 0.1005 | 1.00 |
+| loose | 0.0288 | 7811 | 0.1237 | 1.00 |
+| rl | 0.1295 | 2203 | 0.0847 | 1.00 |
+| rl_v2_reward | 0.1360 | 2091 | 0.0966 | 1.00 |
+
+Summary saved to C:\Users\sarfo\.gemini\antigravity-ide\brain\0fd74363-6560-41d1-9fa2-c8c74db59e8a\evaluation_summary.md
+Raw summary CSV saved to C:\Users\sarfo\Downloads\Ransac_material\logs\full_comparison_summary.csv

@@ -1,0 +1,161 @@
+TartanAir toolbox initialized.
+
+Building per-frame comparison for Downtown... (modes: strict, standard, loose, rl, rl_v2_reward)
+
+=== Downtown: per-frame comparison (1125 frames) ===
+  strict         wins on   334 frames (29.7%)
+  standard       wins on   187 frames (16.6%)
+  loose          wins on    29 frames (2.6%)
+  rl             wins on   166 frames (14.8%)
+  rl_v2_reward   wins on   409 frames (36.4%)
+  rl             beats strict     on   655/1125 frames (58.2%) [per-frame head-to-head]
+  rl             beats standard   on   897/1125 frames (79.7%) [per-frame head-to-head]
+  rl             beats loose      on  1088/1125 frames (96.7%) [per-frame head-to-head]
+  rl_v2_reward   beats strict     on   673/1125 frames (59.8%) [per-frame head-to-head]
+  rl_v2_reward   beats standard   on   902/1125 frames (80.2%) [per-frame head-to-head]
+  rl_v2_reward   beats loose      on  1091/1125 frames (97.0%) [per-frame head-to-head]
+  Saved: C:\Users\sarfo\Downloads\Ransac_material\logs\Downtown_per_frame_comparison.csv
+
+Building per-frame comparison for Hospital... (modes: strict, standard, loose, rl, rl_v2_reward)
+
+=== Hospital: per-frame comparison (2012 frames) ===
+  strict         wins on    71 frames (3.5%)
+  standard       wins on    56 frames (2.8%)
+  loose          wins on   164 frames (8.2%)
+  rl             wins on  1432 frames (71.2%)
+  rl_v2_reward   wins on   289 frames (14.4%)
+  rl             beats strict     on  1853/2012 frames (92.1%) [per-frame head-to-head]
+  rl             beats standard   on  1885/2012 frames (93.7%) [per-frame head-to-head]
+  rl             beats loose      on  1808/2012 frames (89.9%) [per-frame head-to-head]
+  rl_v2_reward   beats strict     on  1844/2012 frames (91.7%) [per-frame head-to-head]
+  rl_v2_reward   beats standard   on  1881/2012 frames (93.5%) [per-frame head-to-head]
+  rl_v2_reward   beats loose      on  1807/2012 frames (89.8%) [per-frame head-to-head]
+  Saved: C:\Users\sarfo\Downloads\Ransac_material\logs\Hospital_per_frame_comparison.csv
+
+Building per-frame comparison for OldScandinavia... (modes: strict, standard, loose, rl, rl_v2_reward)
+
+=== OldScandinavia: per-frame comparison (2931 frames) ===
+  strict         wins on   310 frames (10.6%)
+  standard       wins on   511 frames (17.4%)
+  loose          wins on  1020 frames (34.8%)
+  rl             wins on   345 frames (11.8%)
+  rl_v2_reward   wins on   745 frames (25.4%)
+  rl             beats strict     on  1078/2931 frames (36.8%) [per-frame head-to-head]
+  rl             beats standard   on  1312/2931 frames (44.8%) [per-frame head-to-head]
+  rl             beats loose      on  1562/2931 frames (53.3%) [per-frame head-to-head]
+  rl_v2_reward   beats strict     on  1156/2931 frames (39.4%) [per-frame head-to-head]
+  rl_v2_reward   beats standard   on  1272/2931 frames (43.4%) [per-frame head-to-head]
+  rl_v2_reward   beats loose      on  1545/2931 frames (52.7%) [per-frame head-to-head]
+  Saved: C:\Users\sarfo\Downloads\Ransac_material\logs\OldScandinavia_per_frame_comparison.csv
+
+Building per-frame comparison for OldTownFall... (modes: strict, standard, loose, rl, rl_v2_reward)
+
+=== OldTownFall: per-frame comparison (806 frames) ===
+  strict         wins on   120 frames (14.9%)
+  standard       wins on    84 frames (10.4%)
+  loose          wins on    17 frames (2.1%)
+  rl             wins on   425 frames (52.7%)
+  rl_v2_reward   wins on   160 frames (19.9%)
+  rl             beats strict     on   584/806 frames (72.5%) [per-frame head-to-head]
+  rl             beats standard   on   634/806 frames (78.7%) [per-frame head-to-head]
+  rl             beats loose      on   691/806 frames (85.7%) [per-frame head-to-head]
+  rl_v2_reward   beats strict     on   617/806 frames (76.6%) [per-frame head-to-head]
+  rl_v2_reward   beats standard   on   669/806 frames (83.0%) [per-frame head-to-head]
+  rl_v2_reward   beats loose      on   725/806 frames (90.0%) [per-frame head-to-head]
+  Saved: C:\Users\sarfo\Downloads\Ransac_material\logs\OldTownFall_per_frame_comparison.csv
+
+Building per-frame comparison for SeasonalForestAutumn... (modes: strict, standard, loose, rl, rl_v2_reward)
+
+=== SeasonalForestAutumn: per-frame comparison (1588 frames) ===
+  strict         wins on   266 frames (16.8%)
+  standard       wins on   485 frames (30.5%)
+  loose          wins on    53 frames (3.3%)
+  rl             wins on   319 frames (20.1%)
+  rl_v2_reward   wins on   465 frames (29.3%)
+  rl             beats strict     on  1031/1588 frames (64.9%) [per-frame head-to-head]
+  rl             beats standard   on  1027/1588 frames (64.7%) [per-frame head-to-head]
+  rl             beats loose      on  1476/1588 frames (92.9%) [per-frame head-to-head]
+  rl_v2_reward   beats strict     on  1086/1588 frames (68.4%) [per-frame head-to-head]
+  rl_v2_reward   beats standard   on  1037/1588 frames (65.3%) [per-frame head-to-head]
+  rl_v2_reward   beats loose      on  1489/1588 frames (93.8%) [per-frame head-to-head]
+  Saved: C:\Users\sarfo\Downloads\Ransac_material\logs\SeasonalForestAutumn_per_frame_comparison.csv
+
+Building per-frame comparison for SeasonalForestSpring... (modes: strict, standard, loose, rl, rl_v2_reward)
+
+=== SeasonalForestSpring: per-frame comparison (2367 frames) ===
+  strict         wins on   349 frames (14.7%)
+  standard       wins on   739 frames (31.2%)
+  loose          wins on   165 frames (7.0%)
+  rl             wins on   412 frames (17.4%)
+  rl_v2_reward   wins on   702 frames (29.7%)
+  rl             beats strict     on  1652/2367 frames (69.8%) [per-frame head-to-head]
+  rl             beats standard   on  1403/2367 frames (59.3%) [per-frame head-to-head]
+  rl             beats loose      on  2101/2367 frames (88.8%) [per-frame head-to-head]
+  rl_v2_reward   beats strict     on  1730/2367 frames (73.1%) [per-frame head-to-head]
+  rl_v2_reward   beats standard   on  1432/2367 frames (60.5%) [per-frame head-to-head]
+  rl_v2_reward   beats loose      on  2087/2367 frames (88.2%) [per-frame head-to-head]
+  Saved: C:\Users\sarfo\Downloads\Ransac_material\logs\SeasonalForestSpring_per_frame_comparison.csv
+
+Building per-frame comparison for SeasonalForestWinterNight... (modes: strict, standard, loose, rl, rl_v2_reward)
+
+=== SeasonalForestWinterNight: per-frame comparison (2602 frames) ===
+  strict         wins on   328 frames (12.6%)
+  standard       wins on   468 frames (18.0%)
+  loose          wins on   200 frames (7.7%)
+  rl             wins on   490 frames (18.8%)
+  rl_v2_reward   wins on  1116 frames (42.9%)
+  rl             beats strict     on  1855/2602 frames (71.3%) [per-frame head-to-head]
+  rl             beats standard   on  1943/2602 frames (74.7%) [per-frame head-to-head]
+  rl             beats loose      on  2284/2602 frames (87.8%) [per-frame head-to-head]
+  rl_v2_reward   beats strict     on  1901/2602 frames (73.1%) [per-frame head-to-head]
+  rl_v2_reward   beats standard   on  1904/2602 frames (73.2%) [per-frame head-to-head]
+  rl_v2_reward   beats loose      on  2249/2602 frames (86.4%) [per-frame head-to-head]
+  Saved: C:\Users\sarfo\Downloads\Ransac_material\logs\SeasonalForestWinterNight_per_frame_comparison.csv
+
+Building per-frame comparison for Sewerage... (modes: strict, standard, loose, rl, rl_v2_reward)
+
+=== Sewerage: per-frame comparison (1045 frames) ===
+  strict         wins on    23 frames (2.2%)
+  standard       wins on    11 frames (1.1%)
+  loose          wins on    22 frames (2.1%)
+  rl             wins on   611 frames (58.5%)
+  rl_v2_reward   wins on   378 frames (36.2%)
+  rl             beats strict     on   975/1045 frames (93.3%) [per-frame head-to-head]
+  rl             beats standard   on   983/1045 frames (94.1%) [per-frame head-to-head]
+  rl             beats loose      on   977/1045 frames (93.5%) [per-frame head-to-head]
+  rl_v2_reward   beats strict     on   974/1045 frames (93.2%) [per-frame head-to-head]
+  rl_v2_reward   beats standard   on   983/1045 frames (94.1%) [per-frame head-to-head]
+  rl_v2_reward   beats loose      on   976/1045 frames (93.4%) [per-frame head-to-head]
+  Saved: C:\Users\sarfo\Downloads\Ransac_material\logs\Sewerage_per_frame_comparison.csv
+
+Building per-frame comparison for Supermarket... (modes: strict, standard, loose, rl, rl_v2_reward)
+
+=== Supermarket: per-frame comparison (761 frames) ===
+  strict         wins on   194 frames (25.5%)
+  standard       wins on   186 frames (24.4%)
+  loose          wins on    64 frames (8.4%)
+  rl             wins on   131 frames (17.2%)
+  rl_v2_reward   wins on   186 frames (24.4%)
+  rl             beats strict     on   236/761 frames (31.0%) [per-frame head-to-head]
+  rl             beats standard   on   233/761 frames (30.6%) [per-frame head-to-head]
+  rl             beats loose      on   254/761 frames (33.4%) [per-frame head-to-head]
+  rl_v2_reward   beats strict     on   327/761 frames (43.0%) [per-frame head-to-head]
+  rl_v2_reward   beats standard   on   339/761 frames (44.5%) [per-frame head-to-head]
+  rl_v2_reward   beats loose      on   373/761 frames (49.0%) [per-frame head-to-head]
+  Saved: C:\Users\sarfo\Downloads\Ransac_material\logs\Supermarket_per_frame_comparison.csv
+
+=== Overall (all datasets combined) ===
+
+=== ALL: per-frame comparison (15237 frames) ===
+  strict         wins on  1995 frames (13.1%)
+  standard       wins on  2727 frames (17.9%)
+  loose          wins on  1734 frames (11.4%)
+  rl             wins on  4331 frames (28.4%)
+  rl_v2_reward   wins on  4450 frames (29.2%)
+  rl             beats strict     on  9919/15237 frames (65.1%) [per-frame head-to-head]
+  rl             beats standard   on 10317/15237 frames (67.7%) [per-frame head-to-head]
+  rl             beats loose      on 12241/15237 frames (80.3%) [per-frame head-to-head]
+  rl_v2_reward   beats strict     on 10308/15237 frames (67.7%) [per-frame head-to-head]
+  rl_v2_reward   beats standard   on 10419/15237 frames (68.4%) [per-frame head-to-head]
+  rl_v2_reward   beats loose      on 12342/15237 frames (81.0%) [per-frame head-to-head]
+  Saved: C:\Users\sarfo\Downloads\Ransac_material\logs\ALL_per_frame_comparison.csv
