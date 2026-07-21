@@ -1,0 +1,4 @@
+scene,frame,n_points,found,pred_pct,angle,eps,min_supp,norm_th
+GreatMarsh,000061_lcam_front_lidar.ply,31069,False,0.0,,0.08,311,0.6
+GreatMarsh,000280_lcam_front_lidar.ply,37375,False,0.0,,0.08,374,0.6
+GreatMarsh,000152_lcam_front_lidar.ply,16677,True,5.234754452239612,8.309456052638993,0.08,167,0.6

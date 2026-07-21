@@ -1,0 +1,7 @@
+survey,file,color_mode,n_points,gt_pct,found,pred_pct,angle_from_vertical_deg,iou_vs_real_ground,eps,min_supp,norm_th
+coastal_dune_erosion,CA25_604000_4053000.ply,height,1961904,26.83,True,10.24,0.01,0.1138,0.08,9810,0.85
+coastal_dune_erosion,CA25_605000_4060000.ply,height,2112041,47.8,True,5.83,1.43,0.0386,0.08,10560,0.85
+coastal_dune_erosion,CA25_608000_4068000.ply,height,1586507,17.78,False,0.0,,,0.08,15865,0.6
+coastal_dune_erosion,CA25_604000_4053000.ply,height,1961904,26.83,True,10.24,0.01,0.1138,0.08,9810,0.85
+coastal_dune_erosion,CA25_605000_4060000.ply,height,2112041,47.8,True,5.93,6.95,0.0316,0.08,10560,0.85
+coastal_dune_erosion,CA25_608000_4068000.ply,height,1586507,17.78,False,0.0,,,0.08,15865,0.6

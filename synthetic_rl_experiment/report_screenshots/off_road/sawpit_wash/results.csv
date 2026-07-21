@@ -1,0 +1,6 @@
+survey,file,color_mode,n_points,gt_pct,found,pred_pct,angle_from_vertical_deg,iou_vs_real_ground,eps,min_supp,norm_th
+sawpit_wash,406000_3781000.ply,height,1750063,28.66,False,0.0,,,0.08,8750,0.85
+sawpit_wash,408000_3780000.ply,height,1117348,32.17,False,0.0,,,0.08,5587,0.85
+sawpit_wash,409000_3780000.ply,height,1079211,23.63,False,0.0,,,0.08,5396,0.85
+sawpit_wash,411000_3780000.ply,height,1490237,25.65,False,0.0,,,0.08,7451,0.85
+sawpit_wash,413000_3781000.ply,height,1539978,25.99,False,0.0,,,0.08,7700,0.85

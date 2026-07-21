@@ -17,10 +17,16 @@ ENVIRONMENTS = [
     "SeasonalForestAutumn", "SeasonalForestSpring",
     "SeasonalForestWinterNight", "Sewerage", "Supermarket", "Office",
     "ForestEnv", "GreatMarsh", "Restaurant", "SeasideTown",
+    "GothicIsland",
 ]
+# Ocean and ShoreCaves exist in the visual TartanAir dataset but have no
+# Data_omni/lidar modality in the TartanGround (ground-vehicle lidar) repo,
+# so they can't be downloaded via download_ground(). GothicIsland does have
+# lidar (Data_omni/P0000) and is the closest available beach/coastal scene.
 OUTDOOR = {"Downtown","OldScandinavia","OldTownFall",
            "SeasonalForestAutumn","SeasonalForestSpring","SeasonalForestWinterNight",
-           "ForestEnv", "GreatMarsh", "SeasideTown"}
+           "ForestEnv", "GreatMarsh", "SeasideTown",
+           "GothicIsland"}
 # Gascola, House, and HELD_OUT_ENVIRONMENTS below are deliberately NOT in this
 # list -- they're the fully held-out (scene-level) test environments, never
 # trained on and never folded into "--env all" aggregate stats alongside the
@@ -32,9 +38,24 @@ OUTDOOR = {"Downtown","OldScandinavia","OldTownFall",
 # scenes, not just "has it ever seen water at all" (which SeasideTown alone
 # in training would leave untested).
 HELD_OUT_ENVIRONMENTS = [
-    "Gascola", "House", "WesternDesertTown", "CoalMine",
-    "AbandonedFactory", "NordicHarbor",
+    "Gascola", "House", "NordicHarbor", "WesternDesertTown"
 ]
+
+# Real-world data (RELLIS-3D, converted from SemanticKITTI .bin/.label to
+# .ply), NOT synthetic TartanGround -- this is the independent ground-truth
+# validation set, meant to be scored against but never trained on. Different
+# purpose from HELD_OUT_ENVIRONMENTS above (those test cross-scene
+# generalization *within* the synthetic distribution), so tracked separately,
+# but must be excluded from training just the same. Found the hard way: a
+# recursive data_dir=None training scan silently swept in 13,556 RELLIS3D
+# frames because nothing outside HELD_OUT_ENVIRONMENTS was being excluded --
+# see train_rl.py, which now always excludes this list regardless of what
+# --exclude_envs is passed, rather than relying on a manually-typed list that
+# has to be remembered and kept in sync by hand every time new data is added.
+REAL_WORLD_EVAL_ENVIRONMENTS = ["RELLIS3D", "RELLIS3D_raw"]
+
+# Everything that must never be trained on, for either reason above.
+NEVER_TRAIN_ENVIRONMENTS = HELD_OUT_ENVIRONMENTS + REAL_WORLD_EVAL_ENVIRONMENTS
 
 def count_frames(env):
     d = os.path.join(DATA_ROOT, env, "Data_omni", "P0000", "lidar")
@@ -64,6 +85,18 @@ def download_env(env):
                 zip_ref.extractall(extract_path)
             os.remove(zip_path)
             print("  Extracted and removed zip.")
+            
+        # Download metadata.zip which contains pose_lcam_front.txt
+        from huggingface_hub import hf_hub_download
+        print(f"  Downloading metadata.zip for {env}...")
+        try:
+            meta_zip = hf_hub_download(repo_id='theairlabcmu/TartanGround', filename=f'{env}/Data_omni/P0000/metadata.zip', repo_type='dataset')
+            with zipfile.ZipFile(meta_zip, 'r') as z:
+                # only extract pose_lcam_front.txt
+                z.extract('pose_lcam_front.txt', extract_path)
+            print("  Extracted pose_lcam_front.txt")
+        except Exception as e:
+            print(f"  Warning: failed to download metadata.zip for {env}: {e}")
         
         n = count_frames(env)
         print("OK {} -> {} frames".format(env, n))

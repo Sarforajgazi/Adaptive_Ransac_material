@@ -1,0 +1,28 @@
+{
+    "name_map": {
+        "bridge": 1,
+        "brokenfurniture": 2,
+        "building": 3,
+        "buildingbase": 4,
+        "cart": 5,
+        "cloud": 6,
+        "column": 7,
+        "comprocktreeleavesgrass": 8,
+        "fountain": 9,
+        "ground": 10,
+        "log": 11,
+        "rock": 12,
+        "rubble": 13,
+        "shelter": 14,
+        "sky": 15,
+        "stairs": 16,
+        "stonearch": 17,
+        "stump": 18,
+        "tree": 19,
+        "wall": 20,
+        "wallfallen": 21,
+        "well": 22,
+        "woodenlamppost": 23,
+        "woodenplankrubble": 24
+    }
+}

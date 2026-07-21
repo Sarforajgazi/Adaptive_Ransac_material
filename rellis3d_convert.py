@@ -112,6 +112,14 @@ def convert_sequence(seq_name, bin_dir, label_dir, limit=None):
                   f"({len(xyz)} vs {len(sem_ids)}), skipping frame.")
             continue
 
+        # Ouster's KITTI-bin format zero-pads beams with no return as
+        # (0,0,0,0) rather than dropping them, to keep a fixed per-scan point
+        # count -- these aren't real measurements (~40% of points in a scan)
+        # and carry meaningless fallback labels, so drop them before writing.
+        valid = ~np.all(xyz == 0, axis=1)
+        xyz = xyz[valid]
+        sem_ids = sem_ids[valid]
+
         gt_mask = np.isin(sem_ids, list(GROUND_RAW_IDS)).astype(np.uint8)
 
         write_ply_xyz(ply_path, xyz)

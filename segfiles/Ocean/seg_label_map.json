@@ -1,0 +1,12 @@
+{
+    "name_map": {
+        "eel": 6,
+        "ground": 191,
+        "instancedfoliageactor": 72,
+        "light": 64,
+        "plane": 59,
+        "rock": 36,
+        "submarine": 195,
+        "z": 27
+    }
+}

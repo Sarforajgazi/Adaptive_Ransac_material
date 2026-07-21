@@ -1,0 +1,31 @@
+{
+    "name_map": {
+        "ammobox": 6,
+        "barrel": 191,
+        "beam": 72,
+        "building": 64,
+        "cabledrum": 59,
+        "concretebarricade": 36,
+        "cranerail": 195,
+        "door": 27,
+        "dumpster": 180,
+        "fan": 199,
+        "floor": 239,
+        "foldingchair": 146,
+        "hanginglight": 23,
+        "lightrayshape": 160,
+        "overheadcrane": 116,
+        "pillar": 9,
+        "pipe": 8,
+        "pipebrace": 28,
+        "railtrack": 65,
+        "railtrackend": 70,
+        "roof": 143,
+        "sky": 171,
+        "vine": 7,
+        "wall": 161,
+        "windowframe": 60,
+        "windowglass": 208,
+        "woodenpallet": 188
+    }
+}

@@ -1,0 +1,28 @@
+{
+    "name_map": {
+        "barrel": 6,
+        "basket": 191,
+        "bench": 72,
+        "bp": 64,
+        "building": 59,
+        "fence": 36,
+        "fencearch": 195,
+        "ground": 27,
+        "groundplank": 180,
+        "groundplanks": 199,
+        "haybale": 239,
+        "ladder": 146,
+        "rock": 23,
+        "sky": 160,
+        "treerock": 116,
+        "wall": 9,
+        "water": 8,
+        "well": 28,
+        "wheelbarrow": 65,
+        "woodenbasin": 70,
+        "woodenbox": 143,
+        "woodencart": 171,
+        "woodenplankspile": 7,
+        "woodenshield": 161
+    }
+}

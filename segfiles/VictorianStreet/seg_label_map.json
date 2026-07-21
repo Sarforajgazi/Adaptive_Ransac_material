@@ -1,0 +1,20 @@
+{
+    "name_map": {
+        "awning": 6,
+        "chimney": 191,
+        "chimneypipe": 72,
+        "clock": 64,
+        "flag": 59,
+        "ground": 36,
+        "post": 195,
+        "poster": 27,
+        "roof": 180,
+        "roofwindow": 199,
+        "sign": 239,
+        "sky": 146,
+        "streetlight": 23,
+        "tunnel": 160,
+        "wall": 116,
+        "z": 9
+    }
+}

@@ -1,0 +1,26 @@
+{
+    "name_map": {
+        "bedframe": 1,
+        "car": 2,
+        "chair": 3,
+        "concretepipe": 4,
+        "dresser": 5,
+        "ground": 6,
+        "guardrail": 7,
+        "metalbucket": 8,
+        "metalwheel": 9,
+        "oildrum": 10,
+        "roadmarkers": 11,
+        "rubbertires": 12,
+        "sky": 13,
+        "trainboxcar": 14,
+        "tree": 15,
+        "truck": 16,
+        "truckbed": 17,
+        "utilitypole": 18,
+        "waterplane": 19,
+        "woodenrailing": 20,
+        "woodenwalkway": 21,
+        "z": 22
+    }
+}

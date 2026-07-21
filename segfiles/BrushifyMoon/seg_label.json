@@ -1,0 +1,11 @@
+{
+    "name_map": {
+        "cameraactor": 1,
+        "ground": 2,
+        "sun": 3,
+        "earth": 4,
+        "sky": 5,
+        "stone": 6,
+        "z": 7
+    }
+}

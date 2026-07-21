@@ -1,0 +1,24 @@
+{
+    "name_map": {
+        "aimablelight": 1,
+        "airconditioner": 2,
+        "awning": 3,
+        "barrier": 4,
+        "bollard": 5,
+        "bp": 6,
+        "building": 7,
+        "fluorescentlight": 8,
+        "groundlight": 9,
+        "planter": 10,
+        "recessedlight": 11,
+        "road": 12,
+        "roof": 13,
+        "sidewalk": 14,
+        "sign": 15,
+        "sky": 16,
+        "streetlight": 17,
+        "trafficlight": 18,
+        "wall": 19,
+        "walllight": 20
+    }
+}

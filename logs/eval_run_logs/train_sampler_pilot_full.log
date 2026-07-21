@@ -1,0 +1,14 @@
+TartanAir toolbox initialized.
+============================================================
+Starting Day 2: PPO Agent Training
+============================================================
+[1/4] Initializing RansacEnv...
+Loaded 24528 point cloud frames across 15 folders. [exclude_envs=['AbandonedFactory', 'CoalMine', 'Gascola', 'House', 'NordicHarbor', 'RELLIS3D', 'RELLIS3D_raw', 'WesternDesertTown']] [uniform_folder_prob=0.2]
+Loading VecNormalize stats from: models/ppo_ransac_sampler_pilot_final_vecnormalize.pkl
+[2/4] Setting up PPO Model (MlpPolicy)...
+Loading existing model from: models/ppo_ransac_sampler_pilot_final.zip
+[3/4] Configuring Callbacks...
+[4/4] Starting Training Loop for 44000 timesteps...
+TensorBoard logs will be saved to: C:\Users\sarfo\Downloads\Ransac_material\logs
+------------------------------------------------------------
+Logging to C:\Users\sarfo\Downloads\Ransac_material\logs\PPO_11

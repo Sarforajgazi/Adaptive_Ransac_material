@@ -1,7 +1,7 @@
 import os
 import glob
 import pandas as pd
-from download_lidar_frames import ENVIRONMENTS
+from download_lidar_frames import ENVIRONMENTS, HELD_OUT_ENVIRONMENTS
 
 WORKSPACE = os.path.dirname(os.path.abspath(__file__))
 LOG_DIR = os.path.join(WORKSPACE, "logs")
@@ -20,7 +20,7 @@ def discover_rl_modes():
     each tagged run is compared side by side instead of overwriting the last.
     """
     modes = set()
-    for env in ENVIRONMENTS:
+    for env in ENVIRONMENTS + HELD_OUT_ENVIRONMENTS:
         for path in glob.glob(os.path.join(LOG_DIR, f"{env}_rl*.csv")):
             stem = os.path.basename(path)[:-4]
             mode = stem[len(env) + 1:]

@@ -1,0 +1,38 @@
+Starting EPS Signal Check (Full-complexity (bumps+clutter+intersecting plane forced ON) Environment, 50 seeds/eps)...
+
+=== Noise: 0.01 ===
+Scores & False Inlier Rates:
+Eps 0.03 | Score: 0.0371 +/- 0.0258 | FI: 0.0042
+Eps 0.05 | Score: 1.6753 +/- 0.0436 | FI: 0.0207
+Eps 0.08 | Score: 1.6963 +/- 0.0369 | FI: 0.0324
+Eps 0.10 | Score: 1.7480 +/- 0.0320 | FI: 0.0314
+Eps 0.15 | Score: 1.7803 +/- 0.0120 | FI: 0.0344
+Eps 0.20 | Score: 1.7625 +/- 0.0140 | FI: 0.0385
+Eps 0.25 | Score: 1.7450 +/- 0.0139 | FI: 0.0445
+Eps 0.30 | Score: 1.7297 +/- 0.0165 | FI: 0.0519
+Eps 0.40 | Score: 1.7018 +/- 0.0158 | FI: 0.0594
+Eps 0.50 | Score: 1.6750 +/- 0.0181 | FI: 0.0694
+Eps 0.60 | Score: 1.6502 +/- 0.0147 | FI: 0.0708
+
+Signal Magnitude (vs worst eps):
+Max Gradient: 1.7432 (from Eps 0.03 to Eps 0.15)
+Paired Diff SE: 0.0280
+
+=== Noise: 0.20 ===
+Scores & False Inlier Rates:
+Eps 0.03 | Score: 0.0000 +/- 0.0000 | FI: 0.0000
+Eps 0.05 | Score: 0.2145 +/- 0.0580 | FI: 0.0454
+Eps 0.08 | Score: 1.1880 +/- 0.0345 | FI: 0.0502
+Eps 0.10 | Score: 1.3306 +/- 0.0283 | FI: 0.0409
+Eps 0.15 | Score: 1.4098 +/- 0.0261 | FI: 0.0488
+Eps 0.20 | Score: 1.4031 +/- 0.0202 | FI: 0.0637
+Eps 0.25 | Score: 1.3697 +/- 0.0223 | FI: 0.0782
+Eps 0.30 | Score: 1.3775 +/- 0.0214 | FI: 0.0762
+Eps 0.40 | Score: 1.3611 +/- 0.0196 | FI: 0.0888
+Eps 0.50 | Score: 1.2814 +/- 0.0243 | FI: 0.1097
+Eps 0.60 | Score: 1.2239 +/- 0.0273 | FI: 0.1583
+
+Signal Magnitude (vs worst eps):
+Max Gradient: 1.4098 (from Eps 0.03 to Eps 0.15)
+Paired Diff SE: 0.0263
+EXIT_CODE=0

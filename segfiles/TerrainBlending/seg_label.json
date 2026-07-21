@@ -1,0 +1,11 @@
+{
+    "name_map": {
+        "cameraactor": 1,
+        "ground": 2,
+        "heathaze": 3,
+        "lightray": 4,
+        "rock": 5,
+        "skysphere": 6,
+        "z": 7
+    }
+}

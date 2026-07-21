@@ -1,0 +1,7 @@
+survey,file,color_mode,n_points,gt_pct,found,pred_pct,angle_from_vertical_deg,iou_vs_real_ground,eps,min_supp,norm_th
+dune_dune_interactions,CA22_707000_3755000.ply,height,1474888,90.1,False,0.0,,,0.08,14749,0.6
+dune_dune_interactions,CA22_707000_3756000.ply,height,1806770,93.18,False,0.0,,,0.08,36135,0.6
+dune_dune_interactions,CA22_712000_3760000.ply,height,1927092,98.22,False,0.0,,,0.08,19271,0.6
+dune_dune_interactions,CA22_707000_3755000.ply,height,1474888,90.1,False,0.0,,,0.08,14749,0.6
+dune_dune_interactions,CA22_707000_3756000.ply,height,1806770,93.18,False,0.0,,,0.08,36135,0.6
+dune_dune_interactions,CA22_712000_3760000.ply,height,1927092,98.22,False,0.0,,,0.08,19271,0.6

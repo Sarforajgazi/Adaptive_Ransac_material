@@ -3,11 +3,11 @@ import open3d as o3d
 
 def compute_scene_features(points):
     """
-    Computes 21-dimensional geometric features from a LiDAR point cloud.
-    Returns a 1D numpy array of shape (21,) in float32.
+    Computes 23-dimensional geometric features from a LiDAR point cloud.
+    Returns a 1D numpy array of shape (23,) in float32.
     """
     if len(points) == 0:
-        return np.zeros(21, dtype=np.float32)
+        return np.zeros(23, dtype=np.float32)
 
     # ---------------------------------------------------------
     # 1. Bounding Box & Density (5 features)
@@ -75,6 +75,7 @@ def compute_scene_features(points):
     
     consistency_sum = 0.0
     mean_knn_dist_sum = 0.0
+    surface_variations = []
     
     for idx in sample_indices:
         # Get 5 nearest neighbors
@@ -89,8 +90,23 @@ def compute_scene_features(points):
             n2 = normals[idx_knn[1]]
             consistency_sum += abs(np.dot(n1, n2))
             
+        # Local surface variation using fixed radius search to resist outlier contamination
+        [k_rad, idx_rad, _] = kdtree.search_radius_vector_3d(pcd.points[idx], 0.5)
+        if k_rad >= 3:
+            local_pts = points[idx_rad]
+            local_cov = np.cov(local_pts.T)
+            # Use eigh for symmetric matrices and explicitly sort ascending
+            local_evals = np.linalg.eigh(local_cov)[0]
+            local_evals = np.sort(local_evals)
+            sum_evals = np.sum(local_evals)
+            if sum_evals > 1e-8:
+                surface_variations.append(local_evals[0] / sum_evals)
+            
     normal_consistency = consistency_sum / num_samples
     mean_knn_dist = mean_knn_dist_sum / num_samples
+    
+    mean_surface_var = np.mean(surface_variations) if surface_variations else 0.0
+    p25_surface_var = np.percentile(surface_variations, 25) if surface_variations else 0.0
 
     # Z-density Ground (fraction of points in bottom 0.5 meters)
     # Z-down means ground has HIGHER Z. So we look for points with Z > (z_max - 0.5)
@@ -117,7 +133,7 @@ def compute_scene_features(points):
         ground_slope_estimate = 0.0
 
     # ---------------------------------------------------------
-    # Assemble final 21-dim vector
+    # Assemble final 23-dim vector
     # ---------------------------------------------------------
     features = np.array([
         bbox_dx, bbox_dy, bbox_dz, bbox_volume, point_density,
@@ -125,7 +141,8 @@ def compute_scene_features(points):
         scan_range_mean, scan_range_std,
         eig_0, eig_1, eig_2,
         normal_x_std, normal_y_std, normal_z_std,
-        normal_consistency, z_density_ground, ground_slope_estimate, mean_knn_dist
+        normal_consistency, z_density_ground, ground_slope_estimate, mean_knn_dist,
+        mean_surface_var, p25_surface_var
     ], dtype=np.float32)
     
     # Replace NaNs with 0

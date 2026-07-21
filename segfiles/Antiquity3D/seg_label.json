@@ -1,0 +1,32 @@
+{
+    "name_map": {
+        "altar": 1,
+        "building": 2,
+        "buildingbase": 3,
+        "buildingdebris": 4,
+        "column": 5,
+        "columnbase": 6,
+        "columnpiece": 7,
+        "debrispile": 8,
+        "entablature": 9,
+        "facemask": 10,
+        "floor": 11,
+        "ground": 12,
+        "pedestal": 13,
+        "pediment": 14,
+        "pool": 15,
+        "reliefsculpture": 16,
+        "road": 17,
+        "rocks": 18,
+        "roof": 19,
+        "sarcophagus": 20,
+        "sculpture": 21,
+        "sign": 22,
+        "sky": 23,
+        "stone": 24,
+        "stoneblocks": 25,
+        "vase": 26,
+        "wall": 27,
+        "wallarch": 28
+    }
+}

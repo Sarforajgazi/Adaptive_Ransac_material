@@ -1,0 +1,24 @@
+{
+    "name_map": {
+        "bench": 6,
+        "chair": 191,
+        "dooreaves": 72,
+        "flower": 64,
+        "flowerpot": 59,
+        "ground": 36,
+        "instancedfoliageactor": 195,
+        "pipe": 27,
+        "roof": 180,
+        "signpost": 199,
+        "sky": 239,
+        "stair": 146,
+        "stonedoorway": 23,
+        "streetlight": 160,
+        "table": 116,
+        "treepotted": 9,
+        "vines": 8,
+        "wall": 28,
+        "window": 65,
+        "windowsill": 70
+    }
+}

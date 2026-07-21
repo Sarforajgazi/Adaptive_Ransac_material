@@ -1,0 +1,6 @@
+scene,frame,n_points,found,pred_pct,angle_from_vertical_deg,eps,min_supp,norm_th
+SeasideTown,000394_lcam_front.png,409600,True,2.630859375,,0.08,6144,0.6
+SeasideTown,000430_lcam_front.png,350528,True,30.822929979916015,,0.08,1753,0.6
+SeasideTown,000041_lcam_front.png,409600,True,22.426513671875,,0.08,2048,0.6
+SeasideTown,000265_lcam_front.png,301344,True,2.414516300307954,,0.15,1507,0.6
+SeasideTown,000523_lcam_front.png,408020,True,25.923729228959363,,0.15,2040,0.6

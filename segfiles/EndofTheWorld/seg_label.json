@@ -1,0 +1,9 @@
+{
+    "name_map": {
+        "building": 1,
+        "ground": 2,
+        "instancedfoliageactor": 3,
+        "skysphere": 4,
+        "wall": 5
+    }
+}

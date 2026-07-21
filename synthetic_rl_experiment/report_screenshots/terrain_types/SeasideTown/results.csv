@@ -1,0 +1,4 @@
+scene,frame,n_points,found,pred_pct,angle_from_vertical_deg,eps,min_supp,norm_th
+SeasideTown,000367_lcam_front_lidar.ply,18678,False,0.0,,0.08,140,0.85
+SeasideTown,000295_lcam_front_lidar.ply,20041,True,12.87859887231176,82.7694246659898,0.08,200,0.6
+SeasideTown,000489_lcam_front_lidar.ply,19789,False,0.0,,0.08,198,0.6

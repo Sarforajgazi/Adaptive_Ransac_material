@@ -1,0 +1,4 @@
+scene,frame,n_points,found,pred_pct,angle,eps,min_supp,norm_th
+GothicIsland,000387_lcam_front_lidar.ply,18851,True,8.869555991724578,0.5923335472047007,0.08,189,0.6
+GothicIsland,000289_lcam_front_lidar.ply,21035,True,6.299025433800807,10.531630352047733,0.08,210,0.6
+GothicIsland,000336_lcam_front_lidar.ply,16421,True,5.212837220632117,0.9559428993442931,0.08,82,0.6

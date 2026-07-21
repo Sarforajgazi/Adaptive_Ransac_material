@@ -1,0 +1,23 @@
+{
+    "name_map": {
+        "brick": 6,
+        "building": 191,
+        "carton": 72,
+        "container": 64,
+        "curb": 59,
+        "ground": 36,
+        "instancedfoliageactor": 195,
+        "light": 27,
+        "pallet": 180,
+        "pipe": 199,
+        "propanetank": 239,
+        "roof": 146,
+        "scaffolding": 23,
+        "sky": 160,
+        "spool": 116,
+        "track": 9,
+        "trashbag": 8,
+        "trashcontainer": 28,
+        "wall": 65
+    }
+}

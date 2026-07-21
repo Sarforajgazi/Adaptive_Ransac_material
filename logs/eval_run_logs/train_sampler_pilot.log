@@ -1,0 +1,71 @@
+TartanAir toolbox initialized.
+============================================================
+Starting Day 2: PPO Agent Training
+============================================================
+[1/4] Initializing RansacEnv...
+Loaded 24528 point cloud frames across 15 folders. [exclude_envs=['AbandonedFactory', 'CoalMine', 'Gascola', 'House', 'NordicHarbor', 'RELLIS3D', 'RELLIS3D_raw', 'WesternDesertTown']] [uniform_folder_prob=0.2]
+[2/4] Setting up PPO Model (MlpPolicy)...
+Using cuda device
+[3/4] Configuring Callbacks...
+[4/4] Starting Training Loop for 5000 timesteps...
+TensorBoard logs will be saved to: C:\Users\sarfo\Downloads\Ransac_material\logs
+------------------------------------------------------------
+Logging to C:\Users\sarfo\Downloads\Ransac_material\logs\PPO_11
+[Coverage] episode 1000: 1000/24528 unique frames visited (4.1%)
+---------------------------------
+| rollout/           |          |
+|    ep_len_mean     | 1.78     |
+|    ep_rew_mean     | 0.0978   |
+| time/              |          |
+|    fps             | 2        |
+|    iterations      | 1        |
+|    time_elapsed    | 931      |
+|    total_timesteps | 2048     |
+---------------------------------
+[Coverage] episode 2000: 2000/24528 unique frames visited (8.2%)
+----------------------------------------
+| rollout/                |            |
+|    ep_len_mean          | 1.84       |
+|    ep_rew_mean          | 0.107      |
+| time/                   |            |
+|    fps                  | 1          |
+|    iterations           | 2          |
+|    time_elapsed         | 2077       |
+|    total_timesteps      | 4096       |
+| train/                  |            |
+|    approx_kl            | 0.01368592 |
+|    clip_fraction        | 0.125      |
+|    clip_range           | 0.2        |
+|    entropy_loss         | -6.35      |
+|    explained_variance   | -0.142     |
+|    learning_rate        | 0.0003     |
+|    loss                 | 0.244      |
+|    n_updates            | 10         |
+|    policy_gradient_loss | -0.0352    |
+|    value_loss           | 1.14       |
+----------------------------------------
+[Coverage] episode 3000: 3000/24528 unique frames visited (12.2%)
+----------------------------------------
+| rollout/                |            |
+|    ep_len_mean          | 1.88       |
+|    ep_rew_mean          | 0.126      |
+| time/                   |            |
+|    fps                  | 1          |
+|    iterations           | 3          |
+|    time_elapsed         | 3109       |
+|    total_timesteps      | 6144       |
+| train/                  |            |
+|    approx_kl            | 0.01715446 |
+|    clip_fraction        | 0.179      |
+|    clip_range           | 0.2        |
+|    entropy_loss         | -6.33      |
+|    explained_variance   | 0.45       |
+|    learning_rate        | 0.0003     |
+|    loss                 | 0.212      |
+|    n_updates            | 20         |
+|    policy_gradient_loss | -0.0436    |
+|    value_loss           | 0.776      |
+----------------------------------------
+ 100% ----------------------------- 6,144/5,000  [ 0:42:20 < 0:00:00 , 2 it/s ]
+------------------------------------------------------------
+Training Complete! Final model saved to: C:\Users\sarfo\Downloads\Ransac_material\models\ppo_ransac_sampler_pilot_final.zip
