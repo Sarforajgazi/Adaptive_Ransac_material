@@ -1,0 +1,14 @@
+{
+    "name_map": {
+        "bp": 6,
+        "character": 191,
+        "instancedfoliageactor": 72,
+        "landscape": 64,
+        "rock": 59,
+        "skysphere": 36,
+        "sm": 195,
+        "tree": 27,
+        "wheelbox1": 180,
+        "wheelbox2": 199
+    }
+}

@@ -1,0 +1,684 @@
+Using cpu device
+Starting training for 10000 timesteps...
+Episodes: 10 | Mean Reward (last 10): 1.796 | Mean Score: 1.813 | Last-10 eps: [0.25, 0.08, 0.15, 0.5, 0.6, 0.2, 0.4, 0.4, 0.4, 0.3] | NaN reward steps so far: 0
+Episodes: 20 | Mean Reward (last 10): 1.542 | Mean Score: 1.553 | Last-10 eps: [0.1, 0.2, 0.6, 0.15, 0.05, 0.05, 0.1, 0.08, 0.5, 0.4] | NaN reward steps so far: 0
+Episodes: 30 | Mean Reward (last 10): 1.734 | Mean Score: 1.759 | Last-10 eps: [0.15, 0.25, 0.1, 0.2, 0.6, 0.2, 0.25, 0.3, 0.25, 0.5] | NaN reward steps so far: 0
+Episodes: 40 | Mean Reward (last 10): 1.380 | Mean Score: 1.397 | Last-10 eps: [0.4, 0.05, 0.25, 0.08, 0.03, 0.3, 0.08, 0.03, 0.15, 0.1] | NaN reward steps so far: 0
+Episodes: 50 | Mean Reward (last 10): 1.510 | Mean Score: 1.527 | Last-10 eps: [0.4, 0.08, 0.05, 0.15, 0.3, 0.15, 0.1, 0.05, 0.15, 0.6] | NaN reward steps so far: 0
+Episodes: 60 | Mean Reward (last 10): 1.364 | Mean Score: 1.384 | Last-10 eps: [0.15, 0.1, 0.5, 0.05, 0.15, 0.15, 0.03, 0.05, 0.4, 0.2] | NaN reward steps so far: 0
+Episodes: 70 | Mean Reward (last 10): 1.636 | Mean Score: 1.657 | Last-10 eps: [0.25, 0.03, 0.3, 0.2, 0.4, 0.6, 0.1, 0.5, 0.08, 0.6] | NaN reward steps so far: 0
+Episodes: 80 | Mean Reward (last 10): 1.682 | Mean Score: 1.701 | Last-10 eps: [0.15, 0.1, 0.25, 0.3, 0.1, 0.15, 0.2, 0.4, 0.6, 0.03] | NaN reward steps so far: 0
+Episodes: 90 | Mean Reward (last 10): 1.665 | Mean Score: 1.682 | Last-10 eps: [0.6, 0.4, 0.08, 0.5, 0.6, 0.4, 0.6, 0.25, 0.08, 0.15] | NaN reward steps so far: 0
+Episodes: 100 | Mean Reward (last 10): 1.575 | Mean Score: 1.600 | Last-10 eps: [0.03, 0.5, 0.5, 0.25, 0.5, 0.5, 0.1, 0.3, 0.6, 0.2] | NaN reward steps so far: 0
+Episodes: 110 | Mean Reward (last 10): 1.212 | Mean Score: 1.231 | Last-10 eps: [0.25, 0.4, 0.5, 0.25, 0.1, 0.15, 0.03, 0.1, 0.03, 0.05] | NaN reward steps so far: 0
+Episodes: 120 | Mean Reward (last 10): 1.427 | Mean Score: 1.451 | Last-10 eps: [0.5, 0.03, 0.5, 0.25, 0.5, 0.05, 0.6, 0.08, 0.25, 0.05] | NaN reward steps so far: 0
+Episodes: 130 | Mean Reward (last 10): 1.381 | Mean Score: 1.398 | Last-10 eps: [0.2, 0.6, 0.2, 0.25, 0.5, 0.03, 0.08, 0.5, 0.25, 0.5] | NaN reward steps so far: 0
+Episodes: 140 | Mean Reward (last 10): 1.669 | Mean Score: 1.685 | Last-10 eps: [0.15, 0.4, 0.3, 0.4, 0.25, 0.15, 0.4, 0.4, 0.2, 0.3] | NaN reward steps so far: 0
+Episodes: 150 | Mean Reward (last 10): 1.223 | Mean Score: 1.240 | Last-10 eps: [0.25, 0.25, 0.08, 0.03, 0.05, 0.15, 0.1, 0.05, 0.2, 0.25] | NaN reward steps so far: 0
+Episodes: 160 | Mean Reward (last 10): 1.551 | Mean Score: 1.570 | Last-10 eps: [0.1, 0.15, 0.4, 0.2, 0.1, 0.08, 0.3, 0.5, 0.03, 0.05] | NaN reward steps so far: 0
+Episodes: 170 | Mean Reward (last 10): 1.836 | Mean Score: 1.852 | Last-10 eps: [0.2, 0.4, 0.6, 0.1, 0.4, 0.2, 0.25, 0.4, 0.15, 0.1] | NaN reward steps so far: 0
+Episodes: 180 | Mean Reward (last 10): 1.003 | Mean Score: 1.026 | Last-10 eps: [0.03, 0.05, 0.08, 0.03, 0.6, 0.6, 0.05, 0.4, 0.2, 0.2] | NaN reward steps so far: 0
+Episodes: 190 | Mean Reward (last 10): 1.321 | Mean Score: 1.341 | Last-10 eps: [0.25, 0.5, 0.25, 0.6, 0.03, 0.5, 0.03, 0.15, 0.6, 0.4] | NaN reward steps so far: 0
+Episodes: 200 | Mean Reward (last 10): 1.686 | Mean Score: 1.706 | Last-10 eps: [0.2, 0.25, 0.15, 0.05, 0.2, 0.05, 0.25, 0.5, 0.5, 0.15] | NaN reward steps so far: 0
+Episodes: 210 | Mean Reward (last 10): 1.774 | Mean Score: 1.796 | Last-10 eps: [0.5, 0.4, 0.3, 0.15, 0.3, 0.2, 0.1, 0.6, 0.2, 0.25] | NaN reward steps so far: 0
+Episodes: 220 | Mean Reward (last 10): 0.985 | Mean Score: 1.004 | Last-10 eps: [0.05, 0.6, 0.03, 0.05, 0.5, 0.08, 0.2, 0.1, 0.05, 0.05] | NaN reward steps so far: 0
+Episodes: 230 | Mean Reward (last 10): 1.599 | Mean Score: 1.616 | Last-10 eps: [0.1, 0.08, 0.25, 0.1, 0.15, 0.6, 0.6, 0.6, 0.3, 0.15] | NaN reward steps so far: 0
+Episodes: 240 | Mean Reward (last 10): 1.232 | Mean Score: 1.256 | Last-10 eps: [0.15, 0.3, 0.15, 0.3, 0.03, 0.5, 0.6, 0.5, 0.3, 0.05] | NaN reward steps so far: 0
+Episodes: 250 | Mean Reward (last 10): 0.809 | Mean Score: 0.838 | Last-10 eps: [0.05, 0.03, 0.6, 0.05, 0.03, 0.1, 0.08, 0.5, 0.15, 0.05] | NaN reward steps so far: 0
+Episodes: 260 | Mean Reward (last 10): 1.595 | Mean Score: 1.607 | Last-10 eps: [0.5, 0.05, 0.25, 0.1, 0.05, 0.6, 0.1, 0.5, 0.6, 0.1] | NaN reward steps so far: 0
+Episodes: 270 | Mean Reward (last 10): 1.245 | Mean Score: 1.265 | Last-10 eps: [0.05, 0.6, 0.2, 0.25, 0.03, 0.5, 0.15, 0.05, 0.08, 0.3] | NaN reward steps so far: 0
+Episodes: 280 | Mean Reward (last 10): 1.402 | Mean Score: 1.422 | Last-10 eps: [0.4, 0.5, 0.05, 0.4, 0.03, 0.1, 0.05, 0.5, 0.05, 0.5] | NaN reward steps so far: 0
+Episodes: 290 | Mean Reward (last 10): 1.586 | Mean Score: 1.611 | Last-10 eps: [0.3, 0.5, 0.25, 0.1, 0.15, 0.15, 0.15, 0.3, 0.05, 0.5] | NaN reward steps so far: 0
+Episodes: 300 | Mean Reward (last 10): 1.393 | Mean Score: 1.406 | Last-10 eps: [0.4, 0.3, 0.03, 0.4, 0.15, 0.3, 0.2, 0.6, 0.03, 0.25] | NaN reward steps so far: 0
+Episodes: 310 | Mean Reward (last 10): 1.291 | Mean Score: 1.305 | Last-10 eps: [0.3, 0.03, 0.5, 0.05, 0.08, 0.05, 0.05, 0.5, 0.25, 0.1] | NaN reward steps so far: 0
+Episodes: 320 | Mean Reward (last 10): 1.721 | Mean Score: 1.733 | Last-10 eps: [0.2, 0.15, 0.6, 0.08, 0.6, 0.25, 0.05, 0.3, 0.05, 0.05] | NaN reward steps so far: 0
+Episodes: 330 | Mean Reward (last 10): 1.788 | Mean Score: 1.803 | Last-10 eps: [0.08, 0.3, 0.3, 0.2, 0.25, 0.3, 0.08, 0.25, 0.1, 0.08] | NaN reward steps so far: 0
+Episodes: 340 | Mean Reward (last 10): 1.125 | Mean Score: 1.152 | Last-10 eps: [0.08, 0.4, 0.3, 0.6, 0.03, 0.08, 0.05, 0.5, 0.03, 0.3] | NaN reward steps so far: 0
+Episodes: 350 | Mean Reward (last 10): 1.416 | Mean Score: 1.438 | Last-10 eps: [0.25, 0.25, 0.3, 0.05, 0.3, 0.05, 0.5, 0.5, 0.08, 0.25] | NaN reward steps so far: 0
+Episodes: 360 | Mean Reward (last 10): 1.423 | Mean Score: 1.445 | Last-10 eps: [0.3, 0.15, 0.05, 0.3, 0.6, 0.3, 0.2, 0.05, 0.03, 0.15] | NaN reward steps so far: 0
+Episodes: 370 | Mean Reward (last 10): 1.488 | Mean Score: 1.509 | Last-10 eps: [0.15, 0.4, 0.4, 0.4, 0.15, 0.08, 0.4, 0.08, 0.03, 0.5] | NaN reward steps so far: 0
+Episodes: 380 | Mean Reward (last 10): 1.522 | Mean Score: 1.549 | Last-10 eps: [0.2, 0.5, 0.4, 0.25, 0.15, 0.25, 0.08, 0.05, 0.2, 0.1] | NaN reward steps so far: 0
+Episodes: 390 | Mean Reward (last 10): 1.413 | Mean Score: 1.427 | Last-10 eps: [0.05, 0.5, 0.25, 0.4, 0.5, 0.6, 0.5, 0.1, 0.3, 0.08] | NaN reward steps so far: 0
+Episodes: 400 | Mean Reward (last 10): 1.472 | Mean Score: 1.488 | Last-10 eps: [0.08, 0.6, 0.25, 0.03, 0.25, 0.3, 0.2, 0.4, 0.15, 0.08] | NaN reward steps so far: 0
+Episodes: 410 | Mean Reward (last 10): 1.817 | Mean Score: 1.837 | Last-10 eps: [0.08, 0.2, 0.05, 0.6, 0.6, 0.05, 0.2, 0.4, 0.4, 0.15] | NaN reward steps so far: 0
+Episodes: 420 | Mean Reward (last 10): 1.122 | Mean Score: 1.137 | Last-10 eps: [0.5, 0.4, 0.3, 0.4, 0.05, 0.6, 0.2, 0.25, 0.15, 0.4] | NaN reward steps so far: 0
+Episodes: 430 | Mean Reward (last 10): 1.421 | Mean Score: 1.441 | Last-10 eps: [0.1, 0.15, 0.15, 0.5, 0.6, 0.6, 0.03, 0.05, 0.5, 0.4] | NaN reward steps so far: 0
+Episodes: 440 | Mean Reward (last 10): 1.598 | Mean Score: 1.616 | Last-10 eps: [0.6, 0.1, 0.25, 0.08, 0.6, 0.3, 0.5, 0.4, 0.2, 0.25] | NaN reward steps so far: 0
+Episodes: 450 | Mean Reward (last 10): 1.612 | Mean Score: 1.631 | Last-10 eps: [0.3, 0.5, 0.25, 0.15, 0.5, 0.05, 0.5, 0.1, 0.4, 0.1] | NaN reward steps so far: 0
+Episodes: 460 | Mean Reward (last 10): 1.622 | Mean Score: 1.644 | Last-10 eps: [0.6, 0.6, 0.15, 0.03, 0.08, 0.25, 0.15, 0.6, 0.4, 0.2] | NaN reward steps so far: 0
+Episodes: 470 | Mean Reward (last 10): 1.177 | Mean Score: 1.196 | Last-10 eps: [0.1, 0.03, 0.1, 0.05, 0.03, 0.25, 0.3, 0.3, 0.3, 0.25] | NaN reward steps so far: 0
+Episodes: 480 | Mean Reward (last 10): 1.179 | Mean Score: 1.193 | Last-10 eps: [0.1, 0.5, 0.05, 0.25, 0.1, 0.3, 0.03, 0.4, 0.05, 0.1] | NaN reward steps so far: 0
+Episodes: 490 | Mean Reward (last 10): 1.412 | Mean Score: 1.435 | Last-10 eps: [0.05, 0.08, 0.1, 0.08, 0.5, 0.25, 0.08, 0.4, 0.15, 0.05] | NaN reward steps so far: 0
+Episodes: 500 | Mean Reward (last 10): 1.459 | Mean Score: 1.474 | Last-10 eps: [0.08, 0.2, 0.03, 0.03, 0.4, 0.08, 0.15, 0.1, 0.4, 0.15] | NaN reward steps so far: 0
+Episodes: 510 | Mean Reward (last 10): 1.384 | Mean Score: 1.403 | Last-10 eps: [0.1, 0.05, 0.4, 0.25, 0.03, 0.25, 0.2, 0.25, 0.5, 0.6] | NaN reward steps so far: 0
+Episodes: 520 | Mean Reward (last 10): 0.798 | Mean Score: 0.815 | Last-10 eps: [0.5, 0.03, 0.5, 0.4, 0.03, 0.6, 0.03, 0.03, 0.3, 0.1] | NaN reward steps so far: 0
+Episodes: 530 | Mean Reward (last 10): 1.584 | Mean Score: 1.606 | Last-10 eps: [0.25, 0.08, 0.08, 0.08, 0.25, 0.1, 0.4, 0.03, 0.1, 0.03] | NaN reward steps so far: 0
+Episodes: 540 | Mean Reward (last 10): 1.135 | Mean Score: 1.149 | Last-10 eps: [0.2, 0.08, 0.08, 0.03, 0.03, 0.6, 0.2, 0.4, 0.03, 0.1] | NaN reward steps so far: 0
+Episodes: 550 | Mean Reward (last 10): 1.432 | Mean Score: 1.452 | Last-10 eps: [0.25, 0.08, 0.03, 0.1, 0.2, 0.2, 0.1, 0.05, 0.5, 0.4] | NaN reward steps so far: 0
+Episodes: 560 | Mean Reward (last 10): 1.764 | Mean Score: 1.780 | Last-10 eps: [0.5, 0.5, 0.4, 0.25, 0.2, 0.2, 0.25, 0.3, 0.1, 0.6] | NaN reward steps so far: 0
+Episodes: 570 | Mean Reward (last 10): 0.902 | Mean Score: 0.922 | Last-10 eps: [0.05, 0.6, 0.4, 0.03, 0.03, 0.3, 0.03, 0.15, 0.15, 0.4] | NaN reward steps so far: 0
+Episodes: 580 | Mean Reward (last 10): 1.467 | Mean Score: 1.485 | Last-10 eps: [0.03, 0.08, 0.2, 0.3, 0.15, 0.1, 0.03, 0.08, 0.08, 0.25] | NaN reward steps so far: 0
+Episodes: 590 | Mean Reward (last 10): 1.352 | Mean Score: 1.368 | Last-10 eps: [0.6, 0.5, 0.25, 0.05, 0.5, 0.05, 0.6, 0.1, 0.3, 0.6] | NaN reward steps so far: 0
+Episodes: 600 | Mean Reward (last 10): 1.602 | Mean Score: 1.616 | Last-10 eps: [0.15, 0.6, 0.6, 0.15, 0.3, 0.2, 0.08, 0.25, 0.6, 0.1] | NaN reward steps so far: 0
+Episodes: 610 | Mean Reward (last 10): 1.321 | Mean Score: 1.340 | Last-10 eps: [0.08, 0.05, 0.03, 0.4, 0.5, 0.25, 0.08, 0.25, 0.1, 0.08] | NaN reward steps so far: 0
+Episodes: 620 | Mean Reward (last 10): 1.469 | Mean Score: 1.493 | Last-10 eps: [0.25, 0.25, 0.03, 0.15, 0.08, 0.2, 0.15, 0.25, 0.03, 0.15] | NaN reward steps so far: 0
+Episodes: 630 | Mean Reward (last 10): 1.755 | Mean Score: 1.775 | Last-10 eps: [0.2, 0.6, 0.1, 0.15, 0.1, 0.25, 0.4, 0.08, 0.1, 0.1] | NaN reward steps so far: 0
+Episodes: 640 | Mean Reward (last 10): 1.174 | Mean Score: 1.196 | Last-10 eps: [0.5, 0.15, 0.1, 0.4, 0.03, 0.05, 0.6, 0.05, 0.08, 0.6] | NaN reward steps so far: 0
+Episodes: 650 | Mean Reward (last 10): 1.589 | Mean Score: 1.610 | Last-10 eps: [0.25, 0.3, 0.15, 0.08, 0.6, 0.2, 0.6, 0.4, 0.03, 0.25] | NaN reward steps so far: 0
+Episodes: 660 | Mean Reward (last 10): 1.145 | Mean Score: 1.166 | Last-10 eps: [0.05, 0.6, 0.6, 0.2, 0.2, 0.3, 0.2, 0.15, 0.6, 0.3] | NaN reward steps so far: 0
+Episodes: 670 | Mean Reward (last 10): 1.374 | Mean Score: 1.396 | Last-10 eps: [0.3, 0.4, 0.6, 0.25, 0.6, 0.05, 0.25, 0.3, 0.05, 0.05] | NaN reward steps so far: 0
+Episodes: 680 | Mean Reward (last 10): 1.250 | Mean Score: 1.266 | Last-10 eps: [0.5, 0.03, 0.03, 0.3, 0.3, 0.03, 0.15, 0.15, 0.25, 0.15] | NaN reward steps so far: 0
+Episodes: 690 | Mean Reward (last 10): 1.484 | Mean Score: 1.503 | Last-10 eps: [0.6, 0.1, 0.2, 0.15, 0.05, 0.2, 0.15, 0.3, 0.5, 0.05] | NaN reward steps so far: 0
+Episodes: 700 | Mean Reward (last 10): 1.453 | Mean Score: 1.474 | Last-10 eps: [0.3, 0.6, 0.2, 0.2, 0.25, 0.5, 0.03, 0.1, 0.08, 0.1] | NaN reward steps so far: 0
+Episodes: 710 | Mean Reward (last 10): 0.891 | Mean Score: 0.910 | Last-10 eps: [0.03, 0.3, 0.05, 0.08, 0.15, 0.15, 0.25, 0.05, 0.15, 0.03] | NaN reward steps so far: 0
+Episodes: 720 | Mean Reward (last 10): 1.312 | Mean Score: 1.330 | Last-10 eps: [0.2, 0.1, 0.3, 0.25, 0.5, 0.5, 0.05, 0.5, 0.05, 0.3] | NaN reward steps so far: 0
+Episodes: 730 | Mean Reward (last 10): 1.389 | Mean Score: 1.410 | Last-10 eps: [0.6, 0.03, 0.25, 0.1, 0.3, 0.15, 0.5, 0.25, 0.25, 0.25] | NaN reward steps so far: 0
+Episodes: 740 | Mean Reward (last 10): 1.254 | Mean Score: 1.272 | Last-10 eps: [0.05, 0.3, 0.15, 0.5, 0.03, 0.08, 0.15, 0.1, 0.05, 0.08] | NaN reward steps so far: 0
+Episodes: 750 | Mean Reward (last 10): 1.515 | Mean Score: 1.536 | Last-10 eps: [0.25, 0.4, 0.05, 0.4, 0.03, 0.15, 0.1, 0.3, 0.1, 0.2] | NaN reward steps so far: 0
+Episodes: 760 | Mean Reward (last 10): 1.775 | Mean Score: 1.798 | Last-10 eps: [0.2, 0.3, 0.3, 0.2, 0.05, 0.5, 0.5, 0.1, 0.08, 0.5] | NaN reward steps so far: 0
+Episodes: 770 | Mean Reward (last 10): 0.926 | Mean Score: 0.942 | Last-10 eps: [0.4, 0.6, 0.05, 0.5, 0.03, 0.2, 0.3, 0.03, 0.15, 0.05] | NaN reward steps so far: 0
+Episodes: 780 | Mean Reward (last 10): 1.369 | Mean Score: 1.387 | Last-10 eps: [0.03, 0.5, 0.1, 0.6, 0.3, 0.4, 0.6, 0.05, 0.6, 0.1] | NaN reward steps so far: 0
+Episodes: 790 | Mean Reward (last 10): 1.395 | Mean Score: 1.423 | Last-10 eps: [0.4, 0.1, 0.6, 0.5, 0.05, 0.6, 0.6, 0.6, 0.3, 0.1] | NaN reward steps so far: 0
+Episodes: 800 | Mean Reward (last 10): 1.356 | Mean Score: 1.379 | Last-10 eps: [0.25, 0.3, 0.2, 0.5, 0.1, 0.15, 0.05, 0.08, 0.25, 0.03] | NaN reward steps so far: 0
+Episodes: 810 | Mean Reward (last 10): 1.490 | Mean Score: 1.509 | Last-10 eps: [0.03, 0.2, 0.15, 0.6, 0.2, 0.25, 0.3, 0.25, 0.15, 0.03] | NaN reward steps so far: 0
+Episodes: 820 | Mean Reward (last 10): 1.727 | Mean Score: 1.750 | Last-10 eps: [0.5, 0.3, 0.3, 0.05, 0.08, 0.4, 0.5, 0.6, 0.4, 0.5] | NaN reward steps so far: 0
+Episodes: 830 | Mean Reward (last 10): 1.299 | Mean Score: 1.318 | Last-10 eps: [0.15, 0.15, 0.3, 0.05, 0.3, 0.15, 0.15, 0.4, 0.2, 0.03] | NaN reward steps so far: 0
+Episodes: 840 | Mean Reward (last 10): 1.367 | Mean Score: 1.388 | Last-10 eps: [0.3, 0.08, 0.6, 0.2, 0.15, 0.08, 0.15, 0.6, 0.05, 0.15] | NaN reward steps so far: 0
+Episodes: 850 | Mean Reward (last 10): 1.343 | Mean Score: 1.359 | Last-10 eps: [0.15, 0.3, 0.05, 0.03, 0.1, 0.5, 0.5, 0.5, 0.6, 0.1] | NaN reward steps so far: 0
+Episodes: 860 | Mean Reward (last 10): 1.111 | Mean Score: 1.129 | Last-10 eps: [0.2, 0.6, 0.25, 0.1, 0.1, 0.6, 0.2, 0.03, 0.03, 0.03] | NaN reward steps so far: 0
+Episodes: 870 | Mean Reward (last 10): 1.504 | Mean Score: 1.529 | Last-10 eps: [0.6, 0.4, 0.03, 0.5, 0.2, 0.05, 0.1, 0.2, 0.5, 0.1] | NaN reward steps so far: 0
+Episodes: 880 | Mean Reward (last 10): 1.801 | Mean Score: 1.819 | Last-10 eps: [0.15, 0.25, 0.25, 0.1, 0.3, 0.1, 0.05, 0.2, 0.25, 0.6] | NaN reward steps so far: 0
+Episodes: 890 | Mean Reward (last 10): 1.163 | Mean Score: 1.185 | Last-10 eps: [0.4, 0.3, 0.4, 0.08, 0.25, 0.15, 0.03, 0.3, 0.05, 0.05] | NaN reward steps so far: 0
+Episodes: 900 | Mean Reward (last 10): 1.009 | Mean Score: 1.027 | Last-10 eps: [0.3, 0.3, 0.1, 0.5, 0.4, 0.05, 0.03, 0.5, 0.03, 0.5] | NaN reward steps so far: 0
+Episodes: 910 | Mean Reward (last 10): 0.969 | Mean Score: 0.988 | Last-10 eps: [0.1, 0.05, 0.15, 0.3, 0.3, 0.03, 0.1, 0.4, 0.05, 0.15] | NaN reward steps so far: 0
+Episodes: 920 | Mean Reward (last 10): 1.209 | Mean Score: 1.230 | Last-10 eps: [0.3, 0.03, 0.6, 0.05, 0.3, 0.4, 0.5, 0.1, 0.5, 0.6] | NaN reward steps so far: 0
+Episodes: 930 | Mean Reward (last 10): 1.117 | Mean Score: 1.132 | Last-10 eps: [0.6, 0.1, 0.03, 0.03, 0.25, 0.1, 0.5, 0.08, 0.3, 0.4] | NaN reward steps so far: 0
+Episodes: 940 | Mean Reward (last 10): 1.434 | Mean Score: 1.451 | Last-10 eps: [0.05, 0.3, 0.2, 0.3, 0.08, 0.3, 0.1, 0.05, 0.3, 0.25] | NaN reward steps so far: 0
+Episodes: 950 | Mean Reward (last 10): 1.611 | Mean Score: 1.627 | Last-10 eps: [0.4, 0.2, 0.3, 0.4, 0.6, 0.15, 0.6, 0.15, 0.05, 0.03] | NaN reward steps so far: 0
+Episodes: 960 | Mean Reward (last 10): 1.260 | Mean Score: 1.274 | Last-10 eps: [0.2, 0.6, 0.03, 0.15, 0.6, 0.5, 0.3, 0.1, 0.15, 0.05] | NaN reward steps so far: 0
+Episodes: 970 | Mean Reward (last 10): 1.299 | Mean Score: 1.318 | Last-10 eps: [0.08, 0.03, 0.15, 0.2, 0.25, 0.1, 0.3, 0.15, 0.4, 0.03] | NaN reward steps so far: 0
+Episodes: 980 | Mean Reward (last 10): 1.204 | Mean Score: 1.218 | Last-10 eps: [0.03, 0.2, 0.25, 0.03, 0.6, 0.3, 0.2, 0.2, 0.05, 0.25] | NaN reward steps so far: 0
+Episodes: 990 | Mean Reward (last 10): 1.494 | Mean Score: 1.514 | Last-10 eps: [0.3, 0.08, 0.15, 0.6, 0.03, 0.6, 0.5, 0.08, 0.3, 0.4] | NaN reward steps so far: 0
+Episodes: 1000 | Mean Reward (last 10): 1.644 | Mean Score: 1.660 | Last-10 eps: [0.08, 0.25, 0.4, 0.5, 0.5, 0.1, 0.5, 0.15, 0.05, 0.3] | NaN reward steps so far: 0
+Episodes: 1010 | Mean Reward (last 10): 1.498 | Mean Score: 1.517 | Last-10 eps: [0.4, 0.25, 0.08, 0.2, 0.4, 0.1, 0.1, 0.1, 0.03, 0.6] | NaN reward steps so far: 0
+Episodes: 1020 | Mean Reward (last 10): 1.550 | Mean Score: 1.572 | Last-10 eps: [0.3, 0.3, 0.15, 0.3, 0.25, 0.03, 0.5, 0.08, 0.25, 0.3] | NaN reward steps so far: 0
+Episodes: 1030 | Mean Reward (last 10): 1.180 | Mean Score: 1.199 | Last-10 eps: [0.05, 0.5, 0.1, 0.3, 0.08, 0.6, 0.1, 0.4, 0.6, 0.05] | NaN reward steps so far: 0
+Episodes: 1040 | Mean Reward (last 10): 1.275 | Mean Score: 1.295 | Last-10 eps: [0.15, 0.6, 0.4, 0.1, 0.3, 0.25, 0.2, 0.25, 0.05, 0.03] | NaN reward steps so far: 0
+Episodes: 1050 | Mean Reward (last 10): 1.475 | Mean Score: 1.495 | Last-10 eps: [0.4, 0.6, 0.03, 0.25, 0.08, 0.15, 0.5, 0.4, 0.08, 0.25] | NaN reward steps so far: 0
+Episodes: 1060 | Mean Reward (last 10): 1.515 | Mean Score: 1.536 | Last-10 eps: [0.3, 0.08, 0.05, 0.4, 0.3, 0.5, 0.08, 0.25, 0.5, 0.15] | NaN reward steps so far: 0
+Episodes: 1070 | Mean Reward (last 10): 1.592 | Mean Score: 1.605 | Last-10 eps: [0.03, 0.25, 0.08, 0.3, 0.3, 0.4, 0.6, 0.3, 0.6, 0.25] | NaN reward steps so far: 0
+---------------------------------
+| rollout/           |          |
+|    ep_len_mean     | 1.84     |
+|    ep_rew_mean     | 1.44     |
+| time/              |          |
+|    fps             | 3        |
+|    iterations      | 1        |
+|    time_elapsed    | 587      |
+|    total_timesteps | 2048     |
+---------------------------------
+Episodes: 1080 | Mean Reward (last 10): 1.589 | Mean Score: 1.605 | Last-10 eps: [0.05, 0.15, 0.4, 0.3, 0.2, 0.5, 0.4, 0.03, 0.5, 0.05] | NaN reward steps so far: 0
+Episodes: 1090 | Mean Reward (last 10): 1.611 | Mean Score: 1.628 | Last-10 eps: [0.4, 0.15, 0.08, 0.05, 0.08, 0.5, 0.15, 0.4, 0.08, 0.1] | NaN reward steps so far: 0
+Episodes: 1100 | Mean Reward (last 10): 1.514 | Mean Score: 1.544 | Last-10 eps: [0.15, 0.2, 0.4, 0.4, 0.5, 0.5, 0.4, 0.3, 0.5, 0.6] | NaN reward steps so far: 0
+Episodes: 1110 | Mean Reward (last 10): 1.534 | Mean Score: 1.552 | Last-10 eps: [0.6, 0.15, 0.15, 0.03, 0.05, 0.08, 0.5, 0.15, 0.25, 0.25] | NaN reward steps so far: 0
+Episodes: 1120 | Mean Reward (last 10): 1.436 | Mean Score: 1.459 | Last-10 eps: [0.03, 0.5, 0.6, 0.15, 0.2, 0.25, 0.25, 0.2, 0.6, 0.05] | NaN reward steps so far: 0
+Episodes: 1130 | Mean Reward (last 10): 1.394 | Mean Score: 1.408 | Last-10 eps: [0.1, 0.5, 0.4, 0.15, 0.5, 0.1, 0.6, 0.4, 0.15, 0.5] | NaN reward steps so far: 0
+Episodes: 1140 | Mean Reward (last 10): 1.253 | Mean Score: 1.273 | Last-10 eps: [0.03, 0.6, 0.5, 0.5, 0.1, 0.08, 0.15, 0.6, 0.5, 0.08] | NaN reward steps so far: 0
+Episodes: 1150 | Mean Reward (last 10): 0.635 | Mean Score: 0.654 | Last-10 eps: [0.03, 0.03, 0.08, 0.1, 0.2, 0.08, 0.03, 0.1, 0.5, 0.6] | NaN reward steps so far: 0
+Episodes: 1160 | Mean Reward (last 10): 1.321 | Mean Score: 1.341 | Last-10 eps: [0.3, 0.15, 0.1, 0.5, 0.2, 0.05, 0.08, 0.6, 0.15, 0.5] | NaN reward steps so far: 0
+Episodes: 1170 | Mean Reward (last 10): 1.373 | Mean Score: 1.389 | Last-10 eps: [0.08, 0.3, 0.08, 0.4, 0.4, 0.03, 0.6, 0.08, 0.2, 0.05] | NaN reward steps so far: 0
+Episodes: 1180 | Mean Reward (last 10): 1.706 | Mean Score: 1.724 | Last-10 eps: [0.3, 0.2, 0.4, 0.5, 0.5, 0.08, 0.4, 0.4, 0.1, 0.5] | NaN reward steps so far: 0
+Episodes: 1190 | Mean Reward (last 10): 1.603 | Mean Score: 1.628 | Last-10 eps: [0.5, 0.25, 0.4, 0.1, 0.15, 0.1, 0.4, 0.4, 0.03, 0.6] | NaN reward steps so far: 0
+Episodes: 1200 | Mean Reward (last 10): 1.732 | Mean Score: 1.755 | Last-10 eps: [0.6, 0.25, 0.08, 0.3, 0.2, 0.15, 0.4, 0.15, 0.15, 0.6] | NaN reward steps so far: 0
+Episodes: 1210 | Mean Reward (last 10): 1.318 | Mean Score: 1.344 | Last-10 eps: [0.4, 0.4, 0.25, 0.05, 0.25, 0.1, 0.25, 0.08, 0.6, 0.4] | NaN reward steps so far: 0
+Episodes: 1220 | Mean Reward (last 10): 1.337 | Mean Score: 1.360 | Last-10 eps: [0.1, 0.4, 0.05, 0.1, 0.3, 0.05, 0.5, 0.08, 0.08, 0.6] | NaN reward steps so far: 0
+Episodes: 1230 | Mean Reward (last 10): 1.455 | Mean Score: 1.477 | Last-10 eps: [0.15, 0.08, 0.4, 0.4, 0.03, 0.05, 0.25, 0.08, 0.25, 0.4] | NaN reward steps so far: 0
+Episodes: 1240 | Mean Reward (last 10): 1.779 | Mean Score: 1.800 | Last-10 eps: [0.6, 0.5, 0.08, 0.2, 0.4, 0.4, 0.2, 0.1, 0.08, 0.15] | NaN reward steps so far: 0
+Episodes: 1250 | Mean Reward (last 10): 1.735 | Mean Score: 1.753 | Last-10 eps: [0.08, 0.5, 0.15, 0.3, 0.25, 0.3, 0.2, 0.4, 0.1, 0.1] | NaN reward steps so far: 0
+Episodes: 1260 | Mean Reward (last 10): 1.449 | Mean Score: 1.463 | Last-10 eps: [0.1, 0.08, 0.6, 0.1, 0.6, 0.25, 0.3, 0.6, 0.3, 0.5] | NaN reward steps so far: 0
+Episodes: 1270 | Mean Reward (last 10): 1.674 | Mean Score: 1.692 | Last-10 eps: [0.05, 0.1, 0.4, 0.4, 0.03, 0.25, 0.2, 0.6, 0.25, 0.08] | NaN reward steps so far: 0
+Episodes: 1280 | Mean Reward (last 10): 1.243 | Mean Score: 1.264 | Last-10 eps: [0.03, 0.4, 0.15, 0.4, 0.03, 0.08, 0.6, 0.15, 0.05, 0.05] | NaN reward steps so far: 0
+Episodes: 1290 | Mean Reward (last 10): 1.388 | Mean Score: 1.408 | Last-10 eps: [0.1, 0.2, 0.4, 0.5, 0.08, 0.5, 0.05, 0.05, 0.4, 0.5] | NaN reward steps so far: 0
+Episodes: 1300 | Mean Reward (last 10): 1.804 | Mean Score: 1.821 | Last-10 eps: [0.4, 0.3, 0.1, 0.15, 0.1, 0.3, 0.1, 0.4, 0.1, 0.15] | NaN reward steps so far: 0
+Episodes: 1310 | Mean Reward (last 10): 1.447 | Mean Score: 1.462 | Last-10 eps: [0.3, 0.2, 0.3, 0.6, 0.2, 0.15, 0.03, 0.5, 0.08, 0.4] | NaN reward steps so far: 0
+Episodes: 1320 | Mean Reward (last 10): 1.505 | Mean Score: 1.525 | Last-10 eps: [0.08, 0.08, 0.4, 0.15, 0.4, 0.6, 0.6, 0.1, 0.3, 0.2] | NaN reward steps so far: 0
+Episodes: 1330 | Mean Reward (last 10): 1.515 | Mean Score: 1.529 | Last-10 eps: [0.5, 0.1, 0.15, 0.25, 0.25, 0.2, 0.6, 0.3, 0.08, 0.25] | NaN reward steps so far: 0
+Episodes: 1340 | Mean Reward (last 10): 1.239 | Mean Score: 1.261 | Last-10 eps: [0.5, 0.03, 0.08, 0.5, 0.4, 0.5, 0.25, 0.05, 0.1, 0.1] | NaN reward steps so far: 0
+Episodes: 1350 | Mean Reward (last 10): 1.685 | Mean Score: 1.702 | Last-10 eps: [0.3, 0.5, 0.15, 0.5, 0.15, 0.3, 0.3, 0.2, 0.5, 0.25] | NaN reward steps so far: 0
+Episodes: 1360 | Mean Reward (last 10): 1.238 | Mean Score: 1.252 | Last-10 eps: [0.03, 0.15, 0.6, 0.2, 0.03, 0.03, 0.5, 0.5, 0.25, 0.4] | NaN reward steps so far: 0
+Episodes: 1370 | Mean Reward (last 10): 1.221 | Mean Score: 1.236 | Last-10 eps: [0.1, 0.4, 0.5, 0.03, 0.5, 0.4, 0.4, 0.03, 0.5, 0.03] | NaN reward steps so far: 0
+Episodes: 1380 | Mean Reward (last 10): 1.742 | Mean Score: 1.764 | Last-10 eps: [0.3, 0.15, 0.3, 0.1, 0.15, 0.3, 0.15, 0.5, 0.08, 0.05] | NaN reward steps so far: 0
+Episodes: 1390 | Mean Reward (last 10): 1.609 | Mean Score: 1.632 | Last-10 eps: [0.1, 0.1, 0.4, 0.1, 0.1, 0.08, 0.25, 0.03, 0.2, 0.5] | NaN reward steps so far: 0
+Episodes: 1400 | Mean Reward (last 10): 0.915 | Mean Score: 0.935 | Last-10 eps: [0.4, 0.4, 0.03, 0.4, 0.08, 0.3, 0.08, 0.6, 0.03, 0.4] | NaN reward steps so far: 0
+Episodes: 1410 | Mean Reward (last 10): 1.236 | Mean Score: 1.259 | Last-10 eps: [0.05, 0.1, 0.03, 0.1, 0.08, 0.6, 0.15, 0.6, 0.1, 0.2] | NaN reward steps so far: 0
+Episodes: 1420 | Mean Reward (last 10): 1.755 | Mean Score: 1.779 | Last-10 eps: [0.5, 0.08, 0.1, 0.3, 0.15, 0.25, 0.6, 0.1, 0.6, 0.15] | NaN reward steps so far: 0
+Episodes: 1430 | Mean Reward (last 10): 1.374 | Mean Score: 1.391 | Last-10 eps: [0.4, 0.6, 0.08, 0.25, 0.5, 0.25, 0.2, 0.05, 0.1, 0.1] | NaN reward steps so far: 0
+Episodes: 1440 | Mean Reward (last 10): 1.422 | Mean Score: 1.444 | Last-10 eps: [0.15, 0.05, 0.1, 0.03, 0.1, 0.15, 0.25, 0.1, 0.08, 0.4] | NaN reward steps so far: 0
+Episodes: 1450 | Mean Reward (last 10): 1.433 | Mean Score: 1.449 | Last-10 eps: [0.25, 0.5, 0.1, 0.6, 0.25, 0.4, 0.1, 0.6, 0.08, 0.5] | NaN reward steps so far: 0
+Episodes: 1460 | Mean Reward (last 10): 1.191 | Mean Score: 1.205 | Last-10 eps: [0.05, 0.05, 0.6, 0.1, 0.1, 0.08, 0.08, 0.6, 0.08, 0.15] | NaN reward steps so far: 0
+Episodes: 1470 | Mean Reward (last 10): 1.634 | Mean Score: 1.654 | Last-10 eps: [0.15, 0.5, 0.5, 0.3, 0.4, 0.1, 0.25, 0.3, 0.6, 0.4] | NaN reward steps so far: 0
+Episodes: 1480 | Mean Reward (last 10): 1.516 | Mean Score: 1.534 | Last-10 eps: [0.3, 0.25, 0.05, 0.15, 0.6, 0.1, 0.2, 0.05, 0.15, 0.05] | NaN reward steps so far: 0
+Episodes: 1490 | Mean Reward (last 10): 1.597 | Mean Score: 1.615 | Last-10 eps: [0.15, 0.25, 0.6, 0.03, 0.1, 0.08, 0.25, 0.2, 0.08, 0.05] | NaN reward steps so far: 0
+Episodes: 1500 | Mean Reward (last 10): 1.522 | Mean Score: 1.543 | Last-10 eps: [0.6, 0.5, 0.1, 0.25, 0.6, 0.3, 0.6, 0.25, 0.5, 0.03] | NaN reward steps so far: 0
+Episodes: 1510 | Mean Reward (last 10): 1.548 | Mean Score: 1.566 | Last-10 eps: [0.08, 0.5, 0.2, 0.2, 0.25, 0.5, 0.2, 0.03, 0.15, 0.1] | NaN reward steps so far: 0
+Episodes: 1520 | Mean Reward (last 10): 1.537 | Mean Score: 1.557 | Last-10 eps: [0.15, 0.25, 0.05, 0.2, 0.25, 0.15, 0.25, 0.05, 0.15, 0.1] | NaN reward steps so far: 0
+Episodes: 1530 | Mean Reward (last 10): 1.627 | Mean Score: 1.646 | Last-10 eps: [0.15, 0.03, 0.15, 0.3, 0.08, 0.3, 0.4, 0.05, 0.15, 0.25] | NaN reward steps so far: 0
+Episodes: 1540 | Mean Reward (last 10): 1.441 | Mean Score: 1.459 | Last-10 eps: [0.5, 0.25, 0.6, 0.03, 0.15, 0.3, 0.4, 0.25, 0.15, 0.1] | NaN reward steps so far: 0
+Episodes: 1550 | Mean Reward (last 10): 1.236 | Mean Score: 1.259 | Last-10 eps: [0.08, 0.3, 0.25, 0.3, 0.6, 0.03, 0.05, 0.2, 0.05, 0.05] | NaN reward steps so far: 0
+Episodes: 1560 | Mean Reward (last 10): 1.697 | Mean Score: 1.712 | Last-10 eps: [0.1, 0.3, 0.15, 0.2, 0.5, 0.3, 0.3, 0.5, 0.6, 0.15] | NaN reward steps so far: 0
+Episodes: 1570 | Mean Reward (last 10): 1.295 | Mean Score: 1.316 | Last-10 eps: [0.08, 0.4, 0.15, 0.08, 0.08, 0.5, 0.05, 0.3, 0.2, 0.03] | NaN reward steps so far: 0
+Episodes: 1580 | Mean Reward (last 10): 1.217 | Mean Score: 1.241 | Last-10 eps: [0.5, 0.03, 0.6, 0.25, 0.08, 0.05, 0.15, 0.4, 0.08, 0.15] | NaN reward steps so far: 0
+Episodes: 1590 | Mean Reward (last 10): 1.413 | Mean Score: 1.430 | Last-10 eps: [0.3, 0.1, 0.03, 0.6, 0.6, 0.1, 0.08, 0.5, 0.25, 0.1] | NaN reward steps so far: 0
+Episodes: 1600 | Mean Reward (last 10): 1.447 | Mean Score: 1.463 | Last-10 eps: [0.4, 0.15, 0.4, 0.05, 0.5, 0.4, 0.03, 0.6, 0.08, 0.6] | NaN reward steps so far: 0
+Episodes: 1610 | Mean Reward (last 10): 1.553 | Mean Score: 1.584 | Last-10 eps: [0.15, 0.15, 0.2, 0.1, 0.03, 0.5, 0.1, 0.3, 0.5, 0.08] | NaN reward steps so far: 0
+Episodes: 1620 | Mean Reward (last 10): 1.548 | Mean Score: 1.566 | Last-10 eps: [0.4, 0.25, 0.08, 0.08, 0.08, 0.4, 0.1, 0.08, 0.25, 0.6] | NaN reward steps so far: 0
+Episodes: 1630 | Mean Reward (last 10): 1.163 | Mean Score: 1.182 | Last-10 eps: [0.6, 0.2, 0.03, 0.08, 0.03, 0.6, 0.03, 0.4, 0.1, 0.08] | NaN reward steps so far: 0
+Episodes: 1640 | Mean Reward (last 10): 1.605 | Mean Score: 1.620 | Last-10 eps: [0.5, 0.03, 0.15, 0.1, 0.25, 0.6, 0.6, 0.5, 0.08, 0.2] | NaN reward steps so far: 0
+Episodes: 1650 | Mean Reward (last 10): 1.636 | Mean Score: 1.658 | Last-10 eps: [0.1, 0.15, 0.1, 0.08, 0.15, 0.05, 0.4, 0.15, 0.1, 0.2] | NaN reward steps so far: 0
+Episodes: 1660 | Mean Reward (last 10): 1.649 | Mean Score: 1.661 | Last-10 eps: [0.08, 0.2, 0.08, 0.6, 0.3, 0.6, 0.15, 0.15, 0.5, 0.03] | NaN reward steps so far: 0
+Episodes: 1670 | Mean Reward (last 10): 1.159 | Mean Score: 1.184 | Last-10 eps: [0.4, 0.08, 0.6, 0.05, 0.3, 0.3, 0.6, 0.03, 0.4, 0.1] | NaN reward steps so far: 0
+Episodes: 1680 | Mean Reward (last 10): 1.757 | Mean Score: 1.778 | Last-10 eps: [0.1, 0.3, 0.5, 0.5, 0.2, 0.5, 0.15, 0.15, 0.1, 0.15] | NaN reward steps so far: 0
+Episodes: 1690 | Mean Reward (last 10): 1.336 | Mean Score: 1.355 | Last-10 eps: [0.15, 0.15, 0.08, 0.25, 0.2, 0.05, 0.15, 0.25, 0.15, 0.03] | NaN reward steps so far: 0
+Episodes: 1700 | Mean Reward (last 10): 1.643 | Mean Score: 1.661 | Last-10 eps: [0.4, 0.3, 0.5, 0.08, 0.05, 0.5, 0.25, 0.08, 0.25, 0.1] | NaN reward steps so far: 0
+Episodes: 1710 | Mean Reward (last 10): 1.232 | Mean Score: 1.252 | Last-10 eps: [0.2, 0.1, 0.05, 0.5, 0.2, 0.03, 0.2, 0.15, 0.15, 0.4] | NaN reward steps so far: 0
+Episodes: 1720 | Mean Reward (last 10): 1.687 | Mean Score: 1.702 | Last-10 eps: [0.6, 0.3, 0.2, 0.3, 0.15, 0.15, 0.15, 0.4, 0.25, 0.03] | NaN reward steps so far: 0
+Episodes: 1730 | Mean Reward (last 10): 1.332 | Mean Score: 1.351 | Last-10 eps: [0.15, 0.08, 0.6, 0.03, 0.1, 0.25, 0.3, 0.6, 0.05, 0.2] | NaN reward steps so far: 0
+Episodes: 1740 | Mean Reward (last 10): 1.384 | Mean Score: 1.405 | Last-10 eps: [0.3, 0.2, 0.5, 0.03, 0.05, 0.05, 0.5, 0.25, 0.4, 0.15] | NaN reward steps so far: 0
+Episodes: 1750 | Mean Reward (last 10): 1.808 | Mean Score: 1.823 | Last-10 eps: [0.4, 0.05, 0.2, 0.2, 0.1, 0.5, 0.15, 0.25, 0.4, 0.6] | NaN reward steps so far: 0
+Episodes: 1760 | Mean Reward (last 10): 1.434 | Mean Score: 1.451 | Last-10 eps: [0.2, 0.2, 0.08, 0.1, 0.25, 0.03, 0.25, 0.6, 0.25, 0.4] | NaN reward steps so far: 0
+Episodes: 1770 | Mean Reward (last 10): 1.763 | Mean Score: 1.784 | Last-10 eps: [0.3, 0.3, 0.2, 0.08, 0.1, 0.2, 0.5, 0.4, 0.15, 0.5] | NaN reward steps so far: 0
+Episodes: 1780 | Mean Reward (last 10): 1.400 | Mean Score: 1.417 | Last-10 eps: [0.15, 0.5, 0.08, 0.05, 0.15, 0.1, 0.5, 0.15, 0.3, 0.03] | NaN reward steps so far: 0
+Episodes: 1790 | Mean Reward (last 10): 1.374 | Mean Score: 1.392 | Last-10 eps: [0.2, 0.25, 0.25, 0.15, 0.03, 0.3, 0.6, 0.4, 0.2, 0.15] | NaN reward steps so far: 0
+Episodes: 1800 | Mean Reward (last 10): 1.555 | Mean Score: 1.569 | Last-10 eps: [0.05, 0.6, 0.3, 0.08, 0.4, 0.2, 0.15, 0.1, 0.08, 0.15] | NaN reward steps so far: 0
+Episodes: 1810 | Mean Reward (last 10): 1.279 | Mean Score: 1.300 | Last-10 eps: [0.1, 0.6, 0.6, 0.03, 0.1, 0.3, 0.25, 0.4, 0.03, 0.5] | NaN reward steps so far: 0
+Episodes: 1820 | Mean Reward (last 10): 1.133 | Mean Score: 1.159 | Last-10 eps: [0.25, 0.25, 0.03, 0.08, 0.03, 0.4, 0.03, 0.08, 0.4, 0.08] | NaN reward steps so far: 0
+Episodes: 1830 | Mean Reward (last 10): 1.457 | Mean Score: 1.471 | Last-10 eps: [0.08, 0.25, 0.1, 0.1, 0.1, 0.05, 0.08, 0.2, 0.3, 0.25] | NaN reward steps so far: 0
+Episodes: 1840 | Mean Reward (last 10): 1.194 | Mean Score: 1.209 | Last-10 eps: [0.03, 0.3, 0.1, 0.05, 0.6, 0.05, 0.4, 0.4, 0.3, 0.5] | NaN reward steps so far: 0
+Episodes: 1850 | Mean Reward (last 10): 1.104 | Mean Score: 1.120 | Last-10 eps: [0.4, 0.03, 0.05, 0.25, 0.1, 0.1, 0.6, 0.03, 0.03, 0.2] | NaN reward steps so far: 0
+Episodes: 1860 | Mean Reward (last 10): 1.583 | Mean Score: 1.599 | Last-10 eps: [0.08, 0.08, 0.3, 0.3, 0.3, 0.15, 0.3, 0.4, 0.08, 0.2] | NaN reward steps so far: 0
+Episodes: 1870 | Mean Reward (last 10): 1.527 | Mean Score: 1.540 | Last-10 eps: [0.2, 0.4, 0.1, 0.15, 0.15, 0.5, 0.4, 0.1, 0.2, 0.15] | NaN reward steps so far: 0
+Episodes: 1880 | Mean Reward (last 10): 1.511 | Mean Score: 1.525 | Last-10 eps: [0.2, 0.1, 0.05, 0.15, 0.4, 0.6, 0.25, 0.4, 0.3, 0.2] | NaN reward steps so far: 0
+Episodes: 1890 | Mean Reward (last 10): 1.544 | Mean Score: 1.564 | Last-10 eps: [0.25, 0.05, 0.6, 0.15, 0.08, 0.2, 0.08, 0.3, 0.6, 0.05] | NaN reward steps so far: 0
+Episodes: 1900 | Mean Reward (last 10): 1.578 | Mean Score: 1.596 | Last-10 eps: [0.1, 0.1, 0.08, 0.03, 0.08, 0.1, 0.5, 0.15, 0.2, 0.5] | NaN reward steps so far: 0
+Episodes: 1910 | Mean Reward (last 10): 1.189 | Mean Score: 1.204 | Last-10 eps: [0.1, 0.3, 0.4, 0.25, 0.08, 0.5, 0.03, 0.6, 0.05, 0.4] | NaN reward steps so far: 0
+Episodes: 1920 | Mean Reward (last 10): 1.068 | Mean Score: 1.097 | Last-10 eps: [0.03, 0.25, 0.03, 0.5, 0.15, 0.5, 0.4, 0.5, 0.1, 0.05] | NaN reward steps so far: 0
+Episodes: 1930 | Mean Reward (last 10): 1.117 | Mean Score: 1.134 | Last-10 eps: [0.6, 0.08, 0.6, 0.05, 0.08, 0.03, 0.25, 0.5, 0.03, 0.4] | NaN reward steps so far: 0
+Episodes: 1940 | Mean Reward (last 10): 1.483 | Mean Score: 1.498 | Last-10 eps: [0.25, 0.3, 0.6, 0.25, 0.3, 0.08, 0.4, 0.1, 0.25, 0.3] | NaN reward steps so far: 0
+Episodes: 1950 | Mean Reward (last 10): 1.615 | Mean Score: 1.630 | Last-10 eps: [0.5, 0.25, 0.3, 0.2, 0.15, 0.5, 0.08, 0.3, 0.03, 0.25] | NaN reward steps so far: 0
+Episodes: 1960 | Mean Reward (last 10): 1.517 | Mean Score: 1.532 | Last-10 eps: [0.03, 0.4, 0.6, 0.5, 0.2, 0.5, 0.08, 0.3, 0.5, 0.6] | NaN reward steps so far: 0
+Episodes: 1970 | Mean Reward (last 10): 1.586 | Mean Score: 1.613 | Last-10 eps: [0.4, 0.08, 0.5, 0.3, 0.08, 0.25, 0.25, 0.2, 0.5, 0.25] | NaN reward steps so far: 0
+Episodes: 1980 | Mean Reward (last 10): 1.651 | Mean Score: 1.667 | Last-10 eps: [0.3, 0.08, 0.05, 0.15, 0.2, 0.15, 0.2, 0.3, 0.3, 0.25] | NaN reward steps so far: 0
+Episodes: 1990 | Mean Reward (last 10): 1.460 | Mean Score: 1.479 | Last-10 eps: [0.4, 0.3, 0.1, 0.4, 0.6, 0.6, 0.03, 0.4, 0.15, 0.25] | NaN reward steps so far: 0
+Episodes: 2000 | Mean Reward (last 10): 1.578 | Mean Score: 1.598 | Last-10 eps: [0.5, 0.3, 0.3, 0.1, 0.3, 0.6, 0.1, 0.03, 0.08, 0.2] | NaN reward steps so far: 0
+Episodes: 2010 | Mean Reward (last 10): 1.573 | Mean Score: 1.595 | Last-10 eps: [0.4, 0.3, 0.2, 0.1, 0.25, 0.2, 0.03, 0.1, 0.08, 0.2] | NaN reward steps so far: 0
+Episodes: 2020 | Mean Reward (last 10): 1.209 | Mean Score: 1.229 | Last-10 eps: [0.05, 0.2, 0.5, 0.5, 0.6, 0.5, 0.08, 0.08, 0.08, 0.03] | NaN reward steps so far: 0
+Episodes: 2030 | Mean Reward (last 10): 1.469 | Mean Score: 1.486 | Last-10 eps: [0.25, 0.08, 0.03, 0.08, 0.1, 0.5, 0.5, 0.5, 0.05, 0.5] | NaN reward steps so far: 0
+Episodes: 2040 | Mean Reward (last 10): 1.276 | Mean Score: 1.293 | Last-10 eps: [0.25, 0.5, 0.03, 0.5, 0.4, 0.08, 0.1, 0.15, 0.15, 0.05] | NaN reward steps so far: 0
+Episodes: 2050 | Mean Reward (last 10): 1.789 | Mean Score: 1.806 | Last-10 eps: [0.4, 0.08, 0.2, 0.4, 0.25, 0.5, 0.1, 0.6, 0.1, 0.05] | NaN reward steps so far: 0
+Episodes: 2060 | Mean Reward (last 10): 1.254 | Mean Score: 1.273 | Last-10 eps: [0.08, 0.08, 0.25, 0.15, 0.03, 0.05, 0.05, 0.08, 0.5, 0.5] | NaN reward steps so far: 0
+Episodes: 2070 | Mean Reward (last 10): 1.423 | Mean Score: 1.439 | Last-10 eps: [0.05, 0.5, 0.4, 0.2, 0.15, 0.2, 0.03, 0.05, 0.2, 0.5] | NaN reward steps so far: 0
+Episodes: 2080 | Mean Reward (last 10): 1.789 | Mean Score: 1.805 | Last-10 eps: [0.25, 0.08, 0.08, 0.4, 0.05, 0.08, 0.3, 0.05, 0.15, 0.4] | NaN reward steps so far: 0
+Episodes: 2090 | Mean Reward (last 10): 1.089 | Mean Score: 1.114 | Last-10 eps: [0.03, 0.25, 0.03, 0.03, 0.1, 0.25, 0.03, 0.6, 0.1, 0.15] | NaN reward steps so far: 0
+Episodes: 2100 | Mean Reward (last 10): 1.461 | Mean Score: 1.481 | Last-10 eps: [0.08, 0.3, 0.6, 0.08, 0.15, 0.1, 0.3, 0.25, 0.5, 0.05] | NaN reward steps so far: 0
+Episodes: 2110 | Mean Reward (last 10): 0.903 | Mean Score: 0.928 | Last-10 eps: [0.3, 0.15, 0.03, 0.08, 0.3, 0.1, 0.15, 0.05, 0.15, 0.05] | NaN reward steps so far: 0
+Episodes: 2120 | Mean Reward (last 10): 1.329 | Mean Score: 1.349 | Last-10 eps: [0.5, 0.15, 0.08, 0.08, 0.6, 0.05, 0.2, 0.2, 0.08, 0.4] | NaN reward steps so far: 0
+Episodes: 2130 | Mean Reward (last 10): 1.383 | Mean Score: 1.404 | Last-10 eps: [0.1, 0.2, 0.6, 0.03, 0.03, 0.15, 0.1, 0.6, 0.6, 0.25] | NaN reward steps so far: 0
+Episodes: 2140 | Mean Reward (last 10): 1.320 | Mean Score: 1.332 | Last-10 eps: [0.2, 0.1, 0.4, 0.03, 0.25, 0.5, 0.2, 0.05, 0.1, 0.5] | NaN reward steps so far: 0
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 1.98        |
+|    ep_rew_mean          | 1.37        |
+| time/                   |             |
+|    fps                  | 3           |
+|    iterations           | 2           |
+|    time_elapsed         | 1151        |
+|    total_timesteps      | 4096        |
+| train/                  |             |
+|    approx_kl            | 0.016563896 |
+|    clip_fraction        | 0.175       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -6.66       |
+|    explained_variance   | -0.453      |
+|    learning_rate        | 0.0003      |
+|    loss                 | 0.956       |
+|    n_updates            | 10          |
+|    policy_gradient_loss | -0.042      |
+|    value_loss           | 1.99        |
+-----------------------------------------
+Episodes: 2150 | Mean Reward (last 10): 1.704 | Mean Score: 1.731 | Last-10 eps: [0.08, 0.3, 0.3, 0.5, 0.6, 0.08, 0.25, 0.3, 0.5, 0.4] | NaN reward steps so far: 0
+Episodes: 2160 | Mean Reward (last 10): 1.582 | Mean Score: 1.598 | Last-10 eps: [0.03, 0.1, 0.4, 0.3, 0.25, 0.6, 0.4, 0.2, 0.2, 0.4] | NaN reward steps so far: 0
+Episodes: 2170 | Mean Reward (last 10): 1.432 | Mean Score: 1.451 | Last-10 eps: [0.5, 0.25, 0.4, 0.15, 0.4, 0.08, 0.05, 0.5, 0.4, 0.1] | NaN reward steps so far: 0
+Episodes: 2180 | Mean Reward (last 10): 1.460 | Mean Score: 1.473 | Last-10 eps: [0.5, 0.25, 0.3, 0.15, 0.2, 0.2, 0.03, 0.3, 0.15, 0.25] | NaN reward steps so far: 0
+Episodes: 2190 | Mean Reward (last 10): 1.521 | Mean Score: 1.534 | Last-10 eps: [0.6, 0.05, 0.08, 0.03, 0.25, 0.15, 0.3, 0.25, 0.2, 0.3] | NaN reward steps so far: 0
+Episodes: 2200 | Mean Reward (last 10): 1.457 | Mean Score: 1.477 | Last-10 eps: [0.03, 0.15, 0.3, 0.6, 0.2, 0.6, 0.3, 0.25, 0.6, 0.6] | NaN reward steps so far: 0
+Episodes: 2210 | Mean Reward (last 10): 1.692 | Mean Score: 1.712 | Last-10 eps: [0.25, 0.15, 0.1, 0.1, 0.3, 0.2, 0.5, 0.25, 0.2, 0.4] | NaN reward steps so far: 0
+Episodes: 2220 | Mean Reward (last 10): 1.757 | Mean Score: 1.775 | Last-10 eps: [0.2, 0.25, 0.5, 0.3, 0.4, 0.08, 0.4, 0.25, 0.3, 0.3] | NaN reward steps so far: 0
+Episodes: 2230 | Mean Reward (last 10): 1.657 | Mean Score: 1.670 | Last-10 eps: [0.05, 0.3, 0.3, 0.4, 0.4, 0.1, 0.2, 0.08, 0.5, 0.05] | NaN reward steps so far: 0
+Episodes: 2240 | Mean Reward (last 10): 1.705 | Mean Score: 1.728 | Last-10 eps: [0.1, 0.08, 0.5, 0.5, 0.4, 0.15, 0.25, 0.15, 0.08, 0.5] | NaN reward steps so far: 0
+Episodes: 2250 | Mean Reward (last 10): 1.593 | Mean Score: 1.610 | Last-10 eps: [0.3, 0.6, 0.6, 0.5, 0.15, 0.3, 0.6, 0.15, 0.6, 0.08] | NaN reward steps so far: 0
+Episodes: 2260 | Mean Reward (last 10): 1.675 | Mean Score: 1.695 | Last-10 eps: [0.5, 0.2, 0.6, 0.2, 0.15, 0.05, 0.15, 0.3, 0.15, 0.2] | NaN reward steps so far: 0
+Episodes: 2270 | Mean Reward (last 10): 1.047 | Mean Score: 1.068 | Last-10 eps: [0.08, 0.08, 0.15, 0.03, 0.25, 0.03, 0.03, 0.03, 0.03, 0.2] | NaN reward steps so far: 0
+Episodes: 2280 | Mean Reward (last 10): 1.759 | Mean Score: 1.770 | Last-10 eps: [0.15, 0.08, 0.1, 0.1, 0.1, 0.2, 0.25, 0.1, 0.1, 0.15] | NaN reward steps so far: 0
+Episodes: 2290 | Mean Reward (last 10): 1.344 | Mean Score: 1.361 | Last-10 eps: [0.2, 0.03, 0.05, 0.6, 0.3, 0.08, 0.4, 0.25, 0.5, 0.6] | NaN reward steps so far: 0
+Episodes: 2300 | Mean Reward (last 10): 1.731 | Mean Score: 1.744 | Last-10 eps: [0.6, 0.25, 0.4, 0.08, 0.4, 0.25, 0.15, 0.4, 0.15, 0.4] | NaN reward steps so far: 0
+Episodes: 2310 | Mean Reward (last 10): 1.289 | Mean Score: 1.311 | Last-10 eps: [0.4, 0.08, 0.5, 0.1, 0.6, 0.1, 0.03, 0.03, 0.5, 0.25] | NaN reward steps so far: 0
+Episodes: 2320 | Mean Reward (last 10): 1.537 | Mean Score: 1.553 | Last-10 eps: [0.03, 0.6, 0.05, 0.3, 0.3, 0.3, 0.1, 0.25, 0.15, 0.05] | NaN reward steps so far: 0
+Episodes: 2330 | Mean Reward (last 10): 1.615 | Mean Score: 1.628 | Last-10 eps: [0.25, 0.4, 0.1, 0.15, 0.3, 0.03, 0.4, 0.25, 0.3, 0.4] | NaN reward steps so far: 0
+Episodes: 2340 | Mean Reward (last 10): 1.561 | Mean Score: 1.577 | Last-10 eps: [0.4, 0.05, 0.25, 0.4, 0.05, 0.05, 0.05, 0.4, 0.15, 0.5] | NaN reward steps so far: 0
+Episodes: 2350 | Mean Reward (last 10): 1.758 | Mean Score: 1.777 | Last-10 eps: [0.15, 0.08, 0.1, 0.1, 0.25, 0.05, 0.6, 0.05, 0.15, 0.2] | NaN reward steps so far: 0
+Episodes: 2360 | Mean Reward (last 10): 1.603 | Mean Score: 1.619 | Last-10 eps: [0.1, 0.25, 0.5, 0.2, 0.2, 0.1, 0.6, 0.15, 0.2, 0.15] | NaN reward steps so far: 0
+Episodes: 2370 | Mean Reward (last 10): 1.268 | Mean Score: 1.287 | Last-10 eps: [0.08, 0.25, 0.05, 0.25, 0.08, 0.2, 0.5, 0.03, 0.6, 0.1] | NaN reward steps so far: 0
+Episodes: 2380 | Mean Reward (last 10): 1.542 | Mean Score: 1.560 | Last-10 eps: [0.03, 0.3, 0.5, 0.5, 0.25, 0.05, 0.4, 0.5, 0.05, 0.4] | NaN reward steps so far: 0
+Episodes: 2390 | Mean Reward (last 10): 1.540 | Mean Score: 1.562 | Last-10 eps: [0.3, 0.5, 0.15, 0.25, 0.05, 0.05, 0.08, 0.5, 0.15, 0.2] | NaN reward steps so far: 0
+Episodes: 2400 | Mean Reward (last 10): 1.541 | Mean Score: 1.556 | Last-10 eps: [0.4, 0.15, 0.08, 0.25, 0.25, 0.2, 0.3, 0.6, 0.25, 0.15] | NaN reward steps so far: 0
+Episodes: 2410 | Mean Reward (last 10): 1.732 | Mean Score: 1.749 | Last-10 eps: [0.1, 0.25, 0.2, 0.1, 0.2, 0.6, 0.15, 0.6, 0.25, 0.5] | NaN reward steps so far: 0
+Episodes: 2420 | Mean Reward (last 10): 1.744 | Mean Score: 1.764 | Last-10 eps: [0.05, 0.5, 0.6, 0.25, 0.6, 0.6, 0.1, 0.1, 0.4, 0.5] | NaN reward steps so far: 0
+Episodes: 2430 | Mean Reward (last 10): 1.544 | Mean Score: 1.557 | Last-10 eps: [0.2, 0.08, 0.25, 0.4, 0.4, 0.3, 0.05, 0.3, 0.6, 0.6] | NaN reward steps so far: 0
+Episodes: 2440 | Mean Reward (last 10): 1.526 | Mean Score: 1.547 | Last-10 eps: [0.2, 0.1, 0.5, 0.3, 0.05, 0.5, 0.03, 0.6, 0.15, 0.25] | NaN reward steps so far: 0
+Episodes: 2450 | Mean Reward (last 10): 1.705 | Mean Score: 1.720 | Last-10 eps: [0.2, 0.5, 0.15, 0.6, 0.2, 0.08, 0.15, 0.25, 0.4, 0.5] | NaN reward steps so far: 0
+Episodes: 2460 | Mean Reward (last 10): 1.782 | Mean Score: 1.800 | Last-10 eps: [0.4, 0.1, 0.15, 0.15, 0.1, 0.1, 0.1, 0.2, 0.08, 0.4] | NaN reward steps so far: 0
+Episodes: 2470 | Mean Reward (last 10): 1.443 | Mean Score: 1.459 | Last-10 eps: [0.05, 0.1, 0.4, 0.05, 0.4, 0.6, 0.1, 0.05, 0.03, 0.2] | NaN reward steps so far: 0
+Episodes: 2480 | Mean Reward (last 10): 1.676 | Mean Score: 1.693 | Last-10 eps: [0.2, 0.25, 0.3, 0.08, 0.6, 0.6, 0.2, 0.5, 0.4, 0.15] | NaN reward steps so far: 0
+Episodes: 2490 | Mean Reward (last 10): 1.454 | Mean Score: 1.469 | Last-10 eps: [0.4, 0.03, 0.15, 0.1, 0.03, 0.6, 0.03, 0.15, 0.08, 0.3] | NaN reward steps so far: 0
+Episodes: 2500 | Mean Reward (last 10): 1.582 | Mean Score: 1.598 | Last-10 eps: [0.2, 0.15, 0.2, 0.1, 0.6, 0.15, 0.2, 0.15, 0.08, 0.6] | NaN reward steps so far: 0
+Episodes: 2510 | Mean Reward (last 10): 1.545 | Mean Score: 1.561 | Last-10 eps: [0.2, 0.1, 0.15, 0.6, 0.2, 0.2, 0.15, 0.2, 0.05, 0.4] | NaN reward steps so far: 0
+Episodes: 2520 | Mean Reward (last 10): 1.236 | Mean Score: 1.254 | Last-10 eps: [0.05, 0.2, 0.5, 0.5, 0.1, 0.08, 0.4, 0.6, 0.4, 0.05] | NaN reward steps so far: 0
+Episodes: 2530 | Mean Reward (last 10): 1.367 | Mean Score: 1.387 | Last-10 eps: [0.05, 0.4, 0.2, 0.5, 0.4, 0.2, 0.08, 0.15, 0.1, 0.3] | NaN reward steps so far: 0
+Episodes: 2540 | Mean Reward (last 10): 1.144 | Mean Score: 1.163 | Last-10 eps: [0.05, 0.3, 0.3, 0.2, 0.3, 0.1, 0.03, 0.05, 0.15, 0.4] | NaN reward steps so far: 0
+Episodes: 2550 | Mean Reward (last 10): 1.595 | Mean Score: 1.611 | Last-10 eps: [0.08, 0.15, 0.2, 0.1, 0.4, 0.5, 0.6, 0.3, 0.15, 0.4] | NaN reward steps so far: 0
+Episodes: 2560 | Mean Reward (last 10): 1.783 | Mean Score: 1.796 | Last-10 eps: [0.1, 0.08, 0.25, 0.6, 0.15, 0.08, 0.15, 0.08, 0.5, 0.5] | NaN reward steps so far: 0
+Episodes: 2570 | Mean Reward (last 10): 1.843 | Mean Score: 1.865 | Last-10 eps: [0.2, 0.3, 0.1, 0.1, 0.25, 0.5, 0.05, 0.05, 0.15, 0.2] | NaN reward steps so far: 0
+Episodes: 2580 | Mean Reward (last 10): 1.670 | Mean Score: 1.685 | Last-10 eps: [0.5, 0.3, 0.4, 0.5, 0.3, 0.05, 0.5, 0.1, 0.08, 0.25] | NaN reward steps so far: 0
+Episodes: 2590 | Mean Reward (last 10): 1.524 | Mean Score: 1.537 | Last-10 eps: [0.3, 0.05, 0.2, 0.3, 0.6, 0.08, 0.6, 0.05, 0.2, 0.6] | NaN reward steps so far: 0
+Episodes: 2600 | Mean Reward (last 10): 1.461 | Mean Score: 1.483 | Last-10 eps: [0.05, 0.15, 0.15, 0.6, 0.3, 0.6, 0.3, 0.15, 0.4, 0.5] | NaN reward steps so far: 0
+Episodes: 2610 | Mean Reward (last 10): 1.760 | Mean Score: 1.776 | Last-10 eps: [0.1, 0.15, 0.4, 0.5, 0.1, 0.08, 0.05, 0.05, 0.3, 0.4] | NaN reward steps so far: 0
+Episodes: 2620 | Mean Reward (last 10): 1.400 | Mean Score: 1.420 | Last-10 eps: [0.05, 0.05, 0.6, 0.4, 0.1, 0.1, 0.25, 0.15, 0.08, 0.1] | NaN reward steps so far: 0
+Episodes: 2630 | Mean Reward (last 10): 1.467 | Mean Score: 1.480 | Last-10 eps: [0.4, 0.25, 0.05, 0.2, 0.5, 0.03, 0.05, 0.15, 0.4, 0.1] | NaN reward steps so far: 0
+Episodes: 2640 | Mean Reward (last 10): 1.538 | Mean Score: 1.555 | Last-10 eps: [0.1, 0.08, 0.4, 0.08, 0.08, 0.1, 0.15, 0.25, 0.05, 0.15] | NaN reward steps so far: 0
+Episodes: 2650 | Mean Reward (last 10): 1.527 | Mean Score: 1.546 | Last-10 eps: [0.4, 0.15, 0.25, 0.4, 0.1, 0.08, 0.4, 0.15, 0.1, 0.25] | NaN reward steps so far: 0
+Episodes: 2660 | Mean Reward (last 10): 1.744 | Mean Score: 1.764 | Last-10 eps: [0.4, 0.25, 0.2, 0.3, 0.5, 0.2, 0.2, 0.25, 0.08, 0.5] | NaN reward steps so far: 0
+Episodes: 2670 | Mean Reward (last 10): 1.571 | Mean Score: 1.595 | Last-10 eps: [0.05, 0.2, 0.6, 0.3, 0.4, 0.6, 0.4, 0.3, 0.2, 0.1] | NaN reward steps so far: 0
+Episodes: 2680 | Mean Reward (last 10): 1.350 | Mean Score: 1.370 | Last-10 eps: [0.25, 0.08, 0.1, 0.03, 0.1, 0.3, 0.5, 0.08, 0.03, 0.08] | NaN reward steps so far: 0
+Episodes: 2690 | Mean Reward (last 10): 1.597 | Mean Score: 1.613 | Last-10 eps: [0.1, 0.1, 0.15, 0.4, 0.1, 0.4, 0.4, 0.5, 0.08, 0.15] | NaN reward steps so far: 0
+Episodes: 2700 | Mean Reward (last 10): 1.318 | Mean Score: 1.342 | Last-10 eps: [0.6, 0.4, 0.08, 0.3, 0.5, 0.15, 0.2, 0.25, 0.03, 0.25] | NaN reward steps so far: 0
+Episodes: 2710 | Mean Reward (last 10): 1.334 | Mean Score: 1.350 | Last-10 eps: [0.08, 0.2, 0.4, 0.05, 0.3, 0.03, 0.08, 0.1, 0.5, 0.08] | NaN reward steps so far: 0
+Episodes: 2720 | Mean Reward (last 10): 1.772 | Mean Score: 1.795 | Last-10 eps: [0.25, 0.5, 0.25, 0.2, 0.25, 0.2, 0.15, 0.4, 0.25, 0.15] | NaN reward steps so far: 0
+Episodes: 2730 | Mean Reward (last 10): 1.749 | Mean Score: 1.762 | Last-10 eps: [0.25, 0.6, 0.3, 0.6, 0.4, 0.1, 0.25, 0.5, 0.4, 0.3] | NaN reward steps so far: 0
+Episodes: 2740 | Mean Reward (last 10): 1.273 | Mean Score: 1.289 | Last-10 eps: [0.15, 0.08, 0.6, 0.03, 0.6, 0.25, 0.5, 0.4, 0.08, 0.3] | NaN reward steps so far: 0
+Episodes: 2750 | Mean Reward (last 10): 1.737 | Mean Score: 1.755 | Last-10 eps: [0.6, 0.25, 0.1, 0.25, 0.3, 0.15, 0.1, 0.08, 0.15, 0.4] | NaN reward steps so far: 0
+Episodes: 2760 | Mean Reward (last 10): 1.484 | Mean Score: 1.498 | Last-10 eps: [0.08, 0.3, 0.6, 0.5, 0.08, 0.3, 0.3, 0.4, 0.15, 0.15] | NaN reward steps so far: 0
+Episodes: 2770 | Mean Reward (last 10): 1.606 | Mean Score: 1.630 | Last-10 eps: [0.5, 0.5, 0.25, 0.6, 0.1, 0.03, 0.4, 0.1, 0.5, 0.25] | NaN reward steps so far: 0
+Episodes: 2780 | Mean Reward (last 10): 1.366 | Mean Score: 1.388 | Last-10 eps: [0.2, 0.6, 0.4, 0.05, 0.4, 0.2, 0.08, 0.25, 0.05, 0.03] | NaN reward steps so far: 0
+Episodes: 2790 | Mean Reward (last 10): 1.712 | Mean Score: 1.728 | Last-10 eps: [0.1, 0.15, 0.25, 0.25, 0.2, 0.25, 0.25, 0.5, 0.5, 0.3] | NaN reward steps so far: 0
+Episodes: 2800 | Mean Reward (last 10): 1.545 | Mean Score: 1.561 | Last-10 eps: [0.03, 0.5, 0.2, 0.4, 0.5, 0.4, 0.08, 0.3, 0.2, 0.2] | NaN reward steps so far: 0
+Episodes: 2810 | Mean Reward (last 10): 1.766 | Mean Score: 1.783 | Last-10 eps: [0.6, 0.5, 0.2, 0.08, 0.25, 0.6, 0.5, 0.15, 0.3, 0.05] | NaN reward steps so far: 0
+Episodes: 2820 | Mean Reward (last 10): 1.424 | Mean Score: 1.442 | Last-10 eps: [0.2, 0.25, 0.15, 0.15, 0.3, 0.03, 0.08, 0.1, 0.2, 0.25] | NaN reward steps so far: 0
+Episodes: 2830 | Mean Reward (last 10): 1.706 | Mean Score: 1.723 | Last-10 eps: [0.5, 0.08, 0.1, 0.1, 0.3, 0.2, 0.15, 0.5, 0.5, 0.1] | NaN reward steps so far: 0
+Episodes: 2840 | Mean Reward (last 10): 1.091 | Mean Score: 1.103 | Last-10 eps: [0.1, 0.03, 0.6, 0.6, 0.05, 0.1, 0.05, 0.25, 0.3, 0.3] | NaN reward steps so far: 0
+Episodes: 2850 | Mean Reward (last 10): 1.393 | Mean Score: 1.410 | Last-10 eps: [0.5, 0.08, 0.1, 0.1, 0.15, 0.05, 0.05, 0.05, 0.3, 0.5] | NaN reward steps so far: 0
+Episodes: 2860 | Mean Reward (last 10): 1.786 | Mean Score: 1.800 | Last-10 eps: [0.3, 0.1, 0.3, 0.6, 0.3, 0.6, 0.08, 0.25, 0.6, 0.2] | NaN reward steps so far: 0
+Episodes: 2870 | Mean Reward (last 10): 1.739 | Mean Score: 1.755 | Last-10 eps: [0.6, 0.08, 0.4, 0.1, 0.15, 0.5, 0.15, 0.4, 0.6, 0.6] | NaN reward steps so far: 0
+Episodes: 2880 | Mean Reward (last 10): 1.409 | Mean Score: 1.421 | Last-10 eps: [0.1, 0.4, 0.25, 0.08, 0.2, 0.15, 0.25, 0.15, 0.05, 0.1] | NaN reward steps so far: 0
+Episodes: 2890 | Mean Reward (last 10): 1.040 | Mean Score: 1.055 | Last-10 eps: [0.03, 0.5, 0.08, 0.2, 0.08, 0.15, 0.03, 0.25, 0.03, 0.15] | NaN reward steps so far: 0
+Episodes: 2900 | Mean Reward (last 10): 1.377 | Mean Score: 1.389 | Last-10 eps: [0.3, 0.1, 0.3, 0.05, 0.1, 0.3, 0.05, 0.1, 0.1, 0.1] | NaN reward steps so far: 0
+Episodes: 2910 | Mean Reward (last 10): 1.466 | Mean Score: 1.484 | Last-10 eps: [0.05, 0.3, 0.4, 0.03, 0.25, 0.2, 0.3, 0.6, 0.3, 0.25] | NaN reward steps so far: 0
+Episodes: 2920 | Mean Reward (last 10): 1.571 | Mean Score: 1.584 | Last-10 eps: [0.25, 0.08, 0.05, 0.05, 0.1, 0.05, 0.3, 0.6, 0.2, 0.25] | NaN reward steps so far: 0
+Episodes: 2930 | Mean Reward (last 10): 1.720 | Mean Score: 1.732 | Last-10 eps: [0.05, 0.4, 0.1, 0.3, 0.2, 0.25, 0.08, 0.3, 0.1, 0.5] | NaN reward steps so far: 0
+Episodes: 2940 | Mean Reward (last 10): 1.563 | Mean Score: 1.582 | Last-10 eps: [0.1, 0.3, 0.05, 0.25, 0.3, 0.5, 0.1, 0.5, 0.25, 0.4] | NaN reward steps so far: 0
+Episodes: 2950 | Mean Reward (last 10): 1.295 | Mean Score: 1.310 | Last-10 eps: [0.2, 0.03, 0.3, 0.15, 0.15, 0.25, 0.15, 0.1, 0.03, 0.3] | NaN reward steps so far: 0
+Episodes: 2960 | Mean Reward (last 10): 1.605 | Mean Score: 1.616 | Last-10 eps: [0.1, 0.2, 0.4, 0.08, 0.03, 0.1, 0.3, 0.15, 0.1, 0.3] | NaN reward steps so far: 0
+Episodes: 2970 | Mean Reward (last 10): 1.012 | Mean Score: 1.031 | Last-10 eps: [0.6, 0.4, 0.25, 0.5, 0.1, 0.03, 0.03, 0.5, 0.2, 0.05] | NaN reward steps so far: 0
+Episodes: 2980 | Mean Reward (last 10): 1.580 | Mean Score: 1.595 | Last-10 eps: [0.4, 0.2, 0.03, 0.15, 0.4, 0.5, 0.2, 0.25, 0.15, 0.4] | NaN reward steps so far: 0
+Episodes: 2990 | Mean Reward (last 10): 1.535 | Mean Score: 1.560 | Last-10 eps: [0.05, 0.2, 0.05, 0.2, 0.3, 0.1, 0.4, 0.1, 0.4, 0.15] | NaN reward steps so far: 0
+Episodes: 3000 | Mean Reward (last 10): 1.746 | Mean Score: 1.765 | Last-10 eps: [0.25, 0.4, 0.4, 0.08, 0.3, 0.5, 0.4, 0.3, 0.2, 0.25] | NaN reward steps so far: 0
+Episodes: 3010 | Mean Reward (last 10): 1.680 | Mean Score: 1.694 | Last-10 eps: [0.08, 0.6, 0.25, 0.25, 0.03, 0.4, 0.15, 0.5, 0.4, 0.3] | NaN reward steps so far: 0
+Episodes: 3020 | Mean Reward (last 10): 1.481 | Mean Score: 1.497 | Last-10 eps: [0.3, 0.3, 0.25, 0.25, 0.3, 0.2, 0.6, 0.6, 0.2, 0.05] | NaN reward steps so far: 0
+Episodes: 3030 | Mean Reward (last 10): 1.604 | Mean Score: 1.623 | Last-10 eps: [0.05, 0.15, 0.2, 0.5, 0.4, 0.5, 0.3, 0.1, 0.03, 0.08] | NaN reward steps so far: 0
+Episodes: 3040 | Mean Reward (last 10): 1.591 | Mean Score: 1.608 | Last-10 eps: [0.08, 0.1, 0.6, 0.6, 0.15, 0.08, 0.15, 0.2, 0.15, 0.15] | NaN reward steps so far: 0
+Episodes: 3050 | Mean Reward (last 10): 1.553 | Mean Score: 1.564 | Last-10 eps: [0.25, 0.05, 0.3, 0.3, 0.1, 0.4, 0.1, 0.1, 0.25, 0.5] | NaN reward steps so far: 0
+Episodes: 3060 | Mean Reward (last 10): 1.373 | Mean Score: 1.394 | Last-10 eps: [0.3, 0.05, 0.6, 0.08, 0.2, 0.1, 0.5, 0.25, 0.25, 0.1] | NaN reward steps so far: 0
+Episodes: 3070 | Mean Reward (last 10): 1.297 | Mean Score: 1.314 | Last-10 eps: [0.15, 0.03, 0.3, 0.6, 0.15, 0.05, 0.08, 0.08, 0.4, 0.5] | NaN reward steps so far: 0
+Episodes: 3080 | Mean Reward (last 10): 1.575 | Mean Score: 1.596 | Last-10 eps: [0.15, 0.2, 0.1, 0.3, 0.25, 0.08, 0.25, 0.4, 0.2, 0.25] | NaN reward steps so far: 0
+Episodes: 3090 | Mean Reward (last 10): 1.359 | Mean Score: 1.382 | Last-10 eps: [0.05, 0.5, 0.6, 0.5, 0.25, 0.1, 0.5, 0.4, 0.3, 0.05] | NaN reward steps so far: 0
+Episodes: 3100 | Mean Reward (last 10): 1.532 | Mean Score: 1.546 | Last-10 eps: [0.6, 0.1, 0.05, 0.05, 0.2, 0.2, 0.2, 0.4, 0.4, 0.15] | NaN reward steps so far: 0
+Episodes: 3110 | Mean Reward (last 10): 1.737 | Mean Score: 1.755 | Last-10 eps: [0.2, 0.08, 0.08, 0.1, 0.25, 0.03, 0.2, 0.05, 0.2, 0.4] | NaN reward steps so far: 0
+Episodes: 3120 | Mean Reward (last 10): 1.439 | Mean Score: 1.454 | Last-10 eps: [0.08, 0.3, 0.08, 0.05, 0.3, 0.4, 0.15, 0.15, 0.5, 0.08] | NaN reward steps so far: 0
+Episodes: 3130 | Mean Reward (last 10): 1.255 | Mean Score: 1.270 | Last-10 eps: [0.2, 0.08, 0.25, 0.1, 0.03, 0.03, 0.5, 0.3, 0.25, 0.15] | NaN reward steps so far: 0
+Episodes: 3140 | Mean Reward (last 10): 1.019 | Mean Score: 1.037 | Last-10 eps: [0.03, 0.15, 0.03, 0.4, 0.3, 0.05, 0.03, 0.2, 0.2, 0.25] | NaN reward steps so far: 0
+Episodes: 3150 | Mean Reward (last 10): 1.083 | Mean Score: 1.100 | Last-10 eps: [0.08, 0.15, 0.3, 0.08, 0.6, 0.05, 0.2, 0.03, 0.2, 0.5] | NaN reward steps so far: 0
+Episodes: 3160 | Mean Reward (last 10): 1.485 | Mean Score: 1.503 | Last-10 eps: [0.5, 0.05, 0.2, 0.08, 0.5, 0.08, 0.15, 0.15, 0.4, 0.6] | NaN reward steps so far: 0
+Episodes: 3170 | Mean Reward (last 10): 1.153 | Mean Score: 1.170 | Last-10 eps: [0.05, 0.3, 0.08, 0.03, 0.25, 0.5, 0.6, 0.15, 0.03, 0.15] | NaN reward steps so far: 0
+Episodes: 3180 | Mean Reward (last 10): 1.347 | Mean Score: 1.361 | Last-10 eps: [0.03, 0.15, 0.2, 0.08, 0.5, 0.1, 0.6, 0.6, 0.3, 0.08] | NaN reward steps so far: 0
+Episodes: 3190 | Mean Reward (last 10): 1.775 | Mean Score: 1.794 | Last-10 eps: [0.25, 0.15, 0.3, 0.2, 0.4, 0.1, 0.3, 0.6, 0.08, 0.6] | NaN reward steps so far: 0
+Episodes: 3200 | Mean Reward (last 10): 1.835 | Mean Score: 1.854 | Last-10 eps: [0.15, 0.6, 0.08, 0.4, 0.25, 0.5, 0.1, 0.15, 0.15, 0.08] | NaN reward steps so far: 0
+Episodes: 3210 | Mean Reward (last 10): 1.418 | Mean Score: 1.435 | Last-10 eps: [0.05, 0.1, 0.1, 0.15, 0.6, 0.15, 0.25, 0.3, 0.4, 0.4] | NaN reward steps so far: 0
+Episodes: 3220 | Mean Reward (last 10): 1.261 | Mean Score: 1.283 | Last-10 eps: [0.2, 0.15, 0.08, 0.3, 0.15, 0.08, 0.25, 0.03, 0.5, 0.05] | NaN reward steps so far: 0
+Episodes: 3230 | Mean Reward (last 10): 1.335 | Mean Score: 1.349 | Last-10 eps: [0.3, 0.15, 0.03, 0.5, 0.3, 0.05, 0.1, 0.25, 0.6, 0.08] | NaN reward steps so far: 0
+Episodes: 3240 | Mean Reward (last 10): 1.786 | Mean Score: 1.806 | Last-10 eps: [0.25, 0.1, 0.5, 0.6, 0.08, 0.15, 0.2, 0.15, 0.6, 0.3] | NaN reward steps so far: 0
+Episodes: 3250 | Mean Reward (last 10): 1.574 | Mean Score: 1.589 | Last-10 eps: [0.4, 0.4, 0.5, 0.05, 0.4, 0.05, 0.25, 0.1, 0.15, 0.3] | NaN reward steps so far: 0
+Episodes: 3260 | Mean Reward (last 10): 1.563 | Mean Score: 1.581 | Last-10 eps: [0.3, 0.6, 0.1, 0.08, 0.05, 0.15, 0.08, 0.08, 0.5, 0.25] | NaN reward steps so far: 0
+Episodes: 3270 | Mean Reward (last 10): 1.751 | Mean Score: 1.773 | Last-10 eps: [0.1, 0.3, 0.6, 0.25, 0.15, 0.1, 0.08, 0.15, 0.15, 0.3] | NaN reward steps so far: 0
+Episodes: 3280 | Mean Reward (last 10): 1.584 | Mean Score: 1.601 | Last-10 eps: [0.3, 0.2, 0.15, 0.1, 0.25, 0.08, 0.03, 0.15, 0.15, 0.05] | NaN reward steps so far: 0
+Episodes: 3290 | Mean Reward (last 10): 1.734 | Mean Score: 1.747 | Last-10 eps: [0.05, 0.6, 0.2, 0.3, 0.5, 0.4, 0.2, 0.5, 0.08, 0.2] | NaN reward steps so far: 0
+Episodes: 3300 | Mean Reward (last 10): 1.770 | Mean Score: 1.788 | Last-10 eps: [0.4, 0.4, 0.2, 0.08, 0.3, 0.6, 0.5, 0.15, 0.4, 0.1] | NaN reward steps so far: 0
+Episodes: 3310 | Mean Reward (last 10): 1.337 | Mean Score: 1.356 | Last-10 eps: [0.25, 0.5, 0.1, 0.3, 0.5, 0.2, 0.5, 0.2, 0.4, 0.5] | NaN reward steps so far: 0
+Episodes: 3320 | Mean Reward (last 10): 1.672 | Mean Score: 1.688 | Last-10 eps: [0.25, 0.2, 0.1, 0.3, 0.4, 0.05, 0.08, 0.15, 0.15, 0.08] | NaN reward steps so far: 0
+Episodes: 3330 | Mean Reward (last 10): 1.297 | Mean Score: 1.310 | Last-10 eps: [0.3, 0.6, 0.3, 0.03, 0.3, 0.25, 0.08, 0.08, 0.6, 0.25] | NaN reward steps so far: 0
+Episodes: 3340 | Mean Reward (last 10): 1.489 | Mean Score: 1.506 | Last-10 eps: [0.6, 0.15, 0.05, 0.15, 0.4, 0.1, 0.3, 0.1, 0.08, 0.15] | NaN reward steps so far: 0
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 1.68        |
+|    ep_rew_mean          | 1.58        |
+| time/                   |             |
+|    fps                  | 3           |
+|    iterations           | 3           |
+|    time_elapsed         | 1730        |
+|    total_timesteps      | 6144        |
+| train/                  |             |
+|    approx_kl            | 0.021718245 |
+|    clip_fraction        | 0.244       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -6.64       |
+|    explained_variance   | 0.659       |
+|    learning_rate        | 0.0003      |
+|    loss                 | 0.22        |
+|    n_updates            | 20          |
+|    policy_gradient_loss | -0.0537     |
+|    value_loss           | 0.711       |
+-----------------------------------------
+Episodes: 3350 | Mean Reward (last 10): 1.524 | Mean Score: 1.541 | Last-10 eps: [0.3, 0.6, 0.2, 0.1, 0.15, 0.6, 0.05, 0.2, 0.15, 0.6] | NaN reward steps so far: 0
+Episodes: 3360 | Mean Reward (last 10): 1.646 | Mean Score: 1.669 | Last-10 eps: [0.25, 0.15, 0.08, 0.15, 0.6, 0.3, 0.3, 0.2, 0.25, 0.3] | NaN reward steps so far: 0
+Episodes: 3370 | Mean Reward (last 10): 1.760 | Mean Score: 1.773 | Last-10 eps: [0.15, 0.2, 0.5, 0.25, 0.25, 0.2, 0.25, 0.08, 0.4, 0.1] | NaN reward steps so far: 0
+Episodes: 3380 | Mean Reward (last 10): 1.626 | Mean Score: 1.644 | Last-10 eps: [0.3, 0.2, 0.08, 0.4, 0.5, 0.3, 0.4, 0.15, 0.6, 0.15] | NaN reward steps so far: 0
+Episodes: 3390 | Mean Reward (last 10): 1.716 | Mean Score: 1.731 | Last-10 eps: [0.15, 0.25, 0.08, 0.2, 0.2, 0.08, 0.1, 0.25, 0.5, 0.1] | NaN reward steps so far: 0
+Episodes: 3400 | Mean Reward (last 10): 1.449 | Mean Score: 1.461 | Last-10 eps: [0.25, 0.05, 0.05, 0.15, 0.1, 0.1, 0.03, 0.6, 0.1, 0.6] | NaN reward steps so far: 0
+Episodes: 3410 | Mean Reward (last 10): 1.550 | Mean Score: 1.569 | Last-10 eps: [0.25, 0.4, 0.3, 0.4, 0.25, 0.05, 0.5, 0.4, 0.4, 0.03] | NaN reward steps so far: 0
+Episodes: 3420 | Mean Reward (last 10): 1.733 | Mean Score: 1.748 | Last-10 eps: [0.15, 0.08, 0.15, 0.08, 0.4, 0.2, 0.2, 0.2, 0.08, 0.2] | NaN reward steps so far: 0
+Episodes: 3430 | Mean Reward (last 10): 1.670 | Mean Score: 1.684 | Last-10 eps: [0.6, 0.2, 0.15, 0.25, 0.4, 0.6, 0.3, 0.5, 0.3, 0.25] | NaN reward steps so far: 0
+Episodes: 3440 | Mean Reward (last 10): 1.701 | Mean Score: 1.717 | Last-10 eps: [0.25, 0.25, 0.2, 0.5, 0.08, 0.08, 0.4, 0.6, 0.08, 0.1] | NaN reward steps so far: 0
+Episodes: 3450 | Mean Reward (last 10): 1.588 | Mean Score: 1.610 | Last-10 eps: [0.25, 0.6, 0.5, 0.5, 0.25, 0.5, 0.5, 0.2, 0.08, 0.25] | NaN reward steps so far: 0
+Episodes: 3460 | Mean Reward (last 10): 1.705 | Mean Score: 1.724 | Last-10 eps: [0.1, 0.3, 0.1, 0.2, 0.4, 0.4, 0.3, 0.6, 0.15, 0.6] | NaN reward steps so far: 0
+Episodes: 3470 | Mean Reward (last 10): 1.177 | Mean Score: 1.193 | Last-10 eps: [0.6, 0.4, 0.5, 0.5, 0.2, 0.03, 0.6, 0.03, 0.1, 0.1] | NaN reward steps so far: 0
+Episodes: 3480 | Mean Reward (last 10): 1.367 | Mean Score: 1.383 | Last-10 eps: [0.05, 0.08, 0.5, 0.05, 0.15, 0.4, 0.6, 0.1, 0.15, 0.2] | NaN reward steps so far: 0
+Episodes: 3490 | Mean Reward (last 10): 1.676 | Mean Score: 1.688 | Last-10 eps: [0.1, 0.25, 0.15, 0.6, 0.5, 0.08, 0.4, 0.25, 0.15, 0.2] | NaN reward steps so far: 0
+Episodes: 3500 | Mean Reward (last 10): 1.723 | Mean Score: 1.736 | Last-10 eps: [0.4, 0.6, 0.25, 0.4, 0.05, 0.6, 0.5, 0.2, 0.2, 0.4] | NaN reward steps so far: 0
+Episodes: 3510 | Mean Reward (last 10): 1.488 | Mean Score: 1.503 | Last-10 eps: [0.4, 0.08, 0.25, 0.25, 0.6, 0.15, 0.6, 0.2, 0.6, 0.15] | NaN reward steps so far: 0
+Episodes: 3520 | Mean Reward (last 10): 1.634 | Mean Score: 1.648 | Last-10 eps: [0.03, 0.6, 0.15, 0.1, 0.08, 0.1, 0.5, 0.3, 0.2, 0.6] | NaN reward steps so far: 0
+Episodes: 3530 | Mean Reward (last 10): 1.750 | Mean Score: 1.770 | Last-10 eps: [0.15, 0.6, 0.1, 0.3, 0.4, 0.3, 0.4, 0.4, 0.1, 0.1] | NaN reward steps so far: 0
+Episodes: 3540 | Mean Reward (last 10): 1.260 | Mean Score: 1.276 | Last-10 eps: [0.5, 0.15, 0.4, 0.1, 0.6, 0.08, 0.3, 0.08, 0.03, 0.03] | NaN reward steps so far: 0
+Episodes: 3550 | Mean Reward (last 10): 1.730 | Mean Score: 1.746 | Last-10 eps: [0.1, 0.05, 0.08, 0.25, 0.08, 0.2, 0.2, 0.1, 0.2, 0.15] | NaN reward steps so far: 0
+Episodes: 3560 | Mean Reward (last 10): 1.733 | Mean Score: 1.748 | Last-10 eps: [0.25, 0.5, 0.4, 0.3, 0.15, 0.5, 0.2, 0.4, 0.3, 0.25] | NaN reward steps so far: 0
+Episodes: 3570 | Mean Reward (last 10): 1.645 | Mean Score: 1.664 | Last-10 eps: [0.1, 0.5, 0.1, 0.05, 0.08, 0.6, 0.08, 0.1, 0.25, 0.5] | NaN reward steps so far: 0
+Episodes: 3580 | Mean Reward (last 10): 1.504 | Mean Score: 1.523 | Last-10 eps: [0.3, 0.25, 0.6, 0.03, 0.6, 0.6, 0.25, 0.5, 0.2, 0.08] | NaN reward steps so far: 0
+Episodes: 3590 | Mean Reward (last 10): 1.747 | Mean Score: 1.768 | Last-10 eps: [0.3, 0.5, 0.6, 0.08, 0.6, 0.5, 0.2, 0.25, 0.25, 0.5] | NaN reward steps so far: 0
+Episodes: 3600 | Mean Reward (last 10): 1.706 | Mean Score: 1.731 | Last-10 eps: [0.15, 0.3, 0.5, 0.15, 0.05, 0.1, 0.08, 0.3, 0.25, 0.6] | NaN reward steps so far: 0
+Episodes: 3610 | Mean Reward (last 10): 1.032 | Mean Score: 1.059 | Last-10 eps: [0.25, 0.1, 0.03, 0.25, 0.6, 0.4, 0.4, 0.2, 0.1, 0.1] | NaN reward steps so far: 0
+Episodes: 3620 | Mean Reward (last 10): 1.396 | Mean Score: 1.416 | Last-10 eps: [0.15, 0.15, 0.03, 0.5, 0.03, 0.4, 0.15, 0.25, 0.2, 0.3] | NaN reward steps so far: 0
+Episodes: 3630 | Mean Reward (last 10): 1.485 | Mean Score: 1.511 | Last-10 eps: [0.15, 0.1, 0.15, 0.6, 0.1, 0.5, 0.2, 0.3, 0.1, 0.25] | NaN reward steps so far: 0
+Episodes: 3640 | Mean Reward (last 10): 1.484 | Mean Score: 1.498 | Last-10 eps: [0.25, 0.03, 0.5, 0.4, 0.2, 0.6, 0.15, 0.1, 0.08, 0.5] | NaN reward steps so far: 0
+Episodes: 3650 | Mean Reward (last 10): 1.705 | Mean Score: 1.724 | Last-10 eps: [0.3, 0.15, 0.4, 0.1, 0.15, 0.25, 0.25, 0.3, 0.1, 0.6] | NaN reward steps so far: 0
+Episodes: 3660 | Mean Reward (last 10): 1.364 | Mean Score: 1.383 | Last-10 eps: [0.4, 0.25, 0.25, 0.3, 0.08, 0.4, 0.2, 0.1, 0.1, 0.05] | NaN reward steps so far: 0
+Episodes: 3670 | Mean Reward (last 10): 1.526 | Mean Score: 1.544 | Last-10 eps: [0.2, 0.4, 0.08, 0.15, 0.5, 0.2, 0.2, 0.6, 0.05, 0.05] | NaN reward steps so far: 0
+Episodes: 3680 | Mean Reward (last 10): 1.649 | Mean Score: 1.666 | Last-10 eps: [0.3, 0.4, 0.3, 0.3, 0.3, 0.08, 0.1, 0.08, 0.03, 0.2] | NaN reward steps so far: 0
+Episodes: 3690 | Mean Reward (last 10): 1.737 | Mean Score: 1.751 | Last-10 eps: [0.2, 0.25, 0.1, 0.08, 0.25, 0.5, 0.25, 0.5, 0.2, 0.25] | NaN reward steps so far: 0
+Episodes: 3700 | Mean Reward (last 10): 1.308 | Mean Score: 1.324 | Last-10 eps: [0.05, 0.6, 0.4, 0.3, 0.2, 0.25, 0.4, 0.25, 0.08, 0.4] | NaN reward steps so far: 0
+Episodes: 3710 | Mean Reward (last 10): 1.349 | Mean Score: 1.368 | Last-10 eps: [0.1, 0.6, 0.08, 0.15, 0.1, 0.03, 0.25, 0.08, 0.03, 0.1] | NaN reward steps so far: 0
+Episodes: 3720 | Mean Reward (last 10): 1.655 | Mean Score: 1.672 | Last-10 eps: [0.3, 0.2, 0.4, 0.2, 0.2, 0.3, 0.5, 0.4, 0.4, 0.6] | NaN reward steps so far: 0
+Episodes: 3730 | Mean Reward (last 10): 1.697 | Mean Score: 1.718 | Last-10 eps: [0.03, 0.1, 0.05, 0.15, 0.2, 0.05, 0.15, 0.1, 0.1, 0.08] | NaN reward steps so far: 0
+Episodes: 3740 | Mean Reward (last 10): 1.529 | Mean Score: 1.547 | Last-10 eps: [0.2, 0.25, 0.03, 0.3, 0.3, 0.08, 0.3, 0.08, 0.08, 0.08] | NaN reward steps so far: 0
+Episodes: 3750 | Mean Reward (last 10): 1.794 | Mean Score: 1.812 | Last-10 eps: [0.2, 0.08, 0.1, 0.3, 0.4, 0.25, 0.3, 0.05, 0.05, 0.08] | NaN reward steps so far: 0
+Episodes: 3760 | Mean Reward (last 10): 1.556 | Mean Score: 1.572 | Last-10 eps: [0.05, 0.4, 0.5, 0.08, 0.08, 0.25, 0.25, 0.25, 0.08, 0.2] | NaN reward steps so far: 0
+Episodes: 3770 | Mean Reward (last 10): 1.786 | Mean Score: 1.798 | Last-10 eps: [0.2, 0.3, 0.3, 0.2, 0.25, 0.6, 0.6, 0.4, 0.08, 0.3] | NaN reward steps so far: 0
+Episodes: 3780 | Mean Reward (last 10): 1.457 | Mean Score: 1.480 | Last-10 eps: [0.6, 0.25, 0.05, 0.6, 0.2, 0.05, 0.2, 0.5, 0.3, 0.2] | NaN reward steps so far: 0
+Episodes: 3790 | Mean Reward (last 10): 1.420 | Mean Score: 1.436 | Last-10 eps: [0.08, 0.2, 0.5, 0.5, 0.03, 0.03, 0.2, 0.25, 0.4, 0.08] | NaN reward steps so far: 0
+Episodes: 3800 | Mean Reward (last 10): 1.668 | Mean Score: 1.684 | Last-10 eps: [0.2, 0.1, 0.4, 0.5, 0.15, 0.5, 0.4, 0.25, 0.1, 0.5] | NaN reward steps so far: 0
+Episodes: 3810 | Mean Reward (last 10): 1.277 | Mean Score: 1.296 | Last-10 eps: [0.3, 0.5, 0.6, 0.08, 0.08, 0.6, 0.2, 0.08, 0.1, 0.15] | NaN reward steps so far: 0
+Episodes: 3820 | Mean Reward (last 10): 1.695 | Mean Score: 1.714 | Last-10 eps: [0.2, 0.1, 0.08, 0.1, 0.25, 0.3, 0.1, 0.2, 0.08, 0.25] | NaN reward steps so far: 0
+Episodes: 3830 | Mean Reward (last 10): 1.624 | Mean Score: 1.637 | Last-10 eps: [0.03, 0.15, 0.1, 0.2, 0.6, 0.6, 0.25, 0.2, 0.3, 0.6] | NaN reward steps so far: 0
+Episodes: 3840 | Mean Reward (last 10): 1.433 | Mean Score: 1.450 | Last-10 eps: [0.6, 0.1, 0.03, 0.08, 0.4, 0.15, 0.05, 0.25, 0.3, 0.15] | NaN reward steps so far: 0
+Episodes: 3850 | Mean Reward (last 10): 1.724 | Mean Score: 1.740 | Last-10 eps: [0.2, 0.3, 0.1, 0.5, 0.08, 0.25, 0.1, 0.4, 0.25, 0.5] | NaN reward steps so far: 0
+Episodes: 3860 | Mean Reward (last 10): 1.428 | Mean Score: 1.442 | Last-10 eps: [0.15, 0.25, 0.05, 0.15, 0.4, 0.08, 0.25, 0.5, 0.6, 0.6] | NaN reward steps so far: 0
+Episodes: 3870 | Mean Reward (last 10): 1.628 | Mean Score: 1.641 | Last-10 eps: [0.3, 0.3, 0.2, 0.1, 0.6, 0.6, 0.2, 0.3, 0.5, 0.5] | NaN reward steps so far: 0
+Episodes: 3880 | Mean Reward (last 10): 1.047 | Mean Score: 1.071 | Last-10 eps: [0.08, 0.2, 0.05, 0.05, 0.1, 0.08, 0.05, 0.3, 0.1, 0.08] | NaN reward steps so far: 0
+Episodes: 3890 | Mean Reward (last 10): 1.433 | Mean Score: 1.451 | Last-10 eps: [0.5, 0.1, 0.1, 0.1, 0.2, 0.5, 0.08, 0.05, 0.03, 0.3] | NaN reward steps so far: 0
+Episodes: 3900 | Mean Reward (last 10): 1.611 | Mean Score: 1.630 | Last-10 eps: [0.2, 0.4, 0.1, 0.2, 0.3, 0.15, 0.15, 0.2, 0.6, 0.6] | NaN reward steps so far: 0
+Episodes: 3910 | Mean Reward (last 10): 1.500 | Mean Score: 1.517 | Last-10 eps: [0.08, 0.3, 0.3, 0.08, 0.5, 0.4, 0.3, 0.1, 0.3, 0.5] | NaN reward steps so far: 0
+Episodes: 3920 | Mean Reward (last 10): 1.517 | Mean Score: 1.535 | Last-10 eps: [0.15, 0.03, 0.08, 0.5, 0.5, 0.2, 0.5, 0.2, 0.2, 0.3] | NaN reward steps so far: 0
+Episodes: 3930 | Mean Reward (last 10): 1.628 | Mean Score: 1.644 | Last-10 eps: [0.2, 0.4, 0.6, 0.5, 0.08, 0.5, 0.25, 0.08, 0.4, 0.25] | NaN reward steps so far: 0
+Episodes: 3940 | Mean Reward (last 10): 1.630 | Mean Score: 1.642 | Last-10 eps: [0.6, 0.1, 0.2, 0.25, 0.05, 0.5, 0.3, 0.25, 0.2, 0.03] | NaN reward steps so far: 0
+Episodes: 3950 | Mean Reward (last 10): 1.449 | Mean Score: 1.467 | Last-10 eps: [0.05, 0.08, 0.03, 0.4, 0.2, 0.6, 0.3, 0.15, 0.3, 0.25] | NaN reward steps so far: 0
+Episodes: 3960 | Mean Reward (last 10): 1.416 | Mean Score: 1.428 | Last-10 eps: [0.3, 0.6, 0.4, 0.4, 0.2, 0.15, 0.3, 0.6, 0.5, 0.08] | NaN reward steps so far: 0
+Episodes: 3970 | Mean Reward (last 10): 1.809 | Mean Score: 1.824 | Last-10 eps: [0.3, 0.05, 0.3, 0.3, 0.15, 0.6, 0.15, 0.15, 0.5, 0.1] | NaN reward steps so far: 0
+Episodes: 3980 | Mean Reward (last 10): 1.695 | Mean Score: 1.717 | Last-10 eps: [0.2, 0.25, 0.25, 0.08, 0.4, 0.4, 0.08, 0.25, 0.3, 0.4] | NaN reward steps so far: 0
+Episodes: 3990 | Mean Reward (last 10): 1.790 | Mean Score: 1.810 | Last-10 eps: [0.1, 0.5, 0.25, 0.25, 0.3, 0.15, 0.6, 0.25, 0.25, 0.2] | NaN reward steps so far: 0
+Episodes: 4000 | Mean Reward (last 10): 1.591 | Mean Score: 1.604 | Last-10 eps: [0.08, 0.1, 0.2, 0.1, 0.15, 0.25, 0.1, 0.25, 0.3, 0.3] | NaN reward steps so far: 0
+Episodes: 4010 | Mean Reward (last 10): 1.816 | Mean Score: 1.827 | Last-10 eps: [0.08, 0.3, 0.5, 0.05, 0.25, 0.15, 0.1, 0.08, 0.4, 0.6] | NaN reward steps so far: 0
+Episodes: 4020 | Mean Reward (last 10): 1.869 | Mean Score: 1.889 | Last-10 eps: [0.1, 0.08, 0.15, 0.3, 0.25, 0.08, 0.2, 0.6, 0.5, 0.4] | NaN reward steps so far: 0
+Episodes: 4030 | Mean Reward (last 10): 1.709 | Mean Score: 1.722 | Last-10 eps: [0.3, 0.5, 0.3, 0.15, 0.3, 0.3, 0.5, 0.3, 0.1, 0.4] | NaN reward steps so far: 0
+Episodes: 4040 | Mean Reward (last 10): 1.661 | Mean Score: 1.678 | Last-10 eps: [0.08, 0.1, 0.05, 0.15, 0.2, 0.5, 0.08, 0.15, 0.5, 0.4] | NaN reward steps so far: 0
+Episodes: 4050 | Mean Reward (last 10): 1.364 | Mean Score: 1.382 | Last-10 eps: [0.6, 0.15, 0.05, 0.25, 0.05, 0.6, 0.5, 0.15, 0.05, 0.25] | NaN reward steps so far: 0
+Episodes: 4060 | Mean Reward (last 10): 1.748 | Mean Score: 1.771 | Last-10 eps: [0.2, 0.5, 0.1, 0.4, 0.15, 0.3, 0.1, 0.08, 0.2, 0.15] | NaN reward steps so far: 0
+Episodes: 4070 | Mean Reward (last 10): 1.272 | Mean Score: 1.297 | Last-10 eps: [0.2, 0.08, 0.08, 0.2, 0.2, 0.4, 0.03, 0.4, 0.3, 0.25] | NaN reward steps so far: 0
+Episodes: 4080 | Mean Reward (last 10): 1.818 | Mean Score: 1.833 | Last-10 eps: [0.1, 0.15, 0.2, 0.3, 0.25, 0.25, 0.08, 0.2, 0.3, 0.2] | NaN reward steps so far: 0
+Episodes: 4090 | Mean Reward (last 10): 1.602 | Mean Score: 1.616 | Last-10 eps: [0.5, 0.4, 0.15, 0.1, 0.5, 0.4, 0.4, 0.6, 0.03, 0.08] | NaN reward steps so far: 0
+Episodes: 4100 | Mean Reward (last 10): 1.771 | Mean Score: 1.788 | Last-10 eps: [0.05, 0.6, 0.1, 0.6, 0.08, 0.3, 0.25, 0.4, 0.15, 0.25] | NaN reward steps so far: 0
+Episodes: 4110 | Mean Reward (last 10): 1.667 | Mean Score: 1.680 | Last-10 eps: [0.1, 0.2, 0.3, 0.1, 0.1, 0.3, 0.3, 0.15, 0.3, 0.1] | NaN reward steps so far: 0
+Episodes: 4120 | Mean Reward (last 10): 1.336 | Mean Score: 1.353 | Last-10 eps: [0.15, 0.08, 0.5, 0.4, 0.5, 0.05, 0.5, 0.05, 0.2, 0.4] | NaN reward steps so far: 0
+Episodes: 4130 | Mean Reward (last 10): 1.473 | Mean Score: 1.486 | Last-10 eps: [0.25, 0.08, 0.2, 0.3, 0.08, 0.1, 0.3, 0.05, 0.15, 0.4] | NaN reward steps so far: 0
+Episodes: 4140 | Mean Reward (last 10): 1.811 | Mean Score: 1.833 | Last-10 eps: [0.25, 0.3, 0.1, 0.25, 0.5, 0.15, 0.2, 0.6, 0.25, 0.2] | NaN reward steps so far: 0
+Episodes: 4150 | Mean Reward (last 10): 1.328 | Mean Score: 1.346 | Last-10 eps: [0.3, 0.5, 0.08, 0.6, 0.5, 0.4, 0.08, 0.05, 0.25, 0.05] | NaN reward steps so far: 0
+Episodes: 4160 | Mean Reward (last 10): 1.463 | Mean Score: 1.483 | Last-10 eps: [0.4, 0.05, 0.15, 0.5, 0.08, 0.03, 0.15, 0.15, 0.5, 0.5] | NaN reward steps so far: 0
+Episodes: 4170 | Mean Reward (last 10): 1.601 | Mean Score: 1.611 | Last-10 eps: [0.15, 0.3, 0.4, 0.3, 0.08, 0.05, 0.2, 0.15, 0.2, 0.4] | NaN reward steps so far: 0
+Episodes: 4180 | Mean Reward (last 10): 1.640 | Mean Score: 1.659 | Last-10 eps: [0.1, 0.3, 0.03, 0.3, 0.3, 0.05, 0.1, 0.15, 0.08, 0.6] | NaN reward steps so far: 0
+Episodes: 4190 | Mean Reward (last 10): 1.560 | Mean Score: 1.577 | Last-10 eps: [0.05, 0.15, 0.4, 0.6, 0.25, 0.05, 0.4, 0.25, 0.25, 0.5] | NaN reward steps so far: 0
+Episodes: 4200 | Mean Reward (last 10): 1.565 | Mean Score: 1.581 | Last-10 eps: [0.4, 0.03, 0.25, 0.3, 0.2, 0.2, 0.4, 0.5, 0.08, 0.1] | NaN reward steps so far: 0
+Episodes: 4210 | Mean Reward (last 10): 1.271 | Mean Score: 1.286 | Last-10 eps: [0.25, 0.5, 0.05, 0.15, 0.08, 0.6, 0.2, 0.5, 0.3, 0.03] | NaN reward steps so far: 0
+Episodes: 4220 | Mean Reward (last 10): 1.625 | Mean Score: 1.645 | Last-10 eps: [0.5, 0.1, 0.1, 0.6, 0.15, 0.3, 0.3, 0.25, 0.1, 0.25] | NaN reward steps so far: 0
+Episodes: 4230 | Mean Reward (last 10): 1.454 | Mean Score: 1.471 | Last-10 eps: [0.1, 0.25, 0.6, 0.2, 0.3, 0.2, 0.15, 0.05, 0.4, 0.3] | NaN reward steps so far: 0
+Episodes: 4240 | Mean Reward (last 10): 1.678 | Mean Score: 1.694 | Last-10 eps: [0.3, 0.1, 0.15, 0.6, 0.6, 0.6, 0.5, 0.3, 0.3, 0.25] | NaN reward steps so far: 0
+Episodes: 4250 | Mean Reward (last 10): 1.379 | Mean Score: 1.402 | Last-10 eps: [0.1, 0.25, 0.05, 0.2, 0.15, 0.3, 0.1, 0.4, 0.6, 0.15] | NaN reward steps so far: 0
+Episodes: 4260 | Mean Reward (last 10): 1.402 | Mean Score: 1.417 | Last-10 eps: [0.08, 0.6, 0.2, 0.03, 0.15, 0.25, 0.15, 0.3, 0.2, 0.25] | NaN reward steps so far: 0
+Episodes: 4270 | Mean Reward (last 10): 0.876 | Mean Score: 0.895 | Last-10 eps: [0.25, 0.03, 0.1, 0.3, 0.4, 0.3, 0.03, 0.03, 0.15, 0.1] | NaN reward steps so far: 0
+Episodes: 4280 | Mean Reward (last 10): 1.674 | Mean Score: 1.686 | Last-10 eps: [0.1, 0.2, 0.3, 0.3, 0.1, 0.3, 0.25, 0.5, 0.15, 0.5] | NaN reward steps so far: 0
+Episodes: 4290 | Mean Reward (last 10): 1.798 | Mean Score: 1.821 | Last-10 eps: [0.08, 0.2, 0.15, 0.2, 0.2, 0.05, 0.25, 0.1, 0.5, 0.3] | NaN reward steps so far: 0
+Episodes: 4300 | Mean Reward (last 10): 1.783 | Mean Score: 1.803 | Last-10 eps: [0.25, 0.15, 0.5, 0.15, 0.1, 0.3, 0.3, 0.25, 0.5, 0.25] | NaN reward steps so far: 0
+Episodes: 4310 | Mean Reward (last 10): 1.647 | Mean Score: 1.664 | Last-10 eps: [0.4, 0.2, 0.6, 0.25, 0.25, 0.4, 0.4, 0.25, 0.25, 0.08] | NaN reward steps so far: 0
+Episodes: 4320 | Mean Reward (last 10): 1.695 | Mean Score: 1.713 | Last-10 eps: [0.4, 0.08, 0.6, 0.15, 0.3, 0.08, 0.3, 0.3, 0.3, 0.08] | NaN reward steps so far: 0
+Episodes: 4330 | Mean Reward (last 10): 1.650 | Mean Score: 1.665 | Last-10 eps: [0.6, 0.15, 0.6, 0.4, 0.3, 0.25, 0.2, 0.1, 0.5, 0.3] | NaN reward steps so far: 0
+Episodes: 4340 | Mean Reward (last 10): 1.435 | Mean Score: 1.449 | Last-10 eps: [0.03, 0.08, 0.3, 0.6, 0.05, 0.3, 0.5, 0.08, 0.2, 0.4] | NaN reward steps so far: 0
+Episodes: 4350 | Mean Reward (last 10): 1.816 | Mean Score: 1.837 | Last-10 eps: [0.08, 0.2, 0.08, 0.4, 0.6, 0.5, 0.25, 0.08, 0.25, 0.1] | NaN reward steps so far: 0
+Episodes: 4360 | Mean Reward (last 10): 1.615 | Mean Score: 1.630 | Last-10 eps: [0.03, 0.08, 0.08, 0.6, 0.2, 0.3, 0.25, 0.6, 0.08, 0.2] | NaN reward steps so far: 0
+Episodes: 4370 | Mean Reward (last 10): 1.751 | Mean Score: 1.764 | Last-10 eps: [0.1, 0.3, 0.3, 0.2, 0.6, 0.15, 0.3, 0.4, 0.25, 0.25] | NaN reward steps so far: 0
+Episodes: 4380 | Mean Reward (last 10): 1.818 | Mean Score: 1.832 | Last-10 eps: [0.1, 0.6, 0.1, 0.2, 0.3, 0.25, 0.2, 0.4, 0.4, 0.6] | NaN reward steps so far: 0
+Episodes: 4390 | Mean Reward (last 10): 1.474 | Mean Score: 1.488 | Last-10 eps: [0.05, 0.4, 0.05, 0.2, 0.15, 0.15, 0.1, 0.05, 0.5, 0.15] | NaN reward steps so far: 0
+Episodes: 4400 | Mean Reward (last 10): 1.616 | Mean Score: 1.635 | Last-10 eps: [0.25, 0.5, 0.25, 0.15, 0.25, 0.08, 0.25, 0.5, 0.6, 0.15] | NaN reward steps so far: 0
+Episodes: 4410 | Mean Reward (last 10): 1.685 | Mean Score: 1.712 | Last-10 eps: [0.25, 0.1, 0.08, 0.25, 0.1, 0.5, 0.25, 0.15, 0.15, 0.08] | NaN reward steps so far: 0
+Episodes: 4420 | Mean Reward (last 10): 1.745 | Mean Score: 1.763 | Last-10 eps: [0.6, 0.08, 0.4, 0.05, 0.4, 0.3, 0.08, 0.5, 0.25, 0.2] | NaN reward steps so far: 0
+Episodes: 4430 | Mean Reward (last 10): 1.598 | Mean Score: 1.615 | Last-10 eps: [0.08, 0.1, 0.03, 0.2, 0.2, 0.08, 0.08, 0.25, 0.08, 0.08] | NaN reward steps so far: 0
+Episodes: 4440 | Mean Reward (last 10): 1.863 | Mean Score: 1.880 | Last-10 eps: [0.6, 0.25, 0.05, 0.2, 0.3, 0.25, 0.5, 0.1, 0.15, 0.05] | NaN reward steps so far: 0
+Episodes: 4450 | Mean Reward (last 10): 1.747 | Mean Score: 1.758 | Last-10 eps: [0.2, 0.2, 0.25, 0.05, 0.5, 0.15, 0.25, 0.4, 0.6, 0.6] | NaN reward steps so far: 0
+Episodes: 4460 | Mean Reward (last 10): 1.689 | Mean Score: 1.701 | Last-10 eps: [0.6, 0.5, 0.08, 0.3, 0.2, 0.25, 0.6, 0.05, 0.08, 0.1] | NaN reward steps so far: 0
+Episodes: 4470 | Mean Reward (last 10): 1.752 | Mean Score: 1.771 | Last-10 eps: [0.1, 0.15, 0.25, 0.15, 0.6, 0.25, 0.4, 0.4, 0.1, 0.15] | NaN reward steps so far: 0
+Episodes: 4480 | Mean Reward (last 10): 1.029 | Mean Score: 1.050 | Last-10 eps: [0.15, 0.5, 0.05, 0.05, 0.3, 0.6, 0.03, 0.2, 0.15, 0.4] | NaN reward steps so far: 0
+Episodes: 4490 | Mean Reward (last 10): 1.379 | Mean Score: 1.398 | Last-10 eps: [0.1, 0.2, 0.05, 0.5, 0.3, 0.08, 0.15, 0.5, 0.08, 0.05] | NaN reward steps so far: 0
+Episodes: 4500 | Mean Reward (last 10): 1.834 | Mean Score: 1.850 | Last-10 eps: [0.2, 0.4, 0.3, 0.4, 0.4, 0.4, 0.25, 0.05, 0.08, 0.1] | NaN reward steps so far: 0
+Episodes: 4510 | Mean Reward (last 10): 1.569 | Mean Score: 1.593 | Last-10 eps: [0.2, 0.5, 0.08, 0.08, 0.03, 0.5, 0.5, 0.25, 0.15, 0.3] | NaN reward steps so far: 0
+Episodes: 4520 | Mean Reward (last 10): 1.581 | Mean Score: 1.599 | Last-10 eps: [0.1, 0.05, 0.4, 0.1, 0.25, 0.2, 0.2, 0.2, 0.2, 0.25] | NaN reward steps so far: 0
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 1.77        |
+|    ep_rew_mean          | 1.61        |
+| time/                   |             |
+|    fps                  | 3           |
+|    iterations           | 4           |
+|    time_elapsed         | 2309        |
+|    total_timesteps      | 8192        |
+| train/                  |             |
+|    approx_kl            | 0.025435094 |
+|    clip_fraction        | 0.316       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -6.58       |
+|    explained_variance   | 0.719       |
+|    learning_rate        | 0.0003      |
+|    loss                 | 0.188       |
+|    n_updates            | 30          |
+|    policy_gradient_loss | -0.0625     |
+|    value_loss           | 0.599       |
+-----------------------------------------
+Episodes: 4530 | Mean Reward (last 10): 1.464 | Mean Score: 1.484 | Last-10 eps: [0.05, 0.05, 0.1, 0.25, 0.4, 0.5, 0.3, 0.25, 0.25, 0.3] | NaN reward steps so far: 0
+Episodes: 4540 | Mean Reward (last 10): 1.736 | Mean Score: 1.756 | Last-10 eps: [0.08, 0.25, 0.1, 0.25, 0.3, 0.3, 0.2, 0.05, 0.1, 0.4] | NaN reward steps so far: 0
+Episodes: 4550 | Mean Reward (last 10): 1.700 | Mean Score: 1.712 | Last-10 eps: [0.2, 0.25, 0.08, 0.3, 0.4, 0.5, 0.3, 0.15, 0.4, 0.3] | NaN reward steps so far: 0
+Episodes: 4560 | Mean Reward (last 10): 1.739 | Mean Score: 1.756 | Last-10 eps: [0.4, 0.1, 0.15, 0.3, 0.1, 0.4, 0.4, 0.15, 0.25, 0.4] | NaN reward steps so far: 0
+Episodes: 4570 | Mean Reward (last 10): 1.468 | Mean Score: 1.486 | Last-10 eps: [0.4, 0.6, 0.03, 0.05, 0.08, 0.15, 0.25, 0.03, 0.4, 0.4] | NaN reward steps so far: 0
+Episodes: 4580 | Mean Reward (last 10): 1.337 | Mean Score: 1.355 | Last-10 eps: [0.3, 0.6, 0.15, 0.2, 0.1, 0.4, 0.08, 0.3, 0.4, 0.03] | NaN reward steps so far: 0
+Episodes: 4590 | Mean Reward (last 10): 1.439 | Mean Score: 1.453 | Last-10 eps: [0.6, 0.15, 0.1, 0.5, 0.05, 0.25, 0.4, 0.15, 0.4, 0.15] | NaN reward steps so far: 0
+Episodes: 4600 | Mean Reward (last 10): 1.319 | Mean Score: 1.338 | Last-10 eps: [0.5, 0.5, 0.4, 0.2, 0.05, 0.6, 0.4, 0.03, 0.1, 0.15] | NaN reward steps so far: 0
+Episodes: 4610 | Mean Reward (last 10): 1.568 | Mean Score: 1.587 | Last-10 eps: [0.5, 0.08, 0.6, 0.3, 0.15, 0.6, 0.6, 0.3, 0.03, 0.5] | NaN reward steps so far: 0
+Episodes: 4620 | Mean Reward (last 10): 1.634 | Mean Score: 1.652 | Last-10 eps: [0.2, 0.25, 0.25, 0.2, 0.3, 0.1, 0.1, 0.15, 0.1, 0.1] | NaN reward steps so far: 0
+Episodes: 4630 | Mean Reward (last 10): 1.664 | Mean Score: 1.682 | Last-10 eps: [0.1, 0.3, 0.2, 0.08, 0.6, 0.4, 0.25, 0.5, 0.3, 0.2] | NaN reward steps so far: 0
+Episodes: 4640 | Mean Reward (last 10): 1.664 | Mean Score: 1.683 | Last-10 eps: [0.15, 0.1, 0.25, 0.4, 0.5, 0.2, 0.3, 0.5, 0.25, 0.1] | NaN reward steps so far: 0
+Episodes: 4650 | Mean Reward (last 10): 1.529 | Mean Score: 1.543 | Last-10 eps: [0.2, 0.3, 0.15, 0.15, 0.15, 0.4, 0.6, 0.3, 0.25, 0.4] | NaN reward steps so far: 0
+Episodes: 4660 | Mean Reward (last 10): 1.807 | Mean Score: 1.825 | Last-10 eps: [0.15, 0.1, 0.2, 0.25, 0.15, 0.1, 0.08, 0.15, 0.15, 0.15] | NaN reward steps so far: 0
+Episodes: 4670 | Mean Reward (last 10): 1.477 | Mean Score: 1.500 | Last-10 eps: [0.2, 0.15, 0.3, 0.08, 0.15, 0.2, 0.5, 0.4, 0.08, 0.05] | NaN reward steps so far: 0
+Episodes: 4680 | Mean Reward (last 10): 1.768 | Mean Score: 1.790 | Last-10 eps: [0.5, 0.4, 0.4, 0.08, 0.05, 0.2, 0.15, 0.3, 0.4, 0.3] | NaN reward steps so far: 0
+Episodes: 4690 | Mean Reward (last 10): 1.706 | Mean Score: 1.724 | Last-10 eps: [0.3, 0.4, 0.25, 0.1, 0.1, 0.4, 0.4, 0.2, 0.2, 0.08] | NaN reward steps so far: 0
+Episodes: 4700 | Mean Reward (last 10): 1.552 | Mean Score: 1.565 | Last-10 eps: [0.4, 0.3, 0.15, 0.3, 0.1, 0.4, 0.6, 0.03, 0.08, 0.5] | NaN reward steps so far: 0
+Episodes: 4710 | Mean Reward (last 10): 1.529 | Mean Score: 1.539 | Last-10 eps: [0.1, 0.25, 0.3, 0.08, 0.25, 0.25, 0.1, 0.25, 0.4, 0.6] | NaN reward steps so far: 0
+Episodes: 4720 | Mean Reward (last 10): 1.799 | Mean Score: 1.812 | Last-10 eps: [0.08, 0.4, 0.08, 0.1, 0.1, 0.3, 0.25, 0.3, 0.6, 0.08] | NaN reward steps so far: 0
+Episodes: 4730 | Mean Reward (last 10): 1.786 | Mean Score: 1.800 | Last-10 eps: [0.4, 0.4, 0.2, 0.15, 0.4, 0.2, 0.05, 0.2, 0.15, 0.6] | NaN reward steps so far: 0
+Episodes: 4740 | Mean Reward (last 10): 1.827 | Mean Score: 1.843 | Last-10 eps: [0.1, 0.25, 0.25, 0.2, 0.4, 0.3, 0.25, 0.15, 0.1, 0.15] | NaN reward steps so far: 0
+Episodes: 4750 | Mean Reward (last 10): 1.531 | Mean Score: 1.548 | Last-10 eps: [0.15, 0.2, 0.4, 0.2, 0.05, 0.3, 0.05, 0.08, 0.5, 0.25] | NaN reward steps so far: 0
+Episodes: 4760 | Mean Reward (last 10): 1.774 | Mean Score: 1.788 | Last-10 eps: [0.25, 0.25, 0.15, 0.3, 0.2, 0.05, 0.1, 0.1, 0.08, 0.3] | NaN reward steps so far: 0
+Episodes: 4770 | Mean Reward (last 10): 1.678 | Mean Score: 1.694 | Last-10 eps: [0.25, 0.4, 0.4, 0.2, 0.5, 0.08, 0.05, 0.4, 0.2, 0.1] | NaN reward steps so far: 0
+Episodes: 4780 | Mean Reward (last 10): 1.801 | Mean Score: 1.813 | Last-10 eps: [0.15, 0.15, 0.15, 0.08, 0.6, 0.25, 0.15, 0.4, 0.2, 0.25] | NaN reward steps so far: 0
+Episodes: 4790 | Mean Reward (last 10): 1.830 | Mean Score: 1.842 | Last-10 eps: [0.2, 0.15, 0.08, 0.25, 0.6, 0.1, 0.6, 0.1, 0.6, 0.2] | NaN reward steps so far: 0
+Episodes: 4800 | Mean Reward (last 10): 1.687 | Mean Score: 1.703 | Last-10 eps: [0.3, 0.4, 0.5, 0.2, 0.25, 0.2, 0.5, 0.25, 0.2, 0.25] | NaN reward steps so far: 0
+Episodes: 4810 | Mean Reward (last 10): 1.556 | Mean Score: 1.569 | Last-10 eps: [0.08, 0.6, 0.6, 0.15, 0.4, 0.1, 0.05, 0.25, 0.1, 0.15] | NaN reward steps so far: 0
+Episodes: 4820 | Mean Reward (last 10): 1.610 | Mean Score: 1.626 | Last-10 eps: [0.05, 0.15, 0.3, 0.08, 0.6, 0.25, 0.25, 0.2, 0.15, 0.4] | NaN reward steps so far: 0
+Episodes: 4830 | Mean Reward (last 10): 1.504 | Mean Score: 1.518 | Last-10 eps: [0.5, 0.4, 0.4, 0.05, 0.25, 0.4, 0.1, 0.15, 0.03, 0.4] | NaN reward steps so far: 0
+Episodes: 4840 | Mean Reward (last 10): 1.508 | Mean Score: 1.525 | Last-10 eps: [0.03, 0.2, 0.15, 0.3, 0.2, 0.15, 0.05, 0.05, 0.4, 0.3] | NaN reward steps so far: 0
+Episodes: 4850 | Mean Reward (last 10): 1.819 | Mean Score: 1.836 | Last-10 eps: [0.4, 0.6, 0.2, 0.1, 0.5, 0.3, 0.15, 0.5, 0.1, 0.08] | NaN reward steps so far: 0
+Episodes: 4860 | Mean Reward (last 10): 1.691 | Mean Score: 1.713 | Last-10 eps: [0.3, 0.25, 0.15, 0.25, 0.25, 0.25, 0.2, 0.08, 0.4, 0.1] | NaN reward steps so far: 0
+Episodes: 4870 | Mean Reward (last 10): 1.818 | Mean Score: 1.831 | Last-10 eps: [0.25, 0.08, 0.3, 0.15, 0.2, 0.15, 0.1, 0.25, 0.6, 0.1] | NaN reward steps so far: 0
+Episodes: 4880 | Mean Reward (last 10): 1.817 | Mean Score: 1.835 | Last-10 eps: [0.6, 0.6, 0.1, 0.2, 0.2, 0.4, 0.1, 0.4, 0.4, 0.1] | NaN reward steps so far: 0
+Episodes: 4890 | Mean Reward (last 10): 1.648 | Mean Score: 1.661 | Last-10 eps: [0.15, 0.5, 0.2, 0.2, 0.6, 0.6, 0.15, 0.4, 0.25, 0.25] | NaN reward steps so far: 0
+Episodes: 4900 | Mean Reward (last 10): 1.467 | Mean Score: 1.482 | Last-10 eps: [0.3, 0.15, 0.05, 0.25, 0.1, 0.25, 0.03, 0.08, 0.1, 0.2] | NaN reward steps so far: 0
+Episodes: 4910 | Mean Reward (last 10): 1.516 | Mean Score: 1.540 | Last-10 eps: [0.2, 0.4, 0.4, 0.4, 0.5, 0.2, 0.6, 0.3, 0.08, 0.05] | NaN reward steps so far: 0
+Episodes: 4920 | Mean Reward (last 10): 1.742 | Mean Score: 1.760 | Last-10 eps: [0.4, 0.3, 0.25, 0.25, 0.5, 0.2, 0.1, 0.2, 0.1, 0.15] | NaN reward steps so far: 0
+Episodes: 4930 | Mean Reward (last 10): 1.565 | Mean Score: 1.579 | Last-10 eps: [0.15, 0.4, 0.05, 0.25, 0.25, 0.05, 0.6, 0.3, 0.6, 0.4] | NaN reward steps so far: 0
+Episodes: 4940 | Mean Reward (last 10): 1.533 | Mean Score: 1.553 | Last-10 eps: [0.15, 0.15, 0.15, 0.4, 0.6, 0.2, 0.5, 0.25, 0.1, 0.5] | NaN reward steps so far: 0
+Episodes: 4950 | Mean Reward (last 10): 1.694 | Mean Score: 1.710 | Last-10 eps: [0.25, 0.3, 0.1, 0.25, 0.2, 0.6, 0.4, 0.5, 0.2, 0.15] | NaN reward steps so far: 0
+Episodes: 4960 | Mean Reward (last 10): 1.753 | Mean Score: 1.766 | Last-10 eps: [0.25, 0.3, 0.3, 0.25, 0.25, 0.25, 0.5, 0.2, 0.5, 0.15] | NaN reward steps so far: 0
+Episodes: 4970 | Mean Reward (last 10): 1.738 | Mean Score: 1.756 | Last-10 eps: [0.1, 0.2, 0.1, 0.5, 0.3, 0.2, 0.25, 0.15, 0.15, 0.08] | NaN reward steps so far: 0
+Episodes: 4980 | Mean Reward (last 10): 1.570 | Mean Score: 1.583 | Last-10 eps: [0.05, 0.03, 0.1, 0.3, 0.5, 0.3, 0.1, 0.25, 0.08, 0.3] | NaN reward steps so far: 0
+Episodes: 4990 | Mean Reward (last 10): 1.488 | Mean Score: 1.504 | Last-10 eps: [0.3, 0.08, 0.4, 0.1, 0.05, 0.15, 0.25, 0.6, 0.15, 0.4] | NaN reward steps so far: 0
+Episodes: 5000 | Mean Reward (last 10): 1.607 | Mean Score: 1.625 | Last-10 eps: [0.3, 0.3, 0.1, 0.25, 0.25, 0.5, 0.5, 0.05, 0.2, 0.15] | NaN reward steps so far: 0
+Episodes: 5010 | Mean Reward (last 10): 1.770 | Mean Score: 1.785 | Last-10 eps: [0.15, 0.4, 0.25, 0.2, 0.15, 0.15, 0.25, 0.2, 0.5, 0.05] | NaN reward steps so far: 0
+Episodes: 5020 | Mean Reward (last 10): 1.461 | Mean Score: 1.484 | Last-10 eps: [0.03, 0.08, 0.25, 0.08, 0.2, 0.4, 0.4, 0.2, 0.5, 0.6] | NaN reward steps so far: 0
+Episodes: 5030 | Mean Reward (last 10): 1.736 | Mean Score: 1.757 | Last-10 eps: [0.1, 0.08, 0.1, 0.3, 0.2, 0.2, 0.08, 0.5, 0.08, 0.5] | NaN reward steps so far: 0
+Episodes: 5040 | Mean Reward (last 10): 1.739 | Mean Score: 1.756 | Last-10 eps: [0.2, 0.05, 0.4, 0.5, 0.4, 0.25, 0.1, 0.05, 0.15, 0.4] | NaN reward steps so far: 0
+Episodes: 5050 | Mean Reward (last 10): 1.421 | Mean Score: 1.445 | Last-10 eps: [0.4, 0.03, 0.15, 0.25, 0.5, 0.4, 0.15, 0.4, 0.05, 0.3] | NaN reward steps so far: 0
+Episodes: 5060 | Mean Reward (last 10): 1.599 | Mean Score: 1.616 | Last-10 eps: [0.08, 0.15, 0.3, 0.25, 0.2, 0.08, 0.4, 0.1, 0.3, 0.6] | NaN reward steps so far: 0
+Episodes: 5070 | Mean Reward (last 10): 1.534 | Mean Score: 1.548 | Last-10 eps: [0.1, 0.1, 0.6, 0.4, 0.6, 0.25, 0.05, 0.1, 0.5, 0.2] | NaN reward steps so far: 0
+Episodes: 5080 | Mean Reward (last 10): 1.554 | Mean Score: 1.569 | Last-10 eps: [0.4, 0.4, 0.25, 0.08, 0.3, 0.25, 0.4, 0.2, 0.5, 0.1] | NaN reward steps so far: 0
+Episodes: 5090 | Mean Reward (last 10): 1.781 | Mean Score: 1.793 | Last-10 eps: [0.2, 0.3, 0.5, 0.2, 0.3, 0.15, 0.15, 0.1, 0.15, 0.6] | NaN reward steps so far: 0
+Episodes: 5100 | Mean Reward (last 10): 1.784 | Mean Score: 1.797 | Last-10 eps: [0.5, 0.08, 0.3, 0.15, 0.08, 0.2, 0.4, 0.3, 0.1, 0.1] | NaN reward steps so far: 0
+Episodes: 5110 | Mean Reward (last 10): 1.755 | Mean Score: 1.768 | Last-10 eps: [0.05, 0.15, 0.2, 0.5, 0.15, 0.1, 0.1, 0.1, 0.1, 0.15] | NaN reward steps so far: 0
+Episodes: 5120 | Mean Reward (last 10): 1.669 | Mean Score: 1.684 | Last-10 eps: [0.6, 0.25, 0.2, 0.3, 0.08, 0.1, 0.25, 0.15, 0.1, 0.03] | NaN reward steps so far: 0
+Episodes: 5130 | Mean Reward (last 10): 1.683 | Mean Score: 1.697 | Last-10 eps: [0.5, 0.6, 0.4, 0.2, 0.1, 0.1, 0.25, 0.15, 0.15, 0.4] | NaN reward steps so far: 0
+Episodes: 5140 | Mean Reward (last 10): 1.292 | Mean Score: 1.311 | Last-10 eps: [0.5, 0.2, 0.25, 0.1, 0.05, 0.08, 0.2, 0.25, 0.15, 0.05] | NaN reward steps so far: 0
+Episodes: 5150 | Mean Reward (last 10): 1.821 | Mean Score: 1.833 | Last-10 eps: [0.25, 0.5, 0.3, 0.25, 0.5, 0.15, 0.08, 0.4, 0.25, 0.05] | NaN reward steps so far: 0
+Episodes: 5160 | Mean Reward (last 10): 1.315 | Mean Score: 1.328 | Last-10 eps: [0.05, 0.05, 0.3, 0.3, 0.6, 0.25, 0.25, 0.6, 0.15, 0.25] | NaN reward steps so far: 0
+Episodes: 5170 | Mean Reward (last 10): 1.623 | Mean Score: 1.637 | Last-10 eps: [0.2, 0.1, 0.1, 0.3, 0.3, 0.3, 0.2, 0.05, 0.1, 0.15] | NaN reward steps so far: 0
+Episodes: 5180 | Mean Reward (last 10): 1.767 | Mean Score: 1.779 | Last-10 eps: [0.1, 0.25, 0.2, 0.25, 0.15, 0.25, 0.6, 0.3, 0.08, 0.15] | NaN reward steps so far: 0
+Episodes: 5190 | Mean Reward (last 10): 1.698 | Mean Score: 1.715 | Last-10 eps: [0.25, 0.6, 0.25, 0.4, 0.08, 0.15, 0.15, 0.25, 0.15, 0.6] | NaN reward steps so far: 0
+Episodes: 5200 | Mean Reward (last 10): 1.797 | Mean Score: 1.809 | Last-10 eps: [0.4, 0.5, 0.5, 0.6, 0.4, 0.25, 0.3, 0.1, 0.15, 0.08] | NaN reward steps so far: 0
+Episodes: 5210 | Mean Reward (last 10): 1.655 | Mean Score: 1.671 | Last-10 eps: [0.1, 0.5, 0.4, 0.3, 0.5, 0.15, 0.15, 0.15, 0.15, 0.25] | NaN reward steps so far: 0
+Episodes: 5220 | Mean Reward (last 10): 1.739 | Mean Score: 1.754 | Last-10 eps: [0.15, 0.4, 0.3, 0.08, 0.25, 0.5, 0.2, 0.3, 0.2, 0.05] | NaN reward steps so far: 0
+Episodes: 5230 | Mean Reward (last 10): 1.384 | Mean Score: 1.395 | Last-10 eps: [0.1, 0.3, 0.1, 0.08, 0.2, 0.08, 0.15, 0.3, 0.4, 0.03] | NaN reward steps so far: 0
+Episodes: 5240 | Mean Reward (last 10): 1.674 | Mean Score: 1.685 | Last-10 eps: [0.4, 0.25, 0.15, 0.15, 0.4, 0.1, 0.6, 0.2, 0.4, 0.2] | NaN reward steps so far: 0
+Episodes: 5250 | Mean Reward (last 10): 1.541 | Mean Score: 1.554 | Last-10 eps: [0.25, 0.08, 0.03, 0.25, 0.1, 0.25, 0.4, 0.3, 0.2, 0.1] | NaN reward steps so far: 0
+Episodes: 5260 | Mean Reward (last 10): 1.770 | Mean Score: 1.786 | Last-10 eps: [0.1, 0.08, 0.25, 0.4, 0.25, 0.2, 0.6, 0.25, 0.5, 0.3] | NaN reward steps so far: 0
+Episodes: 5270 | Mean Reward (last 10): 1.728 | Mean Score: 1.743 | Last-10 eps: [0.1, 0.25, 0.2, 0.2, 0.25, 0.1, 0.5, 0.6, 0.3, 0.2] | NaN reward steps so far: 0
+Episodes: 5280 | Mean Reward (last 10): 1.813 | Mean Score: 1.826 | Last-10 eps: [0.1, 0.15, 0.3, 0.5, 0.5, 0.15, 0.5, 0.1, 0.3, 0.1] | NaN reward steps so far: 0
+Episodes: 5290 | Mean Reward (last 10): 1.406 | Mean Score: 1.419 | Last-10 eps: [0.25, 0.3, 0.4, 0.03, 0.3, 0.6, 0.4, 0.5, 0.1, 0.15] | NaN reward steps so far: 0
+Episodes: 5300 | Mean Reward (last 10): 1.806 | Mean Score: 1.823 | Last-10 eps: [0.4, 0.08, 0.08, 0.5, 0.4, 0.2, 0.08, 0.05, 0.5, 0.08] | NaN reward steps so far: 0
+Episodes: 5310 | Mean Reward (last 10): 1.766 | Mean Score: 1.778 | Last-10 eps: [0.08, 0.6, 0.25, 0.4, 0.3, 0.2, 0.1, 0.1, 0.3, 0.4] | NaN reward steps so far: 0
+Episodes: 5320 | Mean Reward (last 10): 1.481 | Mean Score: 1.496 | Last-10 eps: [0.4, 0.3, 0.1, 0.1, 0.1, 0.1, 0.4, 0.25, 0.4, 0.2] | NaN reward steps so far: 0
+Episodes: 5330 | Mean Reward (last 10): 1.655 | Mean Score: 1.669 | Last-10 eps: [0.15, 0.3, 0.2, 0.1, 0.2, 0.6, 0.08, 0.5, 0.15, 0.25] | NaN reward steps so far: 0
+Episodes: 5340 | Mean Reward (last 10): 1.748 | Mean Score: 1.762 | Last-10 eps: [0.08, 0.4, 0.05, 0.3, 0.4, 0.2, 0.1, 0.4, 0.4, 0.1] | NaN reward steps so far: 0
+Episodes: 5350 | Mean Reward (last 10): 1.466 | Mean Score: 1.484 | Last-10 eps: [0.2, 0.2, 0.3, 0.4, 0.08, 0.6, 0.6, 0.5, 0.15, 0.08] | NaN reward steps so far: 0
+Episodes: 5360 | Mean Reward (last 10): 1.495 | Mean Score: 1.510 | Last-10 eps: [0.03, 0.1, 0.25, 0.3, 0.6, 0.5, 0.1, 0.5, 0.1, 0.1] | NaN reward steps so far: 0
+Episodes: 5370 | Mean Reward (last 10): 1.746 | Mean Score: 1.762 | Last-10 eps: [0.5, 0.25, 0.08, 0.3, 0.15, 0.25, 0.08, 0.25, 0.3, 0.4] | NaN reward steps so far: 0
+Episodes: 5380 | Mean Reward (last 10): 1.648 | Mean Score: 1.660 | Last-10 eps: [0.2, 0.25, 0.05, 0.25, 0.2, 0.05, 0.3, 0.05, 0.2, 0.15] | NaN reward steps so far: 0
+Episodes: 5390 | Mean Reward (last 10): 1.342 | Mean Score: 1.359 | Last-10 eps: [0.05, 0.5, 0.15, 0.1, 0.25, 0.4, 0.1, 0.3, 0.6, 0.08] | NaN reward steps so far: 0
+Episodes: 5400 | Mean Reward (last 10): 1.663 | Mean Score: 1.682 | Last-10 eps: [0.25, 0.6, 0.05, 0.15, 0.25, 0.25, 0.2, 0.05, 0.4, 0.1] | NaN reward steps so far: 0
+Episodes: 5410 | Mean Reward (last 10): 1.720 | Mean Score: 1.736 | Last-10 eps: [0.3, 0.2, 0.08, 0.1, 0.3, 0.15, 0.15, 0.4, 0.08, 0.2] | NaN reward steps so far: 0
+Episodes: 5420 | Mean Reward (last 10): 1.451 | Mean Score: 1.468 | Last-10 eps: [0.08, 0.1, 0.03, 0.2, 0.3, 0.25, 0.2, 0.4, 0.1, 0.5] | NaN reward steps so far: 0
+Episodes: 5430 | Mean Reward (last 10): 1.842 | Mean Score: 1.861 | Last-10 eps: [0.15, 0.3, 0.08, 0.25, 0.15, 0.15, 0.15, 0.15, 0.4, 0.15] | NaN reward steps so far: 0
+Episodes: 5440 | Mean Reward (last 10): 1.707 | Mean Score: 1.727 | Last-10 eps: [0.2, 0.25, 0.2, 0.08, 0.25, 0.1, 0.1, 0.3, 0.3, 0.15] | NaN reward steps so far: 0
+Episodes: 5450 | Mean Reward (last 10): 1.404 | Mean Score: 1.416 | Last-10 eps: [0.1, 0.5, 0.15, 0.25, 0.08, 0.5, 0.6, 0.05, 0.2, 0.4] | NaN reward steps so far: 0
+Episodes: 5460 | Mean Reward (last 10): 1.887 | Mean Score: 1.903 | Last-10 eps: [0.3, 0.4, 0.05, 0.6, 0.3, 0.1, 0.2, 0.3, 0.2, 0.15] | NaN reward steps so far: 0
+Episodes: 5470 | Mean Reward (last 10): 1.683 | Mean Score: 1.701 | Last-10 eps: [0.25, 0.25, 0.2, 0.6, 0.4, 0.08, 0.3, 0.5, 0.15, 0.08] | NaN reward steps so far: 0
+Episodes: 5480 | Mean Reward (last 10): 1.662 | Mean Score: 1.675 | Last-10 eps: [0.5, 0.3, 0.15, 0.25, 0.08, 0.1, 0.15, 0.2, 0.1, 0.2] | NaN reward steps so far: 0
+Episodes: 5490 | Mean Reward (last 10): 1.776 | Mean Score: 1.794 | Last-10 eps: [0.15, 0.15, 0.4, 0.2, 0.1, 0.4, 0.15, 0.1, 0.3, 0.1] | NaN reward steps so far: 0
+Episodes: 5500 | Mean Reward (last 10): 1.357 | Mean Score: 1.369 | Last-10 eps: [0.03, 0.25, 0.6, 0.08, 0.08, 0.6, 0.2, 0.3, 0.6, 0.5] | NaN reward steps so far: 0
+Episodes: 5510 | Mean Reward (last 10): 1.773 | Mean Score: 1.789 | Last-10 eps: [0.08, 0.08, 0.05, 0.3, 0.2, 0.08, 0.4, 0.2, 0.25, 0.15] | NaN reward steps so far: 0
+Episodes: 5520 | Mean Reward (last 10): 1.826 | Mean Score: 1.844 | Last-10 eps: [0.2, 0.15, 0.1, 0.1, 0.25, 0.15, 0.08, 0.08, 0.05, 0.2] | NaN reward steps so far: 0
+Episodes: 5530 | Mean Reward (last 10): 1.776 | Mean Score: 1.791 | Last-10 eps: [0.1, 0.15, 0.08, 0.25, 0.5, 0.3, 0.15, 0.25, 0.25, 0.2] | NaN reward steps so far: 0
+Episodes: 5540 | Mean Reward (last 10): 1.627 | Mean Score: 1.641 | Last-10 eps: [0.08, 0.03, 0.1, 0.15, 0.5, 0.1, 0.05, 0.15, 0.1, 0.1] | NaN reward steps so far: 0
+Episodes: 5550 | Mean Reward (last 10): 1.512 | Mean Score: 1.528 | Last-10 eps: [0.03, 0.25, 0.08, 0.1, 0.4, 0.05, 0.2, 0.1, 0.2, 0.3] | NaN reward steps so far: 0
+Episodes: 5560 | Mean Reward (last 10): 1.613 | Mean Score: 1.626 | Last-10 eps: [0.25, 0.25, 0.05, 0.2, 0.1, 0.4, 0.6, 0.03, 0.4, 0.4] | NaN reward steps so far: 0
+Episodes: 5570 | Mean Reward (last 10): 1.472 | Mean Score: 1.488 | Last-10 eps: [0.2, 0.4, 0.6, 0.2, 0.2, 0.15, 0.2, 0.3, 0.08, 0.1] | NaN reward steps so far: 0
+Episodes: 5580 | Mean Reward (last 10): 1.781 | Mean Score: 1.796 | Last-10 eps: [0.3, 0.5, 0.15, 0.5, 0.25, 0.1, 0.5, 0.3, 0.6, 0.2] | NaN reward steps so far: 0
+Episodes: 5590 | Mean Reward (last 10): 1.619 | Mean Score: 1.635 | Last-10 eps: [0.2, 0.05, 0.5, 0.4, 0.5, 0.15, 0.25, 0.03, 0.1, 0.1] | NaN reward steps so far: 0
+Episodes: 5600 | Mean Reward (last 10): 1.725 | Mean Score: 1.748 | Last-10 eps: [0.4, 0.4, 0.6, 0.08, 0.05, 0.4, 0.25, 0.4, 0.1, 0.6] | NaN reward steps so far: 0
+Episodes: 5610 | Mean Reward (last 10): 1.699 | Mean Score: 1.717 | Last-10 eps: [0.6, 0.08, 0.08, 0.4, 0.2, 0.1, 0.2, 0.25, 0.08, 0.3] | NaN reward steps so far: 0
+Episodes: 5620 | Mean Reward (last 10): 1.269 | Mean Score: 1.285 | Last-10 eps: [0.6, 0.2, 0.5, 0.1, 0.3, 0.1, 0.25, 0.03, 0.08, 0.6] | NaN reward steps so far: 0
+Episodes: 5630 | Mean Reward (last 10): 1.809 | Mean Score: 1.823 | Last-10 eps: [0.3, 0.4, 0.2, 0.3, 0.1, 0.3, 0.3, 0.5, 0.08, 0.15] | NaN reward steps so far: 0
+Episodes: 5640 | Mean Reward (last 10): 1.545 | Mean Score: 1.565 | Last-10 eps: [0.1, 0.2, 0.03, 0.4, 0.4, 0.25, 0.05, 0.4, 0.25, 0.05] | NaN reward steps so far: 0
+Episodes: 5650 | Mean Reward (last 10): 1.599 | Mean Score: 1.615 | Last-10 eps: [0.2, 0.15, 0.1, 0.5, 0.15, 0.08, 0.25, 0.03, 0.25, 0.3] | NaN reward steps so far: 0
+Episodes: 5660 | Mean Reward (last 10): 1.266 | Mean Score: 1.279 | Last-10 eps: [0.6, 0.03, 0.4, 0.08, 0.1, 0.08, 0.15, 0.2, 0.15, 0.2] | NaN reward steps so far: 0
+Episodes: 5670 | Mean Reward (last 10): 1.552 | Mean Score: 1.570 | Last-10 eps: [0.5, 0.15, 0.25, 0.15, 0.3, 0.3, 0.2, 0.6, 0.2, 0.6] | NaN reward steps so far: 0
+Episodes: 5680 | Mean Reward (last 10): 1.780 | Mean Score: 1.794 | Last-10 eps: [0.25, 0.5, 0.25, 0.08, 0.15, 0.15, 0.2, 0.25, 0.2, 0.2] | NaN reward steps so far: 0
+Episodes: 5690 | Mean Reward (last 10): 1.552 | Mean Score: 1.574 | Last-10 eps: [0.3, 0.25, 0.4, 0.4, 0.4, 0.15, 0.15, 0.05, 0.03, 0.08] | NaN reward steps so far: 0
+Episodes: 5700 | Mean Reward (last 10): 1.409 | Mean Score: 1.423 | Last-10 eps: [0.15, 0.05, 0.1, 0.3, 0.08, 0.2, 0.3, 0.08, 0.2, 0.05] | NaN reward steps so far: 0
+Episodes: 5710 | Mean Reward (last 10): 1.797 | Mean Score: 1.813 | Last-10 eps: [0.4, 0.2, 0.1, 0.5, 0.5, 0.1, 0.3, 0.6, 0.25, 0.25] | NaN reward steps so far: 0
+Episodes: 5720 | Mean Reward (last 10): 1.724 | Mean Score: 1.735 | Last-10 eps: [0.3, 0.4, 0.25, 0.15, 0.6, 0.25, 0.6, 0.25, 0.5, 0.25] | NaN reward steps so far: 0
+Episodes: 5730 | Mean Reward (last 10): 1.408 | Mean Score: 1.425 | Last-10 eps: [0.1, 0.08, 0.05, 0.2, 0.03, 0.3, 0.2, 0.08, 0.2, 0.03] | NaN reward steps so far: 0
+Episodes: 5740 | Mean Reward (last 10): 1.804 | Mean Score: 1.825 | Last-10 eps: [0.1, 0.2, 0.6, 0.4, 0.05, 0.3, 0.25, 0.6, 0.4, 0.15] | NaN reward steps so far: 0
+Episodes: 5750 | Mean Reward (last 10): 1.765 | Mean Score: 1.780 | Last-10 eps: [0.05, 0.5, 0.3, 0.15, 0.2, 0.4, 0.15, 0.2, 0.1, 0.3] | NaN reward steps so far: 0
+Episodes: 5760 | Mean Reward (last 10): 1.638 | Mean Score: 1.659 | Last-10 eps: [0.2, 0.08, 0.6, 0.6, 0.3, 0.4, 0.2, 0.6, 0.25, 0.2] | NaN reward steps so far: 0
+Episodes: 5770 | Mean Reward (last 10): 1.564 | Mean Score: 1.583 | Last-10 eps: [0.08, 0.5, 0.3, 0.08, 0.1, 0.4, 0.1, 0.5, 0.15, 0.5] | NaN reward steps so far: 0
+Episodes: 5780 | Mean Reward (last 10): 1.669 | Mean Score: 1.679 | Last-10 eps: [0.3, 0.25, 0.3, 0.1, 0.25, 0.2, 0.1, 0.4, 0.15, 0.05] | NaN reward steps so far: 0
+Episodes: 5790 | Mean Reward (last 10): 1.727 | Mean Score: 1.744 | Last-10 eps: [0.4, 0.4, 0.5, 0.15, 0.08, 0.5, 0.5, 0.2, 0.6, 0.15] | NaN reward steps so far: 0
+Episodes: 5800 | Mean Reward (last 10): 1.678 | Mean Score: 1.691 | Last-10 eps: [0.1, 0.15, 0.25, 0.3, 0.08, 0.08, 0.3, 0.3, 0.5, 0.3] | NaN reward steps so far: 0
+Episodes: 5810 | Mean Reward (last 10): 1.419 | Mean Score: 1.430 | Last-10 eps: [0.05, 0.6, 0.15, 0.25, 0.4, 0.08, 0.03, 0.15, 0.3, 0.25] | NaN reward steps so far: 0
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 1.6         |
+|    ep_rew_mean          | 1.63        |
+| time/                   |             |
+|    fps                  | 3           |
+|    iterations           | 5           |
+|    time_elapsed         | 2883        |
+|    total_timesteps      | 10240       |
+| train/                  |             |
+|    approx_kl            | 0.021572035 |
+|    clip_fraction        | 0.267       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -6.51       |
+|    explained_variance   | 0.76        |
+|    learning_rate        | 0.0003      |
+|    loss                 | 0.0763      |
+|    n_updates            | 40          |
+|    policy_gradient_loss | -0.0536     |
+|    value_loss           | 0.495       |
+-----------------------------------------
+Model saved to C:\Users\sarfo\Downloads\Ransac_material\models\synthetic_ppo
+VecNormalize stats saved to C:\Users\sarfo\Downloads\Ransac_material\models\synthetic_ppo_vecnormalize.pkl
+Wall-clock: 2885.1s total, 0.2885 s/step (10000 steps)
+Unique eps values chosen across all 5813 episodes: [0.03, 0.05, 0.08, 0.1, 0.15, 0.2, 0.25, 0.3, 0.4, 0.5, 0.6]
+Last 20 episodes' chosen eps: [0.3, 0.08, 0.08, 0.3, 0.3, 0.5, 0.3, 0.05, 0.6, 0.15, 0.25, 0.4, 0.08, 0.03, 0.15, 0.3, 0.25, 0.5, 0.4, 0.6]
+Total steps with a NaN reward: 0
+EXIT_CODE=0

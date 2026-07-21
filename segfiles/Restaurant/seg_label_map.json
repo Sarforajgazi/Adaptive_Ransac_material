@@ -1,0 +1,31 @@
+{
+    "name_map": {
+        "artletters": 6,
+        "barcounter": 191,
+        "barshelf": 72,
+        "bench": 64,
+        "building": 59,
+        "ceiling": 36,
+        "chair": 195,
+        "coffeetable": 27,
+        "column": 180,
+        "couch": 199,
+        "door": 239,
+        "ground": 146,
+        "lamp": 23,
+        "planter": 160,
+        "pot": 116,
+        "railing": 9,
+        "receptionpodium": 8,
+        "rocks": 28,
+        "seat": 65,
+        "sky": 70,
+        "stairs": 143,
+        "streetlight": 171,
+        "table": 7,
+        "tree": 161,
+        "wall": 60,
+        "windowframe": 208,
+        "windowglass": 188
+    }
+}

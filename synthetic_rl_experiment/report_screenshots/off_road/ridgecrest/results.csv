@@ -1,0 +1,6 @@
+survey,file,color_mode,n_points,gt_pct,found,pred_pct,angle_from_vertical_deg,iou_vs_real_ground,eps,min_supp,norm_th
+ridgecrest,CA19_pt_000011_1.ply,height,166207,0.0,True,47.94,0.27,,0.08,1247,0.6
+ridgecrest,CA19_pt_000035_1.ply,height,240474,0.0,True,85.42,0.14,,0.08,1804,0.7
+ridgecrest,CA19_pt_000053_1.ply,height,191908,0.0,True,69.77,0.43,,0.08,3838,0.6
+ridgecrest,CA19_pt_000057_1.ply,height,161012,0.0,True,95.81,0.33,,0.08,3220,0.6
+ridgecrest,CA19_pt_000060_1.ply,height,168493,0.0,True,40.17,0.57,,0.08,1264,0.6

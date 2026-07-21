@@ -1,0 +1,20 @@
+{
+    "name_map": {
+        "awning": 1,
+        "chimney": 2,
+        "chimneypipe": 3,
+        "clock": 4,
+        "flag": 5,
+        "ground": 6,
+        "post": 7,
+        "poster": 8,
+        "roof": 9,
+        "roofwindow": 10,
+        "sign": 11,
+        "sky": 12,
+        "streetlight": 13,
+        "tunnel": 14,
+        "wall": 15,
+        "z": 16
+    }
+}

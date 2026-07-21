@@ -1,0 +1,10 @@
+{
+    "name_map": {
+        "cameraactor": 1,
+        "ground": 2,
+        "rock": 3,
+        "sky": 4,
+        "dummy": 5,
+        "water": 6
+    }
+}

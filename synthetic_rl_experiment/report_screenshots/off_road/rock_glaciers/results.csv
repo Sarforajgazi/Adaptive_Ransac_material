@@ -1,0 +1,4 @@
+survey,file,color_mode,n_points,gt_pct,found,pred_pct,angle_from_vertical_deg,iou_vs_real_ground,eps,min_supp,norm_th
+rock_glaciers,CO25_261000_4207000.ply,height,1811793,59.93,False,0.0,,,0.08,9059,0.85
+rock_glaciers,CO25_262000_4207000.ply,height,1855793,43.58,False,0.0,,,0.08,9279,0.85
+rock_glaciers,CO25_263000_4202000.ply,height,1690825,74.55,False,0.0,,,0.08,8454,0.85

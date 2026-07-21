@@ -1,0 +1,13 @@
+scene,frame,n_points,found,pred_pct,angle,eps,min_supp,norm_th
+SeasideTown,000367_lcam_front_lidar.ply,18678,False,0.0,,0.08,140,0.85
+SeasideTown,000295_lcam_front_lidar.ply,20041,True,12.87859887231176,82.7694246659898,0.08,200,0.6
+SeasideTown,000489_lcam_front_lidar.ply,19789,False,0.0,,0.08,198,0.6
+GreatMarsh,000061_lcam_front_lidar.ply,31069,False,0.0,,0.08,311,0.6
+GreatMarsh,000280_lcam_front_lidar.ply,37375,False,0.0,,0.08,374,0.6
+GreatMarsh,000152_lcam_front_lidar.ply,16677,True,5.234754452239612,8.309456052638993,0.08,167,0.6
+NordicHarbor,002065_lcam_front_lidar.ply,34003,True,9.396229744434315,89.15556541401025,0.08,340,0.6
+NordicHarbor,001602_lcam_front_lidar.ply,27671,True,2.374326912652235,1.6779861109149397,0.08,277,0.6
+NordicHarbor,002903_lcam_front_lidar.ply,25385,True,6.901713610399843,89.91477085658488,0.08,254,0.6
+GothicIsland,000387_lcam_front_lidar.ply,18851,True,8.869555991724578,0.5923335472047007,0.08,189,0.6
+GothicIsland,000289_lcam_front_lidar.ply,21035,True,6.299025433800807,10.531630352047733,0.08,210,0.6
+GothicIsland,000336_lcam_front_lidar.ply,16421,True,5.212837220632117,0.9559428993442931,0.08,82,0.6

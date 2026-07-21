@@ -1,0 +1,26 @@
+{
+    "name_map": {
+        "balcony": 6,
+        "building": 191,
+        "carousel": 72,
+        "fan": 64,
+        "ferriswheel": 59,
+        "flower": 36,
+        "grass": 195,
+        "ground": 27,
+        "horse": 180,
+        "instancedfoliageactor": 199,
+        "merrygoround": 239,
+        "metalfence": 146,
+        "metalladder": 23,
+        "metalpole": 160,
+        "metalstairs": 116,
+        "metalsupport": 9,
+        "rollercoaster": 8,
+        "sky": 28,
+        "swing": 65,
+        "tree": 70,
+        "woodplank": 143,
+        "leaf": 11
+    }
+}

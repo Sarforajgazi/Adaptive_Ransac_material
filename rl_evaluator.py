@@ -127,6 +127,8 @@ def main():
             env.prev_epsilon = 0.0
             env.prev_min_support = 0
             env.prev_normal_thresh = 0.0
+            env.iou = 0.0
+            env.prev_iou = 0.0
             
             env.current_file = sorted_files[j]
             filename = os.path.basename(env.current_file)
@@ -134,6 +136,13 @@ def main():
             try:
                 env.current_points = load_ply_xyz(env.current_file)
                 env.current_features = compute_scene_features(env.current_points)
+                
+                # Load GT mask
+                mask_path = env.current_file.replace(".ply", "_gt_mask.npy")
+                if os.path.exists(mask_path):
+                    env.current_gt_mask = np.load(mask_path)
+                else:
+                    env.current_gt_mask = np.zeros(len(env.current_points), dtype=bool)
                 
                 obs = env._get_obs()
                 terminated = False

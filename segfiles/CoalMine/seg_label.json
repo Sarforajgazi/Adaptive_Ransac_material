@@ -1,0 +1,30 @@
+{
+    "name_map": {
+        "airconditioner": 1,
+        "barrel": 2,
+        "beam": 3,
+        "cable": 4,
+        "cablebox": 5,
+        "cameraactor": 6,
+        "chain": 7,
+        "cloth": 8,
+        "door": 9,
+        "elevator": 10,
+        "floor": 11,
+        "ground": 12,
+        "light": 13,
+        "metalbeam": 14,
+        "metalpillar": 15,
+        "metalsupport": 16,
+        "metaltop": 17,
+        "pillar": 18,
+        "pipe": 19,
+        "rock": 20,
+        "stairs": 21,
+        "staticmeshactor": 22,
+        "supportbeam": 23,
+        "trolley": 24,
+        "wall": 25,
+        "paint": 26
+    }
+}

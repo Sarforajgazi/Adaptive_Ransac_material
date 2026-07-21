@@ -107,8 +107,8 @@ def score_frame(frame_path, env, info, reward, steps):
 def eval_baseline_mode(mode, config, seq_name, seq_dir, files, limit=None):
     frames = files[:limit] if limit else files
     env = RansacEnv(data_dir=seq_dir, log_name=f"{seq_name}_{mode}.csv",
-                     fixed_normal_thresh=config["normal_thresh"])
-    action = build_action(config["epsilon"], config["min_support"])
+                     fixed_normal_thresh=config["normal_thresh"], z_mode="z_up")
+    action = build_action(config["epsilon"], config["min_support"], config["normal_thresh"])
 
     rows = []
     for f in frames:
@@ -120,9 +120,9 @@ def eval_baseline_mode(mode, config, seq_name, seq_dir, files, limit=None):
     return rows
 
 
-def eval_rl_mode(model, normalize_obs, seq_name, seq_dir, files, limit=None):
+def eval_rl_mode(model, normalize_obs, seq_name, seq_dir, files, mode_name, limit=None):
     frames = files[:limit] if limit else files
-    env = RansacEnv(data_dir=seq_dir, log_name=f"{seq_name}_rl.csv")
+    env = RansacEnv(data_dir=seq_dir, log_name=f"{seq_name}_{mode_name}.csv", z_mode="z_up")
 
     rows = []
     for f in frames:
@@ -130,6 +130,7 @@ def eval_rl_mode(model, normalize_obs, seq_name, seq_dir, files, limit=None):
         env.inlier_ratio = 0.0
         env.prev_inlier_ratio = 0.0
         env.mean_residual = 0.0
+        env.z_align = 0.0
         env.plane_normal = np.zeros(3, dtype=np.float32)
         env.prev_epsilon = 0.0
         env.prev_min_support = 0
@@ -164,7 +165,13 @@ def main():
                          help="Max frames per sequence (for a quick smoke test)")
     parser.add_argument("--model", type=str, default=DEFAULT_MODEL_PATH)
     parser.add_argument("--vecnormalize", type=str, default=DEFAULT_VECNORMALIZE_PATH)
+    parser.add_argument("--tag", type=str, default=None,
+                         help="Version tag for this run. Results are logged to <env>_rl_<tag>.csv")
+    parser.add_argument("--skip_baselines", action="store_true",
+                         help="Skip evaluating fixed baselines to save time")
     args = parser.parse_args()
+    
+    mode_name = "rl" if not args.tag else f"rl_{args.tag}"
 
     seqs = get_sequences()
     if not seqs:
@@ -177,7 +184,10 @@ def main():
     print(f"Loading observation normalizer: {args.vecnormalize}")
     normalize_obs = load_obs_normalizer(args.vecnormalize)
 
-    modes = list(BASELINE_MODES.keys()) + ["rl"]
+    modes = []
+    if not args.skip_baselines:
+        modes.extend(list(BASELINE_MODES.keys()))
+    modes.append(mode_name)
     all_rows = {mode: [] for mode in modes}
 
     for seq_dir in seqs:
@@ -187,16 +197,17 @@ def main():
             continue
         print(f"\n=== {seq_name}: {len(files)} frames ===")
 
-        for mode, config in BASELINE_MODES.items():
-            rows = eval_baseline_mode(mode, config, seq_name, seq_dir, files, limit=args.limit)
-            all_rows[mode].extend(rows)
-            mean_iou = np.mean([r["iou"] for r in rows]) if rows else float("nan")
-            print(f"  {mode:10s} mean IoU={mean_iou:.4f} ({len(rows)} frames)")
+        if not args.skip_baselines:
+            for mode, config in BASELINE_MODES.items():
+                rows = eval_baseline_mode(mode, config, seq_name, seq_dir, files, limit=args.limit)
+                all_rows[mode].extend(rows)
+                mean_iou = np.mean([r["iou"] for r in rows]) if rows else float("nan")
+                print(f"  {mode:10s} mean IoU={mean_iou:.4f} ({len(rows)} frames)")
 
-        rl_rows = eval_rl_mode(model, normalize_obs, seq_name, seq_dir, files, limit=args.limit)
-        all_rows["rl"].extend(rl_rows)
+        rl_rows = eval_rl_mode(model, normalize_obs, seq_name, seq_dir, files, mode_name, limit=args.limit)
+        all_rows[mode_name].extend(rl_rows)
         mean_iou = np.mean([r["iou"] for r in rl_rows]) if rl_rows else float("nan")
-        print(f"  {'rl':10s} mean IoU={mean_iou:.4f} ({len(rl_rows)} frames)")
+        print(f"  {mode_name:10s} mean IoU={mean_iou:.4f} ({len(rl_rows)} frames)")
 
     print("\n=== Overall RELLIS-3D real-ground-truth comparison ===")
     summary_rows = []

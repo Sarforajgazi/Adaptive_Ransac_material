@@ -1,0 +1,2 @@
+survey,file,color_mode,n_points,gt_pct,found,pred_pct,angle_from_vertical_deg,iou_vs_real_ground,eps,min_supp,norm_th
+san_andreas_fault,CA17_701000_4006000.ply,height,4755959,53.73,False,0.0,,,0.08,23780,0.85

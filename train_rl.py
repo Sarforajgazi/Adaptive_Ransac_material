@@ -7,6 +7,7 @@ from stable_baselines3.common.vec_env import DummyVecEnv, VecNormalize
 from stable_baselines3.common.callbacks import CheckpointCallback
 
 from ransac_env import RansacEnv
+from download_lidar_frames import NEVER_TRAIN_ENVIRONMENTS
 
 # Define paths
 WORKSPACE = os.path.dirname(os.path.abspath(__file__))
@@ -28,10 +29,11 @@ def main():
                               "filenames (ppo_ransac_final.zip, evaluation_metrics.csv), so existing runs "
                               "are never overwritten by a new tagged run.")
     parser.add_argument("--exclude_envs", type=str, default=None,
-                         help="Comma-separated environment names to exclude entirely from training (e.g. "
-                              "'GreatMarsh,Restaurant') -- for an environment-level train/test split: train "
-                              "with these excluded, then evaluate on them with rl_evaluator.py --env <name> "
-                              "for a genuine unseen-scene generalization test.")
+                         help="Comma-separated environment names to ADDITIONALLY exclude from training, on "
+                              "top of NEVER_TRAIN_ENVIRONMENTS (held-out generalization-test scenes + "
+                              "RELLIS-3D's real-world ground-truth data), which is always excluded regardless "
+                              "of this flag -- no need to type those out, and they can't be accidentally "
+                              "included even if this is left unset.")
     parser.add_argument("--split", type=str, default=None, choices=["train", "test"],
                          help="Frame-level train/test split within each included environment (chronological "
                               "tail holdout, see RansacEnv). Omit to train on every frame of every included "
@@ -45,7 +47,8 @@ def main():
                               "straddle the train/test boundary. Only applies when --split is set.")
     args = parser.parse_args()
 
-    exclude_envs = args.exclude_envs.split(",") if args.exclude_envs else None
+    user_excludes = args.exclude_envs.split(",") if args.exclude_envs else []
+    exclude_envs = sorted(set(NEVER_TRAIN_ENVIRONMENTS) | set(user_excludes))
 
     suffix = f"_{args.tag}" if args.tag else ""
     model_prefix = f"ppo_ransac{suffix}_model"

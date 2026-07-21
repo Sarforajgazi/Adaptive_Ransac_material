@@ -1,0 +1,30 @@
+{
+    "name_map": {
+        "ceiling": 1,
+        "ceilinglight": 2,
+        "cloth": 3,
+        "crate": 4,
+        "floor": 5,
+        "generator": 6,
+        "glass": 7,
+        "ground": 8,
+        "metalbar": 9,
+        "moon": 10,
+        "mountain": 11,
+        "pipe": 12,
+        "pipes": 13,
+        "planet": 14,
+        "rock": 15,
+        "sky": 16,
+        "snowpile": 17,
+        "stair": 18,
+        "tank": 19,
+        "wall": 20,
+        "wallbroken": 21,
+        "walldetail": 22,
+        "wallrubble": 23,
+        "water": 24,
+        "wires": 25,
+        "z": 26
+    }
+}

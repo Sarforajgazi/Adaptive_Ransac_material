@@ -1,0 +1,7 @@
+survey,file,color_mode,n_points,gt_pct,found,pred_pct,angle_from_vertical_deg,iou_vs_real_ground,eps,min_supp,norm_th
+deltaic_wetlands,LA23_252000_3253000.ply,height,1986471,7.46,False,0.0,,,0.08,14899,0.6
+deltaic_wetlands,LA23_253000_3257000.ply,height,2014342,13.83,False,0.0,,,0.08,15108,0.6
+deltaic_wetlands,LA23_254000_3258000.ply,height,1524568,14.28,False,0.0,,,0.08,11434,0.7
+deltaic_wetlands,LA23_252000_3253000.ply,height,1986471,7.46,False,0.0,,,0.08,14899,0.6
+deltaic_wetlands,LA23_253000_3257000.ply,height,2014342,13.83,False,0.0,,,0.08,15108,0.6
+deltaic_wetlands,LA23_254000_3258000.ply,height,1524568,14.28,False,0.0,,,0.08,11434,0.7

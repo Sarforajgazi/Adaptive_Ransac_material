@@ -82,9 +82,18 @@ def main():
             from ransac_env import load_ply_xyz
             from features.scene_features import compute_scene_features
             
+            env.iou = 0.0
+            env.prev_iou = 0.0
             try:
                 env.current_points = load_ply_xyz(env.current_file)
                 env.current_features = compute_scene_features(env.current_points)
+                
+                # Load GT mask
+                mask_path = env.current_file.replace(".ply", "_gt_mask.npy")
+                if os.path.exists(mask_path):
+                    env.current_gt_mask = np.load(mask_path)
+                else:
+                    env.current_gt_mask = np.zeros(len(env.current_points), dtype=bool)
                 
                 # Step triggers RANSAC and writes to the CSV automatically
                 obs, reward, term, trunc, info = env.step(action)

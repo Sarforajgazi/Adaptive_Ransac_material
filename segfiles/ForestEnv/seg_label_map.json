@@ -1,0 +1,14 @@
+{
+    "name_map": {
+        "bush": 6,
+        "foliage": 191,
+        "grass": 72,
+        "ground": 64,
+        "groundembankment": 59,
+        "groundplant": 36,
+        "rock": 195,
+        "sky": 27,
+        "stump": 180,
+        "treetrunk": 199
+    }
+}

@@ -1,0 +1,6 @@
+scene,frame,n_points,found,pred_pct,angle_from_vertical_deg,eps,min_supp,norm_th
+GothicIsland,000394_lcam_front.png,404048,True,42.31254702411595,,0.15,4040,0.6
+GothicIsland,000430_lcam_front.png,409406,True,43.90287391977646,,0.08,4094,0.6
+GothicIsland,000041_lcam_front.png,409600,True,31.825439453125,,0.25,6144,0.6
+GothicIsland,000265_lcam_front.png,383288,True,33.90035691177392,,0.08,1916,0.6
+GothicIsland,000523_lcam_front.png,342659,True,47.009709361201665,,0.08,1713,0.6

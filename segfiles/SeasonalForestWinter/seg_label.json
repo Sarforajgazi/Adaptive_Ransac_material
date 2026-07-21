@@ -1,0 +1,8 @@
+{
+    "name_map": {
+        "ground": 1,
+        "instancedfoliageactor": 2,
+        "rock": 3,
+        "sky": 4
+    }
+}

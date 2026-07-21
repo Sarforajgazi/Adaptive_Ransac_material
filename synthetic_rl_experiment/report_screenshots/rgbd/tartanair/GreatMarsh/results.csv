@@ -1,0 +1,6 @@
+scene,frame,n_points,found,pred_pct,angle_from_vertical_deg,eps,min_supp,norm_th
+GreatMarsh,003458_lcam_front.png,265516,True,9.278160261528495,,0.15,2655,0.6
+GreatMarsh,001577_lcam_front.png,278209,True,62.88329996513412,,0.08,2087,0.6
+GreatMarsh,003104_lcam_front.png,345231,True,9.328246883970442,,0.08,3452,0.6
+GreatMarsh,003646_lcam_front.png,228697,True,27.553050542858017,,0.08,2287,0.6
+GreatMarsh,001722_lcam_front.png,276450,True,67.97033821667571,,0.08,2764,0.6
