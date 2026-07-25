@@ -650,7 +650,7 @@ Everything is built from composable C++ template strategies (policy-based design
 
 | File | Role |
 |---|---|
-| `Random.h/.cpp` | LCG random number generator (`rn_rand()`, `rn_setseed()`) — seeded with `time(NULL)` |
+| `Random.h/.cpp` | Lagged-Fibonacci random number generator (`rn_rand()`, `rn_setseed()`). **Note:** `RansacShapeDetector::Detect()` reseeds it (and `srand`) with `time(NULL)` — 1-second resolution — at the top of *every* call ([`RansacShapeDetector.cpp:455-456`](Efficient-RANSAC-for-Point-Cloud-Shape-Detection/RansacShapeDetector.cpp#L455)). Fine for the library's original one-call-per-process usage, but it means back-to-back `detect()` calls from Python are **not reproducible** and calls within the same second get the same seed. This is a known, still-unpatched quirk; it surfaces only as evaluation jitter (calibrated around in `synthetic_rl_experiment/SESSION_PROGRESS_LOG.md` §22), not a correctness bug. |
 | `Vector.h` | Wrapper around `std::vector` |
 | `NoShrinkVector.h` | Vector that never deallocates on `resize()` — used for hot paths |
 | `RefCount.h/.cpp` | Intrusive reference counting base class |
