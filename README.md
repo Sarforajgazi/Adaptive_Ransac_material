@@ -12,6 +12,8 @@ A 3D point cloud **ground segmentation pipeline** for robotics and autonomous na
 - [How the C++ → Cython → Python Chain Works](#how-the-c--cython--python-chain-works)
 - [The Full Pipeline](#the-full-pipeline)
 - [The Adaptive RL Pipeline](#the-adaptive-rl-pipeline)
+- [Two RL Tracks (important — don't confuse them)](#two-rl-tracks-important--dont-confuse-them)
+- [The Synthetic RL Experiment](#the-synthetic-rl-experiment-synthetic_rl_experiment)
 - [Virtual Environment](#virtual-environment)
 - [Quick Start](#quick-start)
 
@@ -40,6 +42,7 @@ Ransac_material/
 │
 ├── Efficient-RANSAC-for-Point-Cloud-Shape-Detection/   # Original C++ library (Schnabel 2007)
 ├── schnabel_cython/                                    # Cython wrapper (the core engineering)
+├── synthetic_rl_experiment/                            # Second RL track: adaptive RANSAC on synthetic data (self-contained)
 ├── pyRANSAC-3D/                                        # Pure Python RANSAC (alternative)
 ├── paper_efficient_RANSAC_Schnabel/                    # Reference papers (PDF)
 ├── data/                                               # Dataset storage (TartanAir LiDAR)
@@ -342,6 +345,48 @@ explained, the training loop, adaptive per-environment sampling, and a
 day-by-day account of bugs found and fixed — see
 [RL_PIPELINE_OVERVIEW.md](RL_PIPELINE_OVERVIEW.md) and
 [DAILY_LOG.md](DAILY_LOG.md).
+
+---
+
+## Two RL Tracks (important — don't confuse them)
+
+This repo contains **two separate reinforcement-learning efforts** that
+share the same underlying Schnabel RANSAC engine but are otherwise
+independent. New readers often trip over this, so to be explicit:
+
+| | **Main pipeline** (repo root) | **Synthetic experiment** ([`synthetic_rl_experiment/`](synthetic_rl_experiment/)) |
+|---|---|---|
+| Environment file | [`ransac_env.py`](ransac_env.py) | [`synthetic_rl_experiment/synthetic_env.py`](synthetic_rl_experiment/synthetic_env.py) |
+| Data | Real simulated LiDAR (TartanAir/TartanGround `.ply`) | Procedurally-generated synthetic planes (known ground truth) |
+| Observation | 31-dim | 33-dim |
+| Models (both in `models/`) | `ppo_ransac_*.zip` | `synthetic_ppo_*.zip` |
+| Primary doc | [`RL_PIPELINE_OVERVIEW.md`](RL_PIPELINE_OVERVIEW.md) | [`synthetic_rl_experiment/README.md`](synthetic_rl_experiment/README.md) |
+
+They each independently hit — and separately fixed — the *same class* of
+early "policy collapse" bug (missing `ent_coef`/`VecNormalize`); those are
+**two different events in two different codebases**, not one. Each track's
+docs describe only its own collapse. The current best synthetic model
+(`synthetic_ppo_v2.zip`) is genuinely adaptive; see the synthetic folder's
+own README for its status.
+
+---
+
+## The Synthetic RL Experiment (`synthetic_rl_experiment/`)
+
+A **self-contained** second RL track that trains the same kind of adaptive
+RANSAC agent on **procedurally-generated synthetic point clouds** (planes
+with controlled noise, bumps, clutter, and intersecting walls) where the
+ground-truth plane is known exactly — enabling clean, quantitative
+adaptivity measurement that real, unlabeled LiDAR can't provide. It has its
+own environment, generator, training/eval scripts, models
+(`synthetic_ppo_*`), and logs.
+
+**Start with [`synthetic_rl_experiment/README.md`](synthetic_rl_experiment/README.md)** — it
+orders the folder's three internal docs and states the current result. Note
+that one of those docs (`syntheticRL.md`) is a **corrected historical log**:
+its original conclusion that the agent "couldn't learn adaptivity" was later
+disproven; it carries a correction banner and the authoritative account is
+in `SESSION_PROGRESS_LOG.md`.
 
 ---
 
