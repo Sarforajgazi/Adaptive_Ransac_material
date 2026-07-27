@@ -1,6 +1,11 @@
 # RANSAC Material — Project Overview
 
-A 3D point cloud **ground segmentation pipeline** for robotics and autonomous navigation. The project wraps Ruwen Schnabel's 2007 Efficient RANSAC C++ library in Cython so Python can call it at native C++ speed, applies it to LiDAR data from the TartanAir and TartanGround simulation datasets, and — on top of that — trains a **reinforcement learning agent** to pick the RANSAC parameters adaptively per scene instead of using one fixed setting everywhere.
+A 3D point cloud **multi-plane detection pipeline** for robotics and autonomous navigation — it doesn't just find *a* ground plane, it identifies the ground **and** every other flat surface in a scene (walls/facades individually, plus curved structures like poles and pillars) in one pass. The project wraps Ruwen Schnabel's 2007 Efficient RANSAC C++ library in Cython so Python can call it at native C++ speed, then trains a **reinforcement learning agent** to pick the RANSAC parameters (`epsilon`, `min_support`, `normal_thresh`) adaptively per scene instead of using one fixed setting everywhere.
+
+**There are two separate RL pipelines in this repo** — see [Two Pipelines](#two-pipelines-main-tartanair-vs-synthetic-recommended) below for the full picture:
+
+- **Main pipeline** — trained on real TartanAir/TartanGround simulated LiDAR (`ppo_ransac_*.zip`). This was the first approach we used for this project. But since real LiDAR has no ground truth, we proposed another method.
+- **Synthetic pipeline** — trained on procedurally-generated synthetic point clouds with known ground truth (`synthetic_ppo_*.zip`). **This is the pipeline actually in use** for real-world ground+wall detection (`detect_ground_and_walls.py --model_variant synthetic`) — see [Run Ground + Wall Detection on Your Own Point Cloud](#run-ground--wall-detection-on-your-own-point-cloud) below.
 
 ---
 
@@ -12,9 +17,9 @@ A 3D point cloud **ground segmentation pipeline** for robotics and autonomous na
 - [Folder Structure](#folder-structure)
 - [Dataset Locations](#dataset-locations)
 - [How the C++ → Cython → Python Chain Works](#how-the-c--cython--python-chain-works)
-- [The Full Pipeline](#the-full-pipeline)
-- [The Adaptive RL Pipeline](#the-adaptive-rl-pipeline)
-- [Two RL Tracks (important — don't confuse them)](#two-rl-tracks-important--dont-confuse-them)
+- [Two Pipelines: Main (TartanAir) vs. Synthetic (recommended)](#two-pipelines-main-tartanair-vs-synthetic-recommended)
+- [Pipeline 1: Main RL Pipeline (TartanAir/TartanGround)](#pipeline-1-main-rl-pipeline-tartanairtartanground)
+- [Pipeline 2: Synthetic RL Pipeline (recommended — currently in use)](#pipeline-2-synthetic-rl-pipeline-recommended--currently-in-use)
 - [The Synthetic RL Experiment](#the-synthetic-rl-experiment-synthetic_rl_experiment)
 - [Virtual Environment](#virtual-environment)
 - [Quick Start](#quick-start)
@@ -23,17 +28,43 @@ A 3D point cloud **ground segmentation pipeline** for robotics and autonomous na
 
 ## What This Project Does
 
-Given a 3D LiDAR point cloud (a list of `[X, Y, Z]` coordinates from a sensor), this project:
+Given a 3D point cloud (a list of `[X, Y, Z]` coordinates), the current pipeline
+([`detect_ground_and_walls.py`](detect_ground_and_walls.py), driven by the
+[synthetic-trained RL agent](#pipeline-2-synthetic-rl-pipeline-recommended--currently-in-use)) does **not**
+just split the scene into "ground" vs. a generic "everything else" —
+it identifies every distinct flat/curved surface individually:
 
 1. Detects the **ground plane** using RANSAC (Random Sample Consensus)
-2. Separates **ground points** from **obstacle points** (walls, objects, vehicles, etc.)
-3. Saves and **visualizes** the result in 3D with ground painted green and obstacles in red
+2. Also detects **every other planar surface as its own separate shape** —
+   each wall/facade is identified individually (not lumped into one
+   generic "obstacle" blob), so a scene with three buildings gets three
+   distinct wall detections, each with its own extent and orientation
+3. Depending on model variant, also detects **curved surfaces** (poles,
+   pillars, pipes, tree trunks) as cylinders, kept separate from the
+   plane classification since a cylinder's inlier points don't have a
+   single meaningful normal the way a plane's do. **`--model_variant main`**
+   is the one that detects cylinders (`detect_cylinders=True`);
+   **`--model_variant synthetic`** — the one recommended and actually used
+   for real-world detection — has `detect_cylinders=False`, so it never
+   requests them (a degenerate cylinder hypothesis was found to sometimes
+   win a region before a real plane hypothesis was ever tried there).
+4. **Visualizes** the result in 3D: ground in green, **each wall in its
+   own distinct color**, cylinders in gold, everything unclassified in
+   gray — see [Run Ground + Wall Detection on Your Own Point Cloud](#run-ground--wall-detection-on-your-own-point-cloud)
+   above for the actual command
 
-Two RANSAC implementations are used and compared:
-- **pyransac3d** — pure Python/NumPy (simple, slow)
-- **schnabel_ransac** — Schnabel's 2007 C++ algorithm wrapped in Cython (complex, fast)
+This full multi-plane capability is specific to `detect_ground_and_walls.py`
+and is what the [synthetic RL pipeline](#pipeline-2-synthetic-rl-pipeline-recommended--currently-in-use)
+was built to drive. The project's earlier, simpler scripts
+(`segment_ground.py`, `visualize_segmentation.py`) only do the coarser
+ground-vs-everything-else split described in older docs — see
+[Two Pipelines](#two-pipelines-main-tartanair-vs-synthetic-recommended) below
+for how the two RL tracks relate and which one is actually in use.
 
-On top of that base pipeline, a **PPO reinforcement learning agent** (root-level `ransac_env.py`, `train_rl.py`, etc.) learns to choose Schnabel's `epsilon`/`min_support` parameters per-frame — see [The Adaptive RL Pipeline](#the-adaptive-rl-pipeline) below and [RL_PIPELINE_OVERVIEW.md](RL_PIPELINE_OVERVIEW.md) for the full breakdown.
+Two RANSAC implementations exist in this repo:
+
+- **pyransac3d** — pure Python/NumPy (simple, slow, ground-only; used by the older root-level scripts)
+- **schnabel_ransac** — Schnabel's 2007 C++ algorithm wrapped in Cython (complex, fast, multi-shape; what `detect_ground_and_walls.py` and both RL tracks actually use)
 
 ---
 
@@ -58,13 +89,13 @@ which prints a per-shape summary (e.g. `ground=2971 pts (47.6%), 3 wall(s) (1916
 
 **Flags that matter:**
 
-| Flag | What it does |
-|---|---|
-| `--model_variant synthetic` | Recommended default — trained on procedurally-generated synthetic data, never overfit to one real dataset, and the variant this project's own real-world testing standardized on. (`main`, the script's technical default, was trained on real TartanAir LiDAR specifically.) |
-| `--z_mode z_up` or `z_down` | `z_down` (default) is correct for LiDAR. Most other real point clouds — RGB-D, terrain surveys, indoor scans — are `z_up` and need this set explicitly, or ground/height-dependent features get computed backwards. |
-| `--interactive` | For the batch input modes below (`--env`, `--s3dis_room`, `--ply_list`), also opens a viewer per frame instead of just logging results. (`--ply` single-file mode always opens a viewer, with or without this flag.) |
-| `--csv_log path.csv` | Append a results row (point/ground/wall counts, chosen parameters, timing) instead of or alongside viewing. |
-| `--no_cylinders` | Cylinder detection is on by default under `--model_variant main` only — `synthetic` never requests cylinders (a degenerate cylinder hypothesis was found to sometimes win a region before a real plane hypothesis was ever tried there, see the comment at `detect_ground_and_walls.py:127`). |
+| Flag                            | What it does                                                                                                                                                                                                                                                                                        |
+| ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--model_variant synthetic`   | Recommended default — trained on procedurally-generated synthetic data, never overfit to one real dataset, and the variant this project's own real-world testing standardized on. (`main`, the script's technical default, was trained on real TartanAir LiDAR specifically.)                    |
+| `--z_mode z_up` or `z_down` | `z_down` (default) is correct for LiDAR. Most other real point clouds — RGB-D, terrain surveys, indoor scans — are `z_up` and need this set explicitly, or ground/height-dependent features get computed backwards.                                                                           |
+| `--interactive`               | For the batch input modes below (`--env`, `--s3dis_room`, `--ply_list`), also opens a viewer per frame instead of just logging results. (`--ply` single-file mode always opens a viewer, with or without this flag.)                                                                        |
+| `--csv_log path.csv`          | Append a results row (point/ground/wall counts, chosen parameters, timing) instead of or alongside viewing.                                                                                                                                                                                         |
+| `--no_cylinders`              | Cylinder detection is on by default under`--model_variant main` only — `synthetic` never requests cylinders (a degenerate cylinder hypothesis was found to sometimes win a region before a real plane hypothesis was ever tried there, see the comment at `detect_ground_and_walls.py:127`). |
 
 This is inference only — you get a detection, not an accuracy score, unless you separately compare against your own ground-truth labels. For batches of files instead of one, see `--ply_list path1.ply path2.ply ...` (generic files), `--s3dis_room <dir>` (S3DIS rooms), or `--env <name> --indices <n...>` (indexed TartanAir/TartanGround frames) in `python detect_ground_and_walls.py --help`.
 
@@ -76,24 +107,24 @@ This is inference only — you get a detection, not an accuracy score, unless yo
 
 Every doc in this project, in one place:
 
-| Doc | What's in it |
-|---|---|
-| [`README.md`](README.md) (this file) | Project overview, architecture, folder structure, both RL tracks |
-| [`GETTING_STARTED.md`](GETTING_STARTED.md) | Practical setup/run guide — install, run detection with `synthetic_ppo_v2.zip`, the interactive viewer, voxel downsampling guidance |
-| [`EFFICIENT_RANSAC_BREAKDOWN.md`](EFFICIENT_RANSAC_BREAKDOWN.md) | Deep-dive on the vendored Schnabel C++ algorithm itself — every parameter, every hardcoded constant, the octree/candidate/stopping-criterion internals |
-| [`SCHNABEL_CYTHON_BREAKDOWN.md`](SCHNABEL_CYTHON_BREAKDOWN.md) | Deep-dive on the Cython wrapper — the full Python→Cython→C++ call chain, build system, gotchas |
-| [`RL_PIPELINE_OVERVIEW.md`](RL_PIPELINE_OVERVIEW.md) | Deep-dive on the main RL track — observation/action/reward spaces, training loop, bugs found and fixed |
-| [`DAILY_LOG.md`](DAILY_LOG.md), [`STRATEGY_AND_IMPROVEMENTS.md`](STRATEGY_AND_IMPROVEMENTS.md), [`ADAPTIVE_RL_PLAN.md`](ADAPTIVE_RL_PLAN.md), [`ADAPTIVE_RANSAC_RL_IDEA.md`](ADAPTIVE_RANSAC_RL_IDEA.md) | Process journals from the main track's development — historical, not current-state reference |
-| [`BASELINE_CONFIG.md`](BASELINE_CONFIG.md) | The fixed Strict/Standard/Loose parameter baselines used throughout evaluation |
-| [`TRAVERSABILITY_COMPARISON.md`](TRAVERSABILITY_COMPARISON.md) | `traversability.py`'s grid-based classifier vs. the Schnabel-based pipeline |
-| [`synthetic_rl_experiment/README.md`](synthetic_rl_experiment/README.md) | **Start here** for the synthetic RL track — current status, doc reading order |
-| [`synthetic_rl_experiment/SESSION_PROGRESS_LOG.md`](synthetic_rl_experiment/SESSION_PROGRESS_LOG.md) | Authoritative, detailed log for the synthetic track — every bug, fix, and result backed by a number |
-| [`schnabel_cython/README.md`](schnabel_cython/README.md) | The Cython wrapper folder's own structure + demo scripts |
-| [`features/README.md`](features/README.md) | What `compute_scene_features()` computes and the z-up/z-down gotcha |
-| [`models/README.md`](models/README.md) | Both tracks' model version histories, which checkpoint to actually use |
-| [`data/README.md`](data/README.md) | Pointer to the Dataset Locations table below |
-| [`logs/README.md`](logs/README.md), [`plots/README.md`](plots/README.md), [`screenshots/README.md`](screenshots/README.md), [`scratchpad/README.md`](scratchpad/README.md) | Short notes on each output/working folder |
-| [`paper_efficient_RANSAC_Schnabel/README.md`](paper_efficient_RANSAC_Schnabel/README.md) | The two reference PDFs |
+| Doc                                                                                                                                                                                                          | What's in it                                                                                                                                            |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`README.md`](README.md) (this file)                                                                                                                                                                        | Project overview, architecture, folder structure, both RL tracks                                                                                        |
+| [`GETTING_STARTED.md`](GETTING_STARTED.md)                                                                                                                                                                  | Practical setup/run guide — install, run detection with`synthetic_ppo_v2.zip`, the interactive viewer, voxel downsampling guidance                   |
+| [`EFFICIENT_RANSAC_BREAKDOWN.md`](EFFICIENT_RANSAC_BREAKDOWN.md)                                                                                                                                            | Deep-dive on the vendored Schnabel C++ algorithm itself — every parameter, every hardcoded constant, the octree/candidate/stopping-criterion internals |
+| [`SCHNABEL_CYTHON_BREAKDOWN.md`](SCHNABEL_CYTHON_BREAKDOWN.md)                                                                                                                                              | Deep-dive on the Cython wrapper — the full Python→Cython→C++ call chain, build system, gotchas                                                       |
+| [`RL_PIPELINE_OVERVIEW.md`](RL_PIPELINE_OVERVIEW.md)                                                                                                                                                        | Deep-dive on the main RL track — observation/action/reward spaces, training loop, bugs found and fixed                                                 |
+| [`DAILY_LOG.md`](DAILY_LOG.md), [`STRATEGY_AND_IMPROVEMENTS.md`](STRATEGY_AND_IMPROVEMENTS.md), [`ADAPTIVE_RL_PLAN.md`](ADAPTIVE_RL_PLAN.md), [`ADAPTIVE_RANSAC_RL_IDEA.md`](ADAPTIVE_RANSAC_RL_IDEA.md) | Process journals from the main track's development — historical, not current-state reference                                                           |
+| [`BASELINE_CONFIG.md`](BASELINE_CONFIG.md)                                                                                                                                                                  | The fixed Strict/Standard/Loose parameter baselines used throughout evaluation                                                                          |
+| [`TRAVERSABILITY_COMPARISON.md`](TRAVERSABILITY_COMPARISON.md)                                                                                                                                              | `traversability.py`'s grid-based classifier vs. the Schnabel-based pipeline                                                                           |
+| [`synthetic_rl_experiment/README.md`](synthetic_rl_experiment/README.md)                                                                                                                                    | **Start here** for the synthetic RL track — current status, doc reading order                                                                    |
+| [`synthetic_rl_experiment/SESSION_PROGRESS_LOG.md`](synthetic_rl_experiment/SESSION_PROGRESS_LOG.md)                                                                                                        | Authoritative, detailed log for the synthetic track — every bug, fix, and result backed by a number                                                    |
+| [`schnabel_cython/README.md`](schnabel_cython/README.md)                                                                                                                                                    | The Cython wrapper folder's own structure + demo scripts                                                                                                |
+| [`features/README.md`](features/README.md)                                                                                                                                                                  | What`compute_scene_features()` computes and the z-up/z-down gotcha                                                                                    |
+| [`models/README.md`](models/README.md)                                                                                                                                                                      | Both tracks' model version histories, which checkpoint to actually use                                                                                  |
+| [`data/README.md`](data/README.md)                                                                                                                                                                          | Pointer to the Dataset Locations table below                                                                                                            |
+| [`logs/README.md`](logs/README.md), [`plots/README.md`](plots/README.md), [`screenshots/README.md`](screenshots/README.md), [`scratchpad/README.md`](scratchpad/README.md)                               | Short notes on each output/working folder                                                                                                               |
+| [`paper_efficient_RANSAC_Schnabel/README.md`](paper_efficient_RANSAC_Schnabel/README.md)                                                                                                                    | The two reference PDFs                                                                                                                                  |
 
 ---
 
@@ -102,18 +133,19 @@ Every doc in this project, in one place:
 ```
 Ransac_material/
 │
-├── Efficient-RANSAC-for-Point-Cloud-Shape-Detection/   # Original C++ library (Schnabel 2007)
+├── detect_ground_and_walls.py   # ★ THE practical entry point -- ground + wall + cylinder
+│                                 #   detection on any point cloud (see Quick Start above)
+├── screenshot_utils.py           # Wraps Open3D's viewer so its screenshot key lands in screenshots/
+│
+├── synthetic_rl_experiment/     # ★ Recommended RL track (self-contained) -- procedurally-
+│                                 #   generated training data, produces synthetic_ppo_v2.zip,
+│                                 #   the model detect_ground_and_walls.py uses by default
 ├── schnabel_cython/                                    # Cython wrapper (the core engineering)
-├── synthetic_rl_experiment/                            # Second RL track: adaptive RANSAC on synthetic data (self-contained)
+├── Efficient-RANSAC-for-Point-Cloud-Shape-Detection/   # Original C++ library (Schnabel 2007)
 ├── pyRANSAC-3D/                                        # Pure Python RANSAC (alternative)
 ├── paper_efficient_RANSAC_Schnabel/                    # Reference papers (PDF)
 ├── data/                                               # Dataset storage (TartanAir LiDAR)
 ├── .venv/                                              # Single Python virtual environment
-│
-├── download_tartan_ground.py   # Step 1: Download TartanAir LiDAR data
-├── load_tartan_ground.py       # Step 2: Inspect downloaded point clouds
-├── segment_ground.py           # Step 3: Run RANSAC ground segmentation
-├── visualize_segmentation.py   # Step 4: Open 3D visualization window
 │
 ├── features/                   # Scene-feature extraction used by the RL agent
 ├── models/                     # Trained PPO models + VecNormalize stats
@@ -122,18 +154,27 @@ Ransac_material/
 ├── screenshots/                # Open3D screenshots, redirected here by screenshot_utils.py
 ├── scratchpad/                 # Ad-hoc one-off scripts from past work sessions
 │
-├── detect_ground_and_walls.py   # Ground + wall + cylinder detection on any point cloud (see Quick Start above)
-├── screenshot_utils.py           # Wraps Open3D's viewer so its screenshot key lands in screenshots/, not scattered around
-├── ransac_env.py                # Gymnasium environment wrapping schnabel_ransac for RL
-├── train_rl.py                  # Trains the PPO agent
-├── rl_evaluator.py               # Evaluates a trained agent across all datasets
+├── ransac_env.py                # Pipeline 1 (main/TartanAir, original) -- Gymnasium environment
+├── train_rl.py                  # Trains Pipeline 1's PPO agent
+├── rl_evaluator.py               # Evaluates Pipeline 1's trained agent across all datasets
 ├── baseline_evaluator.py         # Evaluates fixed-parameter (Strict/Standard/Loose) baselines
 ├── compare_results.py            # Aggregates RL vs. baseline results
 ├── per_frame_comparison.py       # Frame-by-frame RL vs. baseline win rates
-└── plot_comparison.py            # Renders the above comparisons as PNG charts
+├── plot_comparison.py            # Renders the above comparisons as PNG charts
+├── download_tartan_ground.py   # Pipeline 1, step 1: download TartanAir LiDAR data
+├── load_tartan_ground.py       # Pipeline 1, step 2: inspect downloaded point clouds
+├── segment_ground.py           # Pipeline 1, step 3: run RANSAC ground segmentation (ground-only, no walls)
+└── visualize_segmentation.py   # Pipeline 1, step 4: open 3D visualization window
 ```
 
-> The RL pipeline (everything above the `features/`/`models/`/`logs/`/`plots/` line) is documented in full in [RL_PIPELINE_OVERVIEW.md](RL_PIPELINE_OVERVIEW.md) — that file is the primary reference for how the agent's observation/action/reward spaces work and how to train or evaluate it.
+> ★ = what's actually used today. `detect_ground_and_walls.py` (driven by
+> `synthetic_rl_experiment/`'s trained model) is the practical, currently-used
+> entry point; everything under "Pipeline 1" above is the project's original
+> approach, kept for completeness — see
+> [Two Pipelines](#two-pipelines-main-tartanair-vs-synthetic-recommended)
+> for the full comparison. Pipeline 1's own docs are in
+> [RL_PIPELINE_OVERVIEW.md](RL_PIPELINE_OVERVIEW.md); Pipeline 2's are in
+> [`synthetic_rl_experiment/README.md`](synthetic_rl_experiment/README.md).
 
 > Root also holds a number of one-off scripts from the project's development history — debugging aids (`debug_alignment.py`), report-generation helpers (`add_images_to_docx.py`), superseded download/eval scripts, and similar. They're not needed to use the pipeline; the scripts named above and in the Quick Start section are the ones that matter for actually running something.
 
@@ -147,19 +188,20 @@ The **original C++ source code** by Ruwen Schnabel and Roland Wahl (University o
 
 Key components:
 
-| File / Folder | Purpose |
-|---|---|
-| `RansacShapeDetector.h/.cpp` | Main detector: probabilistic stopping + octree sampling loop |
-| `PointCloud.h/.cpp` | Holds 3D points and normals; runs PCA-based normal estimation |
-| `Plane/Sphere/Cylinder/Cone/Torus .cpp` | Geometric math for each shape type |
-| `*PrimitiveShapeConstructor.cpp` | Factory classes that fit each shape from minimal point samples |
-| `GfxTL/` | Template graphics math library: KD-Trees, Octrees, matrices, spatial indexing |
-| `MiscLib/` | Utility library: reference-counted pointers, custom vectors, RNG |
-| `main.cpp` | Standalone C++ demo — excluded from the Cython build |
+| File / Folder                             | Purpose                                                                       |
+| ----------------------------------------- | ----------------------------------------------------------------------------- |
+| `RansacShapeDetector.h/.cpp`            | Main detector: probabilistic stopping + octree sampling loop                  |
+| `PointCloud.h/.cpp`                     | Holds 3D points and normals; runs PCA-based normal estimation                 |
+| `Plane/Sphere/Cylinder/Cone/Torus .cpp` | Geometric math for each shape type                                            |
+| `*PrimitiveShapeConstructor.cpp`        | Factory classes that fit each shape from minimal point samples                |
+| `GfxTL/`                                | Template graphics math library: KD-Trees, Octrees, matrices, spatial indexing |
+| `MiscLib/`                              | Utility library: reference-counted pointers, custom vectors, RNG              |
+| `main.cpp`                              | Standalone C++ demo — excluded from the Cython build                         |
 
 **Supported shape types:** Plane (0), Sphere (1), Cylinder (2), Cone (3), Torus (4)
 
 **Reference paper:**
+
 > Ruwen Schnabel, Roland Wahl, Reinhard Klein.
 > "Efficient RANSAC for Point-Cloud Shape Detection."
 > *Computer Graphics Forum, 26:2 (214–226), June 2007.*
@@ -172,43 +214,44 @@ The **hand-written Cython wrapper** — the main engineering contribution of thi
 
 #### Bridge Layer (C++)
 
-| File | Purpose |
-|---|---|
-| `bridge.h` | Declares the flat C ABI: `DetectedShape` struct and `detect_shapes()` function |
-| `bridge.cpp` | Implements `detect_shapes()`: copies float array → PointCloud, computes normals, runs RANSAC, maps results back to original point indices |
+| File           | Purpose                                                                                                                                     |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| `bridge.h`   | Declares the flat C ABI:`DetectedShape` struct and `detect_shapes()` function                                                           |
+| `bridge.cpp` | Implements`detect_shapes()`: copies float array → PointCloud, computes normals, runs RANSAC, maps results back to original point indices |
 
 #### Cython Layer
 
-| File | Purpose |
-|---|---|
-| `schnabel_ransac.pxd` | Cython declaration file — tells Cython about `bridge.h` types |
-| `schnabel_ransac.pyx` | The Python-facing wrapper. Exposes `schnabel_ransac.detect(points, ...)`. Converts NumPy arrays to C pointers, releases the GIL, returns list of Python dicts |
-| `setup.py` | Build script: compiles `.pyx` + `bridge.cpp` + all Schnabel `.cpp` files into one `.pyd`/`.so` |
+| File                    | Purpose                                                                                                                                                        |
+| ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `schnabel_ransac.pxd` | Cython declaration file — tells Cython about`bridge.h` types                                                                                                |
+| `schnabel_ransac.pyx` | The Python-facing wrapper. Exposes`schnabel_ransac.detect(points, ...)`. Converts NumPy arrays to C pointers, releases the GIL, returns list of Python dicts |
+| `setup.py`            | Build script: compiles`.pyx` + `bridge.cpp` + all Schnabel `.cpp` files into one `.pyd`/`.so`                                                        |
 
 #### Compiled Output
 
-| File | Platform |
-|---|---|
-| `schnabel_ransac.cp311-win_amd64.pyd` | Windows, Python 3.11 (x64) — ready to use |
-| `build/lib.win-amd64-cpython-311/schnabel_ransac.cp311-win_amd64.pyd` | Same, in build folder |
-| `build/lib.macosx-12.1-arm64-cpython-312/schnabel_ransac.cpython-312-darwin.so` | macOS Apple Silicon, Python 3.12 |
+| File                                                                              | Platform                                   |
+| --------------------------------------------------------------------------------- | ------------------------------------------ |
+| `schnabel_ransac.cp311-win_amd64.pyd`                                           | Windows, Python 3.11 (x64) — ready to use |
+| `build/lib.win-amd64-cpython-311/schnabel_ransac.cp311-win_amd64.pyd`           | Same, in build folder                      |
+| `build/lib.macosx-12.1-arm64-cpython-312/schnabel_ransac.cpython-312-darwin.so` | macOS Apple Silicon, Python 3.12           |
 
 The `.pyd` is a **compiled Windows DLL**. Compilation already happened — `import schnabel_ransac` loads the binary directly with no runtime compilation.
 
 #### Demo and Utility Scripts
 
-| Script | What it does |
-|---|---|
-| `ground_segmentation.py` | Loads a point cloud via Open3D, calls `schnabel_ransac.detect()`, picks the lowest-elevation plane as ground, visualizes in 3D |
-| `tartan_ground_segmentation.py` | Same but specifically for TartanGround `.pcd` files |
-| `real_data_demo.py` | Demo on a real Open3D indoor scan |
-| `visual_demo.py` | Demo on synthetic data (plane + cylinder + noise) to prove the algorithm works |
-| `download_tartan_pcd.py` | Downloads TartanGround environments from Hugging Face |
-| `fix_templates.py` | One-time utility that patched C++ template compatibility issues in Schnabel's code |
+| Script                            | What it does                                                                                                                    |
+| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `ground_segmentation.py`        | Loads a point cloud via Open3D, calls`schnabel_ransac.detect()`, picks the lowest-elevation plane as ground, visualizes in 3D |
+| `tartan_ground_segmentation.py` | Same but specifically for TartanGround`.pcd` files                                                                            |
+| `real_data_demo.py`             | Demo on a real Open3D indoor scan                                                                                               |
+| `visual_demo.py`                | Demo on synthetic data (plane + cylinder + noise) to prove the algorithm works                                                  |
+| `download_tartan_pcd.py`        | Downloads TartanGround environments from Hugging Face                                                                           |
+| `fix_templates.py`              | One-time utility that patched C++ template compatibility issues in Schnabel's code                                              |
 
 #### `tartanair_data/`
 
 Pre-downloaded TartanGround point cloud maps (from `theairlabcmu/TartanGround` on Hugging Face). Each environment has:
+
 - `Env_rgb.pcd` — full-scene colored point cloud
 - `Env_rgb_original.ply` — raw version
 - `Env_rgb_segmented.ply` — after ground segmentation
@@ -244,6 +287,7 @@ Already installed in `.venv` as `pyransac3d-0.6.0`. Import with `import pyransac
 ### `paper_efficient_RANSAC_Schnabel/`
 
 Two reference PDFs:
+
 - `schnabel_2007_efficient_310a84c162.pdf` — The original Schnabel 2007 paper that the C++ library implements
 - `cstamas_thesis.pdf` — A thesis on RANSAC for point clouds
 
@@ -263,16 +307,16 @@ data/Office/Data_omni/P0000/lidar/*.ply
 
 Real-world data for this project is spread across **6 separate locations**, totaling roughly 139GB — all of it gitignored, so none of it is part of what you clone from GitHub. Sizes below are approximate, measured locally:
 
-| Location | Contents | Size |
-|---|---|---|
-| `data/<TartanAir env>/` (26 environments) | TartanAir per-frame LiDAR sequences | ~56G |
-| `data/RELLIS3D/`, `data/RELLIS3D_raw/` | Real off-road LiDAR — **a separate dataset, unrelated to TartanAir**, that happens to live inside the `data/` folder | 13G + 48G |
-| `data/s3dis/`, `data/s3dis_sample/` | Real indoor scans (Stanford S3DIS) — **also unrelated to TartanAir** | 8G + 11M |
-| `schnabel_cython/tartanair_data/` | TartanGround full-scene merged maps (9 environments) | 5.0G |
-| `synthetic_rl_experiment/new_data/` | Urban semantic-labeled LiDAR tiles (real-world test source) | 1.9G |
-| `synthetic_rl_experiment/off_road_data/` | OpenTopography surveys (real-world test source) | 1.0G |
-| `synthetic_rl_experiment/rgbd_data/` | DIODE + TartanGround RGB-D (real-world test source) | 6.2G |
-| `synthetic_rl_experiment/wildscenes_data/` | WildScenes (real-world test source) | 67M |
+| Location                                     | Contents                                                                                                                     | Size      |
+| -------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | --------- |
+| `data/<TartanAir env>/` (26 environments)  | TartanAir per-frame LiDAR sequences                                                                                          | ~56G      |
+| `data/RELLIS3D/`, `data/RELLIS3D_raw/`   | Real off-road LiDAR —**a separate dataset, unrelated to TartanAir**, that happens to live inside the `data/` folder | 13G + 48G |
+| `data/s3dis/`, `data/s3dis_sample/`      | Real indoor scans (Stanford S3DIS) —**also unrelated to TartanAir**                                                   | 8G + 11M  |
+| `schnabel_cython/tartanair_data/`          | TartanGround full-scene merged maps (9 environments)                                                                         | 5.0G      |
+| `synthetic_rl_experiment/new_data/`        | Urban semantic-labeled LiDAR tiles (real-world test source)                                                                  | 1.9G      |
+| `synthetic_rl_experiment/off_road_data/`   | OpenTopography surveys (real-world test source)                                                                              | 1.0G      |
+| `synthetic_rl_experiment/rgbd_data/`       | DIODE + TartanGround RGB-D (real-world test source)                                                                          | 6.2G      |
+| `synthetic_rl_experiment/wildscenes_data/` | WildScenes (real-world test source)                                                                                          | 67M       |
 
 **The one thing worth remembering:** `data/RELLIS3D*` and `data/s3dis*` are not TartanAir or TartanGround data — they're independent real datasets that were downloaded into the `data/` folder alongside TartanAir's environment folders, purely as a matter of convention, not because they're related. If you're looking for "the TartanAir data" specifically, it's the environment-named subfolders (`data/Office/`, `data/House/`, etc.), not everything under `data/`.
 
@@ -313,12 +357,12 @@ hf_hub_download(repo_id="theairlabcmu/TartanGround",
 # → schnabel_cython/tartanair_data/Supermarket/Supermarket_rgb.pcd
 ```
 
-| | TartanAir | TartanGround |
-|---|---|---|
-| Accessed via | `tartanair` pip package | `huggingface_hub` directly |
-| Data type | Per-frame LiDAR sequences | Full-scene merged maps |
-| Format | Multiple `.ply` files | Single `.pcd` per environment |
-| Already downloaded | No (`data/` is empty) | Yes (`schnabel_cython/tartanair_data/`) |
+|                    | TartanAir                 | TartanGround                              |
+| ------------------ | ------------------------- | ----------------------------------------- |
+| Accessed via       | `tartanair` pip package | `huggingface_hub` directly              |
+| Data type          | Per-frame LiDAR sequences | Full-scene merged maps                    |
+| Format             | Multiple`.ply` files    | Single`.pcd` per environment            |
+| Already downloaded | No (`data/` is empty)   | Yes (`schnabel_cython/tartanair_data/`) |
 
 ---
 
@@ -367,7 +411,21 @@ The `.pyd` file is a pre-compiled Windows DLL. Python loads it once at import ti
 
 ---
 
-## The Full Pipeline
+## Two Pipelines: Main (TartanAir) vs. Synthetic (recommended)
+
+This project contains **two independent RL pipelines** that both wrap the
+same Schnabel RANSAC engine but differ in training data, environment code,
+and models. If you only want to run detection on your own point cloud, skip
+straight to **Pipeline 2** — it's the one [`detect_ground_and_walls.py`](detect_ground_and_walls.py)
+actually uses by default recommendation (`--model_variant synthetic`) and
+the one this project's own real-world testing standardized on. Pipeline 1
+is documented here for completeness/history, not because it's what you
+should reach for.
+
+### Pipeline 1: Main RL Pipeline (TartanAir/TartanGround)
+
+The project's original approach: train on real simulated LiDAR from
+TartanAir/TartanGround.
 
 ```
                     ┌─────────────────────────────────┐
@@ -399,23 +457,19 @@ The `.pyd` file is a pre-compiled Windows DLL. Python loads it once at import ti
                     Env_rgb_segmented.ply  ←  ground separated from obstacles
 ```
 
----
-
-## The Adaptive RL Pipeline
-
-Schnabel's RANSAC needs several parameters tuned per scene (`epsilon`,
-`min_support`, `normal_thresh`) — good values differ between a flat indoor
-office floor and a bumpy outdoor forest floor. Instead of picking one fixed
-setting for every scene, this project trains a **PPO reinforcement learning
-agent** (via [Stable-Baselines3](https://stable-baselines3.readthedocs.io/))
-to look at a frame's scene features and choose good RANSAC parameters for
-it, refining its choice over up to 5 attempts per frame.
+**RL training for this track:** Schnabel's RANSAC needs several parameters
+tuned per scene (`epsilon`, `min_support`, `normal_thresh`) — good values
+differ between a flat indoor office floor and a bumpy outdoor forest floor.
+Instead of picking one fixed setting for every scene, this track trains a
+**PPO reinforcement learning agent** (via
+[Stable-Baselines3](https://stable-baselines3.readthedocs.io/)) to look at
+a frame's scene features and choose good RANSAC parameters for it,
+refining its choice over up to 5 attempts per frame.
 
 - **Environment:** [`ransac_env.py`](ransac_env.py) — a Gymnasium env whose
   observation is 31 numbers (21 static scene features from
   [`features/scene_features.py`](features/scene_features.py) + 10 dynamic
-  feedback features), whose action picks an `(epsilon, min_support,
-  stop/continue)` triple, and whose reward is shaped from inlier ratio,
+  feedback features), whose action is a `MultiDiscrete([8, 6, 6, 2])` picking `(epsilon, min_support, normal_thresh, stop/continue)`, and whose reward is shaped from inlier ratio,
   fit residual, runtime, and surface-normal consistency.
 - **Training:** [`train_rl.py`](train_rl.py) trains PPO on top of that
   environment; [`rl_evaluator.py`](rl_evaluator.py) and
@@ -426,6 +480,7 @@ it, refining its choice over up to 5 attempts per frame.
   [`per_frame_comparison.py`](per_frame_comparison.py), and
   [`plot_comparison.py`](plot_comparison.py) aggregate and chart RL vs.
   baseline performance across every downloaded environment.
+- **Models:** `models/ppo_ransac_*.zip`.
 
 **For the full walkthrough** — every observation/action/reward term
 explained, the training loop, adaptive per-environment sampling, and a
@@ -435,19 +490,89 @@ day-by-day account of bugs found and fixed — see
 
 ---
 
+### Pipeline 2: Synthetic RL Pipeline (recommended — currently in use)
+
+**This is the pipeline actually used for real-world ground+wall detection.**
+Instead of training on real (unlabeled) LiDAR, it trains on
+**procedurally-generated synthetic point clouds** where the ground-truth
+plane is known exactly — enabling clean, quantitative measurement of
+whether the agent is actually adapting, which unlabeled real LiDAR can't
+provide. Despite training on synthetic data, the resulting model
+(`synthetic_ppo_v2.zip`) is the one this project's own real-world testing
+(Toronto-3D, S3DIS, RELLIS-3D, WildScenes, DIODE, and others) standardized
+on, and the one [`detect_ground_and_walls.py`](detect_ground_and_walls.py)
+recommends by default (`--model_variant synthetic`).
+
+```
+                    ┌─────────────────────────────────┐
+                    │  Synthetic RL Pipeline           │
+                    │  (procedurally-generated planes)  │
+                    └──────────────┬──────────────────┘
+                                   │ synthetic_rl_experiment/data_generator.py
+                                   ▼
+                    synthetic scenes with an exact gt_mask
+                    (planes + noise + bumps/craters +
+                     cylinders/boxes + intersecting walls)
+                                   │
+                    synthetic_rl_experiment/synthetic_env.py
+                    (Gymnasium env, 33-dim observation)
+                                   │
+                    synthetic_rl_experiment/train_synthetic.py  (PPO)
+                                   │
+                                   ▼
+                    models/synthetic_ppo_v2.zip
+                    ←  current best, confirmed genuinely adaptive
+                       (eps/normal_thresh track scene noise; beats every
+                       fixed baseline — see SESSION_PROGRESS_LOG.md §24)
+                                   │
+                    synthetic_rl_experiment/evaluate_synthetic.py
+                    (scored against fixed baselines + a noise/inlier sweep)
+                                   │
+                                   ▼
+              detect_ground_and_walls.py --model_variant synthetic
+              ←  THE PRACTICAL ENTRY POINT — run this on your own point
+                 cloud, see "Run Ground + Wall Detection" section above
+```
+
+- **Environment:** [`synthetic_rl_experiment/synthetic_env.py`](synthetic_rl_experiment/synthetic_env.py)
+  — 33-dim observation, `MultiDiscrete` action, reward scored against the
+  scene's own known `gt_mask`.
+- **Data generation:** [`synthetic_rl_experiment/data_generator.py`](synthetic_rl_experiment/data_generator.py)
+  — planes with controlled noise, bumps/craters, cylinders/boxes, and
+  intersecting walls, every scene shipped with an exact ground-truth mask.
+- **Training:** [`synthetic_rl_experiment/train_synthetic.py`](synthetic_rl_experiment/train_synthetic.py)
+  (`--tag <name>` versions output files).
+- **Evaluation:** [`synthetic_rl_experiment/evaluate_synthetic.py`](synthetic_rl_experiment/evaluate_synthetic.py)
+  runs the trained model against fixed baselines across a noise/inlier
+  sweep; [`synthetic_rl_experiment/plot_adaptivity.py`](synthetic_rl_experiment/plot_adaptivity.py)
+  renders the resulting adaptivity curves.
+- **Models:** `models/synthetic_ppo_*.zip` — **`synthetic_ppo_v2.zip` is
+  the current best and the one to use.**
+
+**For the full walkthrough** — current status, which doc to trust, every
+bug/fix/result backed by a number — **start with
+[`synthetic_rl_experiment/README.md`](synthetic_rl_experiment/README.md)**,
+then [`SESSION_PROGRESS_LOG.md`](synthetic_rl_experiment/SESSION_PROGRESS_LOG.md)
+(the authoritative log). Real-world generalization testing specifically
+(what worked, what's still mixed) is also tracked in
+[`GROUND_WALL_DETECTION_FIXES.md`](GROUND_WALL_DETECTION_FIXES.md) for the
+ground/wall detection bugs found and fixed this way.
+
+---
+
 ## Two RL Tracks (important — don't confuse them)
 
-This repo contains **two separate reinforcement-learning efforts** that
-share the same underlying Schnabel RANSAC engine but are otherwise
-independent. New readers often trip over this, so to be explicit:
+Compact side-by-side version of the two pipelines detailed above ([Pipeline 1](#pipeline-1-main-rl-pipeline-tartanairtartanground) /
+[Pipeline 2](#pipeline-2-synthetic-rl-pipeline-recommended--currently-in-use)).
+New readers often trip over this, so to be explicit:
 
-| | **Main pipeline** (repo root) | **Synthetic experiment** ([`synthetic_rl_experiment/`](synthetic_rl_experiment/)) |
-|---|---|---|
-| Environment file | [`ransac_env.py`](ransac_env.py) | [`synthetic_rl_experiment/synthetic_env.py`](synthetic_rl_experiment/synthetic_env.py) |
-| Data | Real simulated LiDAR (TartanAir/TartanGround `.ply`) | Procedurally-generated synthetic planes (known ground truth) |
-| Observation | 31-dim | 33-dim |
-| Models (both in `models/`) | `ppo_ransac_*.zip` | `synthetic_ppo_*.zip` |
-| Primary doc | [`RL_PIPELINE_OVERVIEW.md`](RL_PIPELINE_OVERVIEW.md) | [`synthetic_rl_experiment/README.md`](synthetic_rl_experiment/README.md) |
+|                             | **Main pipeline** (repo root)                   | **Synthetic experiment** ([`synthetic_rl_experiment/`](synthetic_rl_experiment/)) — ★ recommended, currently in use |
+| --------------------------- | ----------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| Environment file            | [`ransac_env.py`](ransac_env.py)                     | [`synthetic_rl_experiment/synthetic_env.py`](synthetic_rl_experiment/synthetic_env.py)                                      |
+| Data                        | Real simulated LiDAR (TartanAir/TartanGround`.ply`) | Procedurally-generated synthetic planes (known ground truth)                                                                 |
+| Observation                 | 31-dim                                                | 33-dim                                                                                                                       |
+| Models (both in`models/`) | `ppo_ransac_*.zip`                                  | `synthetic_ppo_*.zip` — use `synthetic_ppo_v2.zip`                                                                      |
+| Primary doc                 | [`RL_PIPELINE_OVERVIEW.md`](RL_PIPELINE_OVERVIEW.md) | [`synthetic_rl_experiment/README.md`](synthetic_rl_experiment/README.md)                                                    |
 
 They each independently hit — and separately fixed — the *same class* of
 early "policy collapse" bug (missing `ent_coef`/`VecNormalize`); those are
@@ -460,20 +585,17 @@ own README for its status.
 
 ## The Synthetic RL Experiment (`synthetic_rl_experiment/`)
 
-A **self-contained** second RL track that trains the same kind of adaptive
-RANSAC agent on **procedurally-generated synthetic point clouds** (planes
-with controlled noise, bumps, clutter, and intersecting walls) where the
-ground-truth plane is known exactly — enabling clean, quantitative
-adaptivity measurement that real, unlabeled LiDAR can't provide. It has its
-own environment, generator, training/eval scripts, models
-(`synthetic_ppo_*`), and logs.
-
-**Start with [`synthetic_rl_experiment/README.md`](synthetic_rl_experiment/README.md)** — it
-orders the folder's three internal docs and states the current result. Note
-that one of those docs (`syntheticRL.md`) is a **corrected historical log**:
-its original conclusion that the agent "couldn't learn adaptivity" was later
-disproven; it carries a correction banner and the authoritative account is
-in `SESSION_PROGRESS_LOG.md`.
+See [Pipeline 2](#pipeline-2-synthetic-rl-pipeline-recommended--currently-in-use)
+above for the full picture (architecture diagram, files, models, current
+results) — this section only adds one thing not covered there: **doc
+trust levels within the `synthetic_rl_experiment/` folder itself.**
+[`synthetic_rl_experiment/README.md`](synthetic_rl_experiment/README.md)
+orders that folder's internal docs and states the current result; one of
+them (`syntheticRL.md`) is a **corrected historical log** — its original
+conclusion that the agent "couldn't learn adaptivity" was later
+**disproven**, it carries a correction banner, and the authoritative
+account is in `SESSION_PROGRESS_LOG.md` instead. Don't cite
+`syntheticRL.md`'s conclusions as current.
 
 ---
 
@@ -487,15 +609,15 @@ There is **exactly one virtual environment** in this project, located at `.venv/
 
 Key packages installed:
 
-| Category | Packages |
-|---|---|
-| 3D / Point Cloud | `open3d-0.19.0`, `pyransac3d-0.6.0`, `plyfile-1.1.4` |
-| Deep Learning | `torch-2.12.1`, `torchvision-0.27.1`, `cupy-cuda12x-14.1.1` |
-| Computer Vision | `opencv-contrib-python-4.13.0`, `kornia-0.8.3` |
-| Scientific | `numpy-2.4.6`, `scipy-1.17.1`, `numba-0.65.1` |
-| Data / Datasets | `pandas-3.0.3`, `huggingface_hub-1.20.1`, `tartanair-1.4.0` |
-| Visualization | `matplotlib-3.11.0`, `plotly-6.8.0`, `dash-4.3.0`, `Pillow-12.2.0` |
-| Build (Cython) | `Cython` (for recompiling `schnabel_ransac` if needed) |
+| Category         | Packages                                                                   |
+| ---------------- | -------------------------------------------------------------------------- |
+| 3D / Point Cloud | `open3d-0.19.0`, `pyransac3d-0.6.0`, `plyfile-1.1.4`                 |
+| Deep Learning    | `torch-2.12.1`, `torchvision-0.27.1`, `cupy-cuda12x-14.1.1`          |
+| Computer Vision  | `opencv-contrib-python-4.13.0`, `kornia-0.8.3`                         |
+| Scientific       | `numpy-2.4.6`, `scipy-1.17.1`, `numba-0.65.1`                        |
+| Data / Datasets  | `pandas-3.0.3`, `huggingface_hub-1.20.1`, `tartanair-1.4.0`          |
+| Visualization    | `matplotlib-3.11.0`, `plotly-6.8.0`, `dash-4.3.0`, `Pillow-12.2.0` |
+| Build (Cython)   | `Cython` (for recompiling `schnabel_ransac` if needed)                 |
 
 > The compiled Cython extension (`schnabel_ransac.cp311-win_amd64.pyd`) is already built and present in `schnabel_cython/`. You do not need to recompile unless you modify `bridge.cpp`, `schnabel_ransac.pyx`, or the Schnabel C++ source.
 
@@ -545,9 +667,9 @@ cd schnabel_cython
 python setup.py build_ext --inplace
 ```
 
-### Train and evaluate the RL agent
+### Train and evaluate the RL agent (Pipeline 1 — main/TartanAir track)
 
-See [RL_PIPELINE_OVERVIEW.md's "How to Run Things"](RL_PIPELINE_OVERVIEW.md#how-to-run-things) for the full sequence (download LiDAR frames, train, evaluate against baselines, compare, visualize). Quick version:
+See RL_PIPELINE_OVERVIEW.md's [How to Run Things](RL_PIPELINE_OVERVIEW.md#how-to-run-things) section for the full sequence (download LiDAR frames, train, evaluate against baselines, compare, visualize). Quick version:
 
 ```bash
 python download_lidar_frames.py           # one-time dataset download
@@ -555,4 +677,27 @@ python train_rl.py --timesteps 50000      # train
 python rl_evaluator.py --env all          # evaluate the trained agent
 python baseline_evaluator.py standard     # evaluate a fixed-parameter baseline
 python compare_results.py                 # compare RL vs. baselines
+```
+
+### Train and evaluate the RL agent (Pipeline 2 — synthetic track, recommended)
+
+This is the track that actually produced `synthetic_ppo_v2.zip`, the model
+`detect_ground_and_walls.py` uses by default recommendation. See
+[`synthetic_rl_experiment/README.md`](synthetic_rl_experiment/README.md)
+for the full picture. Quick version:
+
+```bash
+# from repo root, with .venv activated
+
+# Evaluate the current best model against baselines (writes logs/synthetic_ppo_v2_eval.csv)
+python synthetic_rl_experiment/evaluate_synthetic.py --tag v2
+
+# Plot its adaptivity curves
+python synthetic_rl_experiment/plot_adaptivity.py --tag v2
+
+# Visualize one episode (true plane vs. RL-fitted plane)
+python synthetic_rl_experiment/visualize_synthetic_plane.py --tag v2
+
+# Retrain from scratch (long -- ~7h for 50k steps, see SESSION_PROGRESS_LOG.md §18/§24)
+python synthetic_rl_experiment/train_synthetic.py --tag v3 --timesteps 50000
 ```
