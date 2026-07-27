@@ -15,19 +15,43 @@ import schnabel_ransac
 
 from features.scene_features import compute_scene_features
 
-def load_ply_xyz(filepath, voxel_size=0.05):
-    """Load raw XYZ point cloud from a .ply file and apply voxel downsampling."""
+def load_ply_xyz(filepath, voxel_size=0.05, recenter=False):
+    """Load raw XYZ point cloud from a .ply file and apply voxel downsampling.
+
+    If recenter=True, computes the centroid in float64 (from the PLY's
+    native precision) and subtracts it BEFORE the float32 cast below --
+    order matters. Real-world absolute-coordinate data (e.g. UTM, ~10^6
+    scale) loses most of float32's ~7 significant digits to the
+    coordinate's own magnitude; recentering after an already-lossy cast
+    (subtracting a centroid from already-quantized points) stops
+    downstream error from compounding but can't undo the original
+    per-point quantization baked in at load time. Recentering first avoids
+    that quantization from ever happening. Returns (points, centroid) if
+    recenter=True, else just points -- default is False and the single
+    return value is unchanged, so every existing caller is unaffected.
+    """
     ply = PlyData.read(filepath)
     v = ply["vertex"]
-    pts = np.stack([v["x"], v["y"], v["z"]], axis=-1).astype(np.float32)
-    
+    pts64 = np.stack([np.asarray(v["x"], dtype=np.float64),
+                       np.asarray(v["y"], dtype=np.float64),
+                       np.asarray(v["z"], dtype=np.float64)], axis=-1)
+
+    centroid = None
+    if recenter:
+        centroid = pts64.mean(axis=0)
+        pts64 = pts64 - centroid
+
+    pts = pts64.astype(np.float32)
+
     # Phase 1: fixed voxel_size = 0.05m
     if voxel_size is not None and voxel_size > 0.0:
         pcd = o3d.geometry.PointCloud()
         pcd.points = o3d.utility.Vector3dVector(pts)
         pcd = pcd.voxel_down_sample(voxel_size=voxel_size)
         pts = np.asarray(pcd.points, dtype=np.float32)
-        
+
+    if recenter:
+        return pts, centroid
     return pts
 
 def find_ground_plane(shapes, points, z_mode="z_down", horizontal_thresh=0.80):
