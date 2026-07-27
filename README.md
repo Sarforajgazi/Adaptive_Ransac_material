@@ -7,8 +7,10 @@ A 3D point cloud **ground segmentation pipeline** for robotics and autonomous na
 ## Table of Contents
 
 - [What This Project Does](#what-this-project-does)
+- [Run Ground + Wall Detection on Your Own Point Cloud](#run-ground--wall-detection-on-your-own-point-cloud)
+- [Documentation Map](#documentation-map)
 - [Folder Structure](#folder-structure)
-- [The Two Datasets](#the-two-datasets)
+- [Dataset Locations](#dataset-locations)
 - [How the C++ → Cython → Python Chain Works](#how-the-c--cython--python-chain-works)
 - [The Full Pipeline](#the-full-pipeline)
 - [The Adaptive RL Pipeline](#the-adaptive-rl-pipeline)
@@ -35,6 +37,66 @@ On top of that base pipeline, a **PPO reinforcement learning agent** (root-level
 
 ---
 
+## Run Ground + Wall Detection on Your Own Point Cloud
+
+This is the fastest path to trying the project on your own data. `detect_ground_and_walls.py` is the RL-tuned, wall-capable entry point — it picks Schnabel RANSAC parameters per-scene (instead of one fixed setting), then detects the ground plane, any wall (vertical-plane) structures, and — depending on model variant — cylinders, all in one pass.
+
+```bash
+python detect_ground_and_walls.py --ply your_cloud.ply --model_variant synthetic
+```
+
+Don't have a point cloud handy? Fetch a small sample first (one-time, ~8MB, via Open3D's own asset downloader — not committed to the repo directly):
+
+```bash
+python schnabel_cython/download_data.py
+python detect_ground_and_walls.py --ply schnabel_cython/office_with_ground.ply --model_variant synthetic
+```
+
+Or drop your own file in [`my_point_clouds/`](my_point_clouds/) and point `--ply` at that instead.
+
+which prints a per-shape summary (e.g. `ground=2971 pts (47.6%), 3 wall(s) (1916 pts), 0 cylinder(s)`) and opens an Open3D viewer window with ground in green, each wall in a distinct color, and cylinders (if any) in gold — rotate with the left mouse button, press **P** to save a screenshot, close the window to exit.
+
+**Flags that matter:**
+
+| Flag | What it does |
+|---|---|
+| `--model_variant synthetic` | Recommended default — trained on procedurally-generated synthetic data, never overfit to one real dataset, and the variant this project's own real-world testing standardized on. (`main`, the script's technical default, was trained on real TartanAir LiDAR specifically.) |
+| `--z_mode z_up` or `z_down` | `z_down` (default) is correct for LiDAR. Most other real point clouds — RGB-D, terrain surveys, indoor scans — are `z_up` and need this set explicitly, or ground/height-dependent features get computed backwards. |
+| `--interactive` | For the batch input modes below (`--env`, `--s3dis_room`, `--ply_list`), also opens a viewer per frame instead of just logging results. (`--ply` single-file mode always opens a viewer, with or without this flag.) |
+| `--csv_log path.csv` | Append a results row (point/ground/wall counts, chosen parameters, timing) instead of or alongside viewing. |
+| `--no_cylinders` | Cylinder detection is on by default under `--model_variant main` only — `synthetic` never requests cylinders (a degenerate cylinder hypothesis was found to sometimes win a region before a real plane hypothesis was ever tried there, see the comment at `detect_ground_and_walls.py:127`). |
+
+This is inference only — you get a detection, not an accuracy score, unless you separately compare against your own ground-truth labels. For batches of files instead of one, see `--ply_list path1.ply path2.ply ...` (generic files), `--s3dis_room <dir>` (S3DIS rooms), or `--env <name> --indices <n...>` (indexed TartanAir/TartanGround frames) in `python detect_ground_and_walls.py --help`.
+
+**New here and just want to get something running?** See [`GETTING_STARTED.md`](GETTING_STARTED.md) for a step-by-step setup guide (install, run, troubleshoot, choosing a `--voxel` size) — this section above is the short version.
+
+---
+
+## Documentation Map
+
+Every doc in this project, in one place:
+
+| Doc | What's in it |
+|---|---|
+| [`README.md`](README.md) (this file) | Project overview, architecture, folder structure, both RL tracks |
+| [`GETTING_STARTED.md`](GETTING_STARTED.md) | Practical setup/run guide — install, run detection with `synthetic_ppo_v2.zip`, the interactive viewer, voxel downsampling guidance |
+| [`EFFICIENT_RANSAC_BREAKDOWN.md`](EFFICIENT_RANSAC_BREAKDOWN.md) | Deep-dive on the vendored Schnabel C++ algorithm itself — every parameter, every hardcoded constant, the octree/candidate/stopping-criterion internals |
+| [`SCHNABEL_CYTHON_BREAKDOWN.md`](SCHNABEL_CYTHON_BREAKDOWN.md) | Deep-dive on the Cython wrapper — the full Python→Cython→C++ call chain, build system, gotchas |
+| [`RL_PIPELINE_OVERVIEW.md`](RL_PIPELINE_OVERVIEW.md) | Deep-dive on the main RL track — observation/action/reward spaces, training loop, bugs found and fixed |
+| [`DAILY_LOG.md`](DAILY_LOG.md), [`STRATEGY_AND_IMPROVEMENTS.md`](STRATEGY_AND_IMPROVEMENTS.md), [`ADAPTIVE_RL_PLAN.md`](ADAPTIVE_RL_PLAN.md), [`ADAPTIVE_RANSAC_RL_IDEA.md`](ADAPTIVE_RANSAC_RL_IDEA.md) | Process journals from the main track's development — historical, not current-state reference |
+| [`BASELINE_CONFIG.md`](BASELINE_CONFIG.md) | The fixed Strict/Standard/Loose parameter baselines used throughout evaluation |
+| [`TRAVERSABILITY_COMPARISON.md`](TRAVERSABILITY_COMPARISON.md) | `traversability.py`'s grid-based classifier vs. the Schnabel-based pipeline |
+| [`synthetic_rl_experiment/README.md`](synthetic_rl_experiment/README.md) | **Start here** for the synthetic RL track — current status, doc reading order |
+| [`synthetic_rl_experiment/SESSION_PROGRESS_LOG.md`](synthetic_rl_experiment/SESSION_PROGRESS_LOG.md) | Authoritative, detailed log for the synthetic track — every bug, fix, and result backed by a number |
+| [`schnabel_cython/README.md`](schnabel_cython/README.md) | The Cython wrapper folder's own structure + demo scripts |
+| [`features/README.md`](features/README.md) | What `compute_scene_features()` computes and the z-up/z-down gotcha |
+| [`models/README.md`](models/README.md) | Both tracks' model version histories, which checkpoint to actually use |
+| [`data/README.md`](data/README.md) | Pointer to the Dataset Locations table below |
+| [`logs/README.md`](logs/README.md), [`plots/README.md`](plots/README.md), [`screenshots/README.md`](screenshots/README.md), [`scratchpad/README.md`](scratchpad/README.md) | Short notes on each output/working folder |
+| [`paper_efficient_RANSAC_Schnabel/README.md`](paper_efficient_RANSAC_Schnabel/README.md) | The two reference PDFs |
+
+---
+
 ## Folder Structure
 
 ```
@@ -57,6 +119,11 @@ Ransac_material/
 ├── models/                     # Trained PPO models + VecNormalize stats
 ├── logs/                       # Training/evaluation CSV logs and TensorBoard runs
 ├── plots/                      # Static PNG comparison charts (plot_comparison.py output)
+├── screenshots/                # Open3D screenshots, redirected here by screenshot_utils.py
+├── scratchpad/                 # Ad-hoc one-off scripts from past work sessions
+│
+├── detect_ground_and_walls.py   # Ground + wall + cylinder detection on any point cloud (see Quick Start above)
+├── screenshot_utils.py           # Wraps Open3D's viewer so its screenshot key lands in screenshots/, not scattered around
 ├── ransac_env.py                # Gymnasium environment wrapping schnabel_ransac for RL
 ├── train_rl.py                  # Trains the PPO agent
 ├── rl_evaluator.py               # Evaluates a trained agent across all datasets
@@ -67,6 +134,8 @@ Ransac_material/
 ```
 
 > The RL pipeline (everything above the `features/`/`models/`/`logs/`/`plots/` line) is documented in full in [RL_PIPELINE_OVERVIEW.md](RL_PIPELINE_OVERVIEW.md) — that file is the primary reference for how the agent's observation/action/reward spaces work and how to train or evaluate it.
+
+> Root also holds a number of one-off scripts from the project's development history — debugging aids (`debug_alignment.py`), report-generation helpers (`add_images_to_docx.py`), superseded download/eval scripts, and similar. They're not needed to use the pipeline; the scripts named above and in the Quick Start section are the ones that matter for actually running something.
 
 ---
 
@@ -182,18 +251,36 @@ Two reference PDFs:
 
 ### `data/`
 
-Storage directory for TartanAir LiDAR data downloaded by `download_tartan_ground.py`. Currently contains only a Hugging Face cache marker — the actual LiDAR scans (~404 MB) have not been downloaded yet.
+Storage directory populated by `download_tartan_ground.py` (TartanAir LiDAR) and, over the course of this project's real-world testing work, several unrelated real datasets downloaded alongside it. See [Dataset Locations](#dataset-locations) below for the full breakdown of what's actually in here and how big it is.
 
-After running `download_tartan_ground.py`, data will appear at:
 ```
 data/Office/Data_omni/P0000/lidar/*.ply
 ```
 
 ---
 
-## The Two Datasets
+## Dataset Locations
 
-This project uses **two different datasets** from the same CMU AirLab research group. They have similar names but are not the same thing.
+Real-world data for this project is spread across **6 separate locations**, totaling roughly 139GB — all of it gitignored, so none of it is part of what you clone from GitHub. Sizes below are approximate, measured locally:
+
+| Location | Contents | Size |
+|---|---|---|
+| `data/<TartanAir env>/` (26 environments) | TartanAir per-frame LiDAR sequences | ~56G |
+| `data/RELLIS3D/`, `data/RELLIS3D_raw/` | Real off-road LiDAR — **a separate dataset, unrelated to TartanAir**, that happens to live inside the `data/` folder | 13G + 48G |
+| `data/s3dis/`, `data/s3dis_sample/` | Real indoor scans (Stanford S3DIS) — **also unrelated to TartanAir** | 8G + 11M |
+| `schnabel_cython/tartanair_data/` | TartanGround full-scene merged maps (9 environments) | 5.0G |
+| `synthetic_rl_experiment/new_data/` | Urban semantic-labeled LiDAR tiles (real-world test source) | 1.9G |
+| `synthetic_rl_experiment/off_road_data/` | OpenTopography surveys (real-world test source) | 1.0G |
+| `synthetic_rl_experiment/rgbd_data/` | DIODE + TartanGround RGB-D (real-world test source) | 6.2G |
+| `synthetic_rl_experiment/wildscenes_data/` | WildScenes (real-world test source) | 67M |
+
+**The one thing worth remembering:** `data/RELLIS3D*` and `data/s3dis*` are not TartanAir or TartanGround data — they're independent real datasets that were downloaded into the `data/` folder alongside TartanAir's environment folders, purely as a matter of convention, not because they're related. If you're looking for "the TartanAir data" specifically, it's the environment-named subfolders (`data/Office/`, `data/House/`, etc.), not everything under `data/`.
+
+The `synthetic_rl_experiment/*_data/` folders are separate real-world sources used specifically to test the synthetic-trained RL model's generalization (see [Two RL Tracks](#two-rl-tracks-important--dont-confuse-them) below) — self-contained to that subproject.
+
+### TartanAir vs. TartanGround
+
+Within `data/`'s TartanAir environments and `schnabel_cython/tartanair_data/`'s TartanGround maps specifically, this project uses **two different datasets** from the same CMU AirLab research group, sharing environment names but not the same data:
 
 ### TartanAir (`theairlabcmu/tartanair`)
 
@@ -396,6 +483,7 @@ There is **exactly one virtual environment** in this project, located at `.venv/
 
 - **Python version:** 3.11 (Windows x64)
 - **Activate:** `.venv\Scripts\activate` (PowerShell) or `.venv\Scripts\activate.bat` (CMD)
+- **Install dependencies:** `pip install -r requirements.txt`
 
 Key packages installed:
 
