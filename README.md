@@ -1,4 +1,4 @@
-# RANSAC Material — Project Overview
+# RANSAC Material — Project Overview 
 
 A 3D point cloud **multi-plane detection pipeline** for robotics and autonomous navigation — it doesn't just find *a* ground plane, it identifies the ground **and** every other flat surface in a scene (walls/facades individually, plus curved structures like poles and pillars) in one pass. The project wraps Ruwen Schnabel's 2007 Efficient RANSAC C++ library in Cython so Python can call it at native C++ speed, then trains a **reinforcement learning agent** to pick the RANSAC parameters (`epsilon`, `min_support`, `normal_thresh`) adaptively per scene instead of using one fixed setting everywhere.
 
